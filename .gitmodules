@@ -1,0 +1,3 @@
+[submodule "themes/snorlax"]
+	path = themes/snorlax
+	url = https://github.com/kdevkr/snorlax.git
