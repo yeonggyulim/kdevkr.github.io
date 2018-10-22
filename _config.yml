@@ -20,7 +20,7 @@ archive_dir: archives
 category_dir: categories
 i18n_dir: :lang
 tag_dir: tags
-skip_render: [source/README.md]
+skip_render: [README.md]
 
 # Writing
 default_layout: post
@@ -45,6 +45,9 @@ pagination_dir: page
 # Extendsions
 theme: snorlax
 deploy:
+  type: git
+  repo: https://github.com/kdevkr/kdevkr.github.io.git
+  branch: gh-pages
 menu:
   Home: /
   Archives: /archives
