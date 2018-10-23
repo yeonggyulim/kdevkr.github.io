@@ -1,0 +1,17 @@
+image: node:4.2.2
+
+cache:
+  paths:
+    - node_modules/ # Node modules and dependencies
+
+pages:
+  stage: deploy
+  script:
+    - npm install -g hexo
+    - npm install
+    - hexo generate
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

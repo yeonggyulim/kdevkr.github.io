@@ -89,3 +89,6 @@ feed:
 
 article_emoji:
   full: true
+
+browsersync:
+  ui: false
