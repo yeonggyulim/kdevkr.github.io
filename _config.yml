@@ -24,6 +24,7 @@ skip_render: [README.md]
 
 # Writing
 default_layout: post
+render_drafts: false
 titlecase: true
 external_link: true
 post_asset_folder: true

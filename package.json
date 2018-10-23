@@ -31,7 +31,6 @@
     "hexo-generator-index": "^0.2.1",
     "hexo-render-pug": "^2.0.0",
     "hexo-renderer-markdown-it": "^3.4.1",
-    "hexo-renderer-marked": "^0.3.0",
     "hexo-server": "^0.3.3"
   }
 }
