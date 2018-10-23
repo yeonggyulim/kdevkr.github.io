@@ -8,9 +8,9 @@ language: ko
 timezone: UTC
 
 # URL
-url: http://kdevkr.github.io
+url: kdevkr.github.io
 root: /
-permalink: :year/:title/
+permalink: archives/:title/
 permalink_defaults:
 
 # Directory
@@ -25,8 +25,14 @@ skip_render: [README.md]
 # Writing
 default_layout: post
 titlecase: true
+external_link: true
 post_asset_folder: true
+future: false
 highlight:
+  enable: true
+  line_number: false
+  auto_detect: false
+  tab_replace:
   theme: github-gist
 
 # Category & Tag
@@ -46,13 +52,18 @@ pagination_dir: page
 theme: snorlax
 deploy:
   type: git
-  repo: https://github.com/kdevkr/kdevkr.github.io.git
-  branch: gh-pages
+  # repo: https://github.com/kdevkr/kdevkr.github.io.git
+  repo: https://gitlab.com/kdevkr/kdevkr.gitlab.io.git
+  branch: master
 menu:
   Home: /
   Archives: /archives
   Categories: /categories
   About: /about
+google_analytics: UA-93954323-1
+google_site_verification: googled619795c447b2a1d
+naver_site_verification: 967670e7891eb52e115709ce4890e2e8f576a1e5
+disqus_shortname: kdevkr-github-io
 
 ## plugins
 index_generator:
@@ -69,3 +80,13 @@ archive_generator:
   monthly: true
   daily: false
   order_by: -date
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: false
+  hub:
+  content: true
+
+article_emoji:
+  full: true
