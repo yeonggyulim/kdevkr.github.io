@@ -8,21 +8,20 @@
 ##### 궁금하지 않으시겠지만 kdevkr이라는 닉네임은 대한민국 개발자를 의미합니다
 = Kyoil + Developer + Kr(Korea)   :heart_eyes:
 
----
 ## Skills
 > 2년차 개발자로써 `백엔드/프론트엔드 구분없이` 키워나가고 있습니다.
 
-##### Java
+#### Java
 - Java 8
 - Spring Framework
 
-##### JavaScript
+#### JavaScript
 - ES5
 - NodeJS
 - [Vue.js](https://vuejs.org/)
 - Webpack
 
-##### HTML/CSS
+#### HTML/CSS
 - PostCSS
 - SCSS
 
@@ -41,7 +40,6 @@
 - Neo4j
 - Redis
 
----
 ## Career
 > 현재 서울 강남구에 위치한 `아이온커뮤니케이션즈`에서 활동중입니다.
 

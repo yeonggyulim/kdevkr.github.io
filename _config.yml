@@ -52,8 +52,7 @@ pagination_dir: page
 theme: snorlax
 deploy:
   type: git
-  # repo: https://github.com/kdevkr/kdevkr.github.io.git
-  repo: https://gitlab.com/kdevkr/kdevkr.gitlab.io.git
+  repo: https://github.com/kdevkr/kdevkr.github.io.git
   branch: master
 menu:
   Home: /

@@ -46,4 +46,4 @@
 > 현재 서울 강남구에 위치한 `아이온커뮤니케이션즈`에서 활동중입니다.
 
 2017.04 ~ I-ON Communications
-2011.03 ~ 2017.02 Daejeon University Computer-Engineering
+2011.03 ~ 2017.02 Daejeon University Computer-Engineering  
