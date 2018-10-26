@@ -1,10 +1,11 @@
 ---
 title: Github Pages를 Travis CI로 배포하기
 categories: [ETC, Github Pages, Travis CI]
+date: 2018-10-26 00:00:00
 ---
 
-> [Travis CI를 이용한 Github Pages + Hexo 블로그 자동 배포하기](https://medium.com/@changjoopark/travis-ci%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-github-pages-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9E%90%EB%8F%99-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0-6a222a2013e6)에서 처럼 Hexo는 괜찮은 정적 사이트 도구입니다만 배포를 위해서 매번 명령어를 날려주어야 합니다.  
-> 위 글과 함께 Travis CI에서 제공하는 Github Pages Deployment 문서를 참고하였습니다.
+> [Gitlab Pages를 Gitlab CI로 배포하기]()를 해보면서 Github에서도 자동으로 배포할 수 없을까 찾아보던 중 [Travis CI를 이용한 Github Pages + Hexo 블로그 자동 배포하기](https://medium.com/@changjoopark/travis-ci%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-github-pages-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9E%90%EB%8F%99-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0-6a222a2013e6)에서 처럼 Travis CI를 통해 자동으로 배포하는 것을 해보고자 합니다.  
+> 위 글과 함께 Travis CI에서 제공하는 [Github Pages Deployment](https://docs.travis-ci.com/user/deployment/pages/) 문서를 참고하였습니다.
 
 ## Github Pages Deployment  
 
@@ -61,12 +62,16 @@ repo의 URL은 `https://<TOKEN>@github.com/<user>/<repo>`와 같이 액세스 �
 
 ##### 1. Install 버튼을 통해 Github Apps에 Travis CI 설치를 시작합니다.  
 ![github-pages-travis-ci-01](/images/etc/github-pages-travis-ci-01.png)  
+
 ##### 2. Travis CI에 리포지토리를 추가합니다.  
 ![github-pages-travis-ci-02](/images/etc/github-pages-travis-ci-02.png)  
+
 ##### 3. Install 버튼을 통해 설치를 완료합니다.  
 ![github-pages-travis-ci-03](/images/etc/github-pages-travis-ci-03.png)  
+
 ##### 4. Travis CI 앱이 깃허브 계정에 접근할 수 있도록 권한 승인을 합니다.    
 ![github-pages-travis-ci-04](/images/etc/github-pages-travis-ci-04.png)  
+
 ##### 5. 잠시 후 Travis CI로 이동되며 앞서 추가한 리포지토리를 확인합니다.    
 ![github-pages-travis-ci-05](/images/etc/github-pages-travis-ci-05.png)  
 
@@ -74,12 +79,16 @@ Travis CI에서 리포지토리에 접근할 수 있는 액세스 토큰을 만�
 
 ##### 1. Github Account > Settings > Developer settings로 들어갑니다.  
 ![github-pages-access-token-01](/images/etc/github-pages-access-token-01.png)  
+
 ##### 2. Personal access tokens 메뉴를 통해 새 토큰을 발행합니다.  
 ![github-pages-access-token-02](/images/etc/github-pages-access-token-02.png)  
+
 ##### 3. 스코프는 public_repo 또는 repo를 선택합니다.   
 ![github-pages-access-token-03](/images/etc/github-pages-access-token-03.png)  
+
 ##### 4. Travis CI의 리포지토리 설정에 들어갑니다.  
 ![github-pages-access-token-04](/images/etc/github-pages-access-token-04.png)  
+
 ##### 5. 발행한 액세스 토큰을 Travis CI의 환경 변수에 추가합니다.  
 ![github-pages-access-token-05](/images/etc/github-pages-access-token-05.png)  
 
@@ -87,10 +96,8 @@ Travis CI에서 리포지토리에 접근할 수 있는 액세스 토큰을 만�
 로컬 브랜치에 추가한 .travis.yml을 원격저장소에 푸시하면 이제 Travis CI가 .travis.yml파일에 따라 빌드를 시작할 것입니다.  
 빌드 과정도 확인할 수 있으니 만약 실패했다면 원인을 찾아 해결하시면 됩니다.  
 
-```sh
-# 저는 다음과 같이 기존에 hexo-deployer-git이 만들어 놓은 .deploy_git으로 인해 빌드가 실패하였고 이를 삭제하였습니다.  
-fatal: No url found for submodule path '.deploy_git' in .gitmodules  
-```  
+> 저는 다음과 같이 기존에 hexo-deployer-git이 만들어 놓은 .deploy_git으로 인해 빌드가 실패하였고 이를 삭제하였습니다.  
+> fatal: No url found for submodule path '.deploy_git' in .gitmodules  
 
 정상적으로 통과가 됬다면 다음과 같이 표시가 되고 master 브랜치에 배포되었을 것입니다.  
 
