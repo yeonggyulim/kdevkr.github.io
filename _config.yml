@@ -1,6 +1,6 @@
 ## configuration
 # Site
-title: kdevkr github page
+title: Github Pages
 subtitle:
 description:
 author: kdevkr
@@ -97,7 +97,3 @@ browsersync:
 # https://futurecreator.github.io/2016/06/23/search-engine-optimization-hexo-plugins/
 nofollow:
     enable: true
-
-sitemap:
-    path: sitemap.xml
-    tag: false
