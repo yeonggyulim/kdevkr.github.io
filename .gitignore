@@ -62,4 +62,5 @@ typings/
 
 # hexo build output
 public/
-themes/
+db.json
+.deploy*/

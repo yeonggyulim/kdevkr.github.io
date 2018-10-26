@@ -1,0 +1,25 @@
+language: node_js
+
+node_js:
+  - "lts/*"
+
+branches:
+  only:
+  - local
+
+before_install:
+- npm install -g hexo-cli
+
+install:
+- npm install
+
+before_script:
+- git config --global user.name kdevkr
+- git config --global user.email kdevkr
+- sed -i "s/__GITHUB_TOKEN__/${__GITHUB_TOKEN__}/" _config.yml
+
+script:
+- git submodule init
+- git submodule update
+- npm run b
+- npm run p
