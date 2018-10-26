@@ -96,4 +96,9 @@ browsersync:
 
 # https://futurecreator.github.io/2016/06/23/search-engine-optimization-hexo-plugins/
 nofollow:
-    enable: true
+  enable: true
+
+sitemap:
+  path: sitemap.xml
+  tag: false
+  category: false
