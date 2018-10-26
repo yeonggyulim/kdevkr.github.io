@@ -15,7 +15,7 @@ install:
 
 before_script:
 - git config --global user.name kdevkr
-- git config --global user.email kdevkr
+- git config --global user.email kdevkr@gmail.com
 - sed -i "s/__GITHUB_TOKEN__/${__GITHUB_TOKEN__}/" _config.yml
 
 script:
