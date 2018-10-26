@@ -8,7 +8,7 @@ language: ko
 timezone: UTC
 
 # URL
-url: kdevkr.github.io
+url: https://kdevkr.github.io
 root: /
 permalink: archives/:title/
 permalink_defaults:
