@@ -2,7 +2,7 @@
 title:      "Eclipse"
 subtitle:   "Integrated Development Environment"
 date:       2017-06-17 12:00:00
-categories: [ETC, IDE, Eclipse]
+categories: [ETC]
 ---
 
 # Eclipse  

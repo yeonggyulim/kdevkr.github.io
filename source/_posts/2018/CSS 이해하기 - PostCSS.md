@@ -1,8 +1,7 @@
 ---
 title: CSS 이해하기 - PostCSS
 date: 2018-10-12 00:00:00
-categories: [CSS, PostCSS]
-tags:
+categories: [이해하기, CSS]
 ---
 
 > `PostCSS`는 자바스크립트를 이용하여 CSS 파일로 변환하는 `도구`입니다.  

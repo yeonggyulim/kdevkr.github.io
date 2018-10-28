@@ -1,8 +1,7 @@
 ---
 title: CSS 이해하기 - Clearfix
 date: 2018-06-26 22:21:18
-categories: [CSS, Clearfix]
-tags:
+categories: [이해하기, CSS]
 ---
 
 ## Clearfix  

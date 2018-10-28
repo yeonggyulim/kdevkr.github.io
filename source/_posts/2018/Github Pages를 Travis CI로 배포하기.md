@@ -1,6 +1,6 @@
 ---
 title: Github Pages를 Travis CI로 배포하기
-categories: [ETC, Github Pages, Travis CI]
+categories: [끄적끄적, 깃허브]
 date: 2018-10-26 00:00:00
 ---
 

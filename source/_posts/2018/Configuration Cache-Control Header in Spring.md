@@ -1,7 +1,7 @@
 ---
 title: Configuration Cache-Control in Spring Framework
 date: 2018-06-09 21:21:18
-categories: [Java, Spring]
+categories: [끄적끄적, 자바]
 tags:
 ---
 

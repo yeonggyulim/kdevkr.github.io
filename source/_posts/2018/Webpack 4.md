@@ -1,7 +1,7 @@
 ---
 title: Webpack 4
 date: 2018-06-27 00:00:00
-categories: [JavaScript, Webpack]
+categories: [끄적끄적, Webpack]
 tags:
 ---
 

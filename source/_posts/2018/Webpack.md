@@ -1,7 +1,7 @@
 ---
 title:      "Webpack"
 date:       2017-04-22 12:00:00
-categories: [JavaScript, Webpack]
+categories: [끄적끄적, Webpack]
 banner:
  url: https://d81pi4yofp37g.cloudfront.net/wp-content/uploads/webpack2.png
 ---

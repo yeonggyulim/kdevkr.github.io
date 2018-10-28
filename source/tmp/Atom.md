@@ -2,7 +2,7 @@
 title:      "Atom"
 subtitle:   "Integrated Development Environment"
 date:       2017-07-08 12:00:00
-categories: [ETC, IDE, Atom]
+categories: [ETC]
 ---
 
 > [`Atom`](https://atom.io/)은 깃허브에서 만들어가는 오픈소스 텍스트 에디터입니다. 누군가 어떤 에디터를 추천한다고 해서 반드시 자기에게 적합할 수는 없을 것이지만 [`Brackets`](http://brackets.io/)이나 [`VS-Code`](https://code.visualstudio.com/)  에 뒤지지 않을 에디터라고 할 수 있습니다.  

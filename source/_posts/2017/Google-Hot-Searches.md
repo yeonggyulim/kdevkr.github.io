@@ -2,7 +2,7 @@
 title: Google Hot Searches
 subtitle:   Crawling
 date:       2017-11-25 12:00:00
-categories: [Java, Google, Hot Trends]
+categories: [끄적끄적, Java]
 banner:
  url: https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/evolving_google_identity_share.jpg
 ---

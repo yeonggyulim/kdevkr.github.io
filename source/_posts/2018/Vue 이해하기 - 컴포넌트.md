@@ -1,7 +1,7 @@
 ---
-title: Vue - 컴포넌트 만들기
-date: 2018-10-17
-categories: [Vue]
+title: Vue 이해하기 - 컴포넌트
+date: 2018-10-17 00:00:00
+categories: [이해하기, Vue]
 ---
 
 > VueJS의 컴포넌트를 이용하다보면 v-model 디렉티브를 적용한 컴포넌트를 확인할 수 있습니다. 주로 input이나 select와 같은 Element 컴포넌트와 같은 값의 변경이 양방향으로 유지되어야하는 경우와 같이 말입니다. 그러면 이 v-model 디렉티브를 사용하는 컴포넌트는 어떻게 만들 수 있을까요?

@@ -2,7 +2,7 @@
 title:      "Oh My Zsh"
 subtitle:   "Shell"
 date:       2017-04-30 12:00:00
-categories: [OS, Shell, Zsh]
+categories: [끄적끄적, OS]
 banner:
   url: http://ohmyz.sh/img/themes/nebirhos.jpg
 ---

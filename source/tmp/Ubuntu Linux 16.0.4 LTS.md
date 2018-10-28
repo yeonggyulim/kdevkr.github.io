@@ -1,8 +1,7 @@
 ---
 title:      "Ubuntu 16.0.4 LTS"
-subtitle:   "Linux OS"
 date:       2017-01-26 12:00:00
-categories: [OS, Ubuntu]
+categories: [기타, OS]
 banner:
  url: https://i.ebayimg.com/images/g/HyQAAOSw14xWO7sx/s-l300.jpg
 ---

@@ -1,7 +1,7 @@
 ---
-title: Vue - 라이프 사이클 이해하기
+title: Vue 이해하기 - 라이프 사이클
 date: 2018-05-31 21:21:18
-categories: [Vue, Tips]
+categories: [이해하기, Vue]
 tags:
 ---
 

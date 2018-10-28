@@ -1,8 +1,7 @@
 ---
 title: CSS 이해하기 - 초기화
 date: 2018-06-26 21:21:18
-categories: [CSS, Reset]
-tags:
+categories: [이해하기, CSS]
 ---
 
 ## CSS 초기화  
