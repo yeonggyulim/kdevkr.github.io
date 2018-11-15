@@ -56,6 +56,7 @@ server.ssl.key-password=
 server.ssl.trust-store=C:/Users/K/trust.jks
 server.ssl.trust-store-password=
 ```
+> 저는 패스워드를 VM Option 으로 지정하였습니다.
 
 ![](/images/spring/spring-boot-keystore.png)  
 
