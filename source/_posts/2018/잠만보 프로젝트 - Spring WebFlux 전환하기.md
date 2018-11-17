@@ -37,7 +37,7 @@ dependencies: {
 
 이제 기존의 WebMvcConfigurer 대신 `WebFluxConfigurer`를 구현하시면 됩니다. 관련된 클래스를 reactive 패키지에서도 제공하니 걱정하지 마시기 바랍니다.  
 
-```java
+```java  
 @Configuration
 public class WebFluxConfiguration implements WebFluxConfigurer {
 
@@ -70,7 +70,7 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
 #### SecurityConfigurerAdaptor 대신 SecurityWebFilterChaining  
 스프링 시큐리티 설정을 MVC에서는 WebSecurityConfigurerAdapter를 확장하는 구성 클래스를 만들었다면 WebFlux를 위한 시큐리티 설정에는 SecurityWebFilterChain를 빈으로 등록함으로써 대신 수행합니다.  
 
-```java
+```java  
 @Configuration
 public class SecurityConfiguration  {
 
@@ -80,12 +80,12 @@ public class SecurityConfiguration  {
         return http.build();
     }
 }
-```  
+```
 
 #### Reactor-Netty말고 Embedded-Tomcat으로  
 `spring-boot-starter-webflux`는 reactor-netty를 기본 내장 서버로 의존 모듈을 가지고 있습니다. 만약, 기존과 같이 Tomcat으로 서버를 실행하고 싶다면 `spring-boot-starter-tomcat`을 디펜던시에 추가하세요.  
 
-```js
+```js  
 dependencies: {
     // implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-webflux')
@@ -100,7 +100,7 @@ dependencies: {
 > 왜 WebClient를 사용하냐구요? RestTemplate를 이후 버전에서 제외한다고 예고했습니다.  
 > = The RestTemplate will be deprecated in a future version and will not have major new features added going forward.
 
-```java
+```java  
 @Configuration
 public class TomcatConfiguration {
 
@@ -147,14 +147,14 @@ public class TomcatConfiguration {
 > TomcatReactiveWebServerFactory는 addAdditionalTomcatConnectors를 제공하지 않습니다!  
 > 대신 addConnectorCustomizers를 통해 커넥터의 서비스에 새로운 커넥터로 추가하세요  
 
-```java
+```java  
 2018-11-15 22:11:23.377  INFO 3360 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9443 (https) 9000 (http) with context path ''
 ```
 
 #### (Optional) Rendering.class  
 [Spring WebFlux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-resulthandling)는 기존의 MVC로 제공하던 어노테이션 기반도 제공하면서 Rendering이라는 새로운 오브젝트 타입으로 뷰를 리턴할 수 있습니다.
 
-```java
+```java  
 @Controller
 public class IndexController extends AbstractController {
 
