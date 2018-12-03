@@ -10,7 +10,7 @@ categories: [이해하기, Webpack]
 ## devtool
 
 ## [Target](https://webpack.js.org/configuration/target/)  
-target은 다양한 환경을 위해 컴파일 할 수 있게 지원하는 옵션입니다.  
+target은 다양한 환경을 위해 컴파일 할 수 있게 지원하는 옵션입니다.  ``
 
 > - `node`
 >   Compile for usage in a Node.js-like environment (uses Node.js require to load chunks)  
