@@ -1,6 +1,6 @@
 ---
 title: 잠만보 프로젝트 - Functional Endpoints의 요청부터 응답까지
-date: 2018-11-17
+date: 2099-11-17
 categories: [프로젝트, 잠만보]
 ---
 
@@ -110,7 +110,7 @@ public class ErrorAttributes extends DefaultErrorAttributes {
 아쉽게도 아직 [Functional Endpoints에서 자동으로 검증 처리를 하는 것은 포함되어있지 않다](https://stackoverflow.com/a/46540102)고 합니다. 공식 문서에서도 어노테이션 기반에 대한 설명만 존재하는 걸 확인할 수 있었습니다.  
 > 아쉽게도 [OKKY에 물어보신 분](https://okky.kr/article/434778)이 계시지만 답변은 달리지 않았습니다.  
 
-음... 일단은 더 알아보고 방법이 마땅치 않다면 어노테이션 기반으로 다시 작성해야할 필요가 있어보입니다. 
+음... 일단은 더 알아보고 방법이 마땅치 않다면 어노테이션 기반으로 다시 작성해야할 필요가 있어보입니다.
 
 어찌어찌 관련 정보를 찾으면서 구성해보긴 했는데 아직 리액티브 프로그래밍에 대한 이해가 좀 처럼 잡히지가 않네요  
 

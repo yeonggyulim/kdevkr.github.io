@@ -1,6 +1,6 @@
 ---
 title: HTTP 전송방식 이해하기
-date: 2018-12-13
+date: 2099-12-13
 categories: [끄적끄적]
 ---
 
