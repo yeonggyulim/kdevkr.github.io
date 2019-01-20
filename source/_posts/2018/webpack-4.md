@@ -3,6 +3,8 @@ title: Webpack 4
 date: 2018-06-27 00:00:00
 categories: [끄적끄적, Webpack]
 tags:
+banner:
+  url: https://raw.githubusercontent.com/webpack/media/master/logo/logo-on-white-bg.png
 ---
 
 # [Webpack 4 release at 2018.02.25](https://medium.com/webpack/webpack-4-released-today-6cdb994702d4)  

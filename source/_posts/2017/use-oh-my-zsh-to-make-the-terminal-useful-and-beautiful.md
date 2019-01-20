@@ -1,5 +1,5 @@
 ---
-title:      "Oh My Zsh"
+title:      "Use Oh My Zsh to make the terminal useful and beautiful"
 subtitle:   "Shell"
 date:       2017-04-30 12:00:00
 categories: [끄적끄적, OS]
@@ -120,7 +120,7 @@ rm -rf fonts
 > Liberation Mono for Powerline Regular  
 
 
-## 함께 보면 좋은 글들을 소개합니다  
+## 참조  
 - [Mac OS 터미널에 ZSH 설치하기](http://thdev.tech/mac/2016/05/01/Mac-ZSH-Install.html)  
 - [Installing ZSH](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH)  
 - [zsh 와 oh my zsh 를 이용해 셸 꾸미기(대신 bash 버리기)](https://youngbin.xyz/blog//2015/05/17/using-zsh-and-oh-my-zsh-instead-of-bash-for-shell-customizing.html)  

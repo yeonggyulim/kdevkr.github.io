@@ -1,10 +1,10 @@
 ---
-title: Google Hot Searches
+title: Let's get the fastest rising searches on google trends.
 subtitle:   Crawling
 date:       2017-11-25 12:00:00
 categories: [끄적끄적, Java]
 banner:
- url: https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/evolving_google_identity_share.jpg
+ url: https://tribwgnam.files.wordpress.com/2018/12/trends.png
 ---
 
 ## 구글 인기검색어 피드

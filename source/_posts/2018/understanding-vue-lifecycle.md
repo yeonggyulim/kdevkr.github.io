@@ -3,6 +3,8 @@ title: Vue 이해하기 - 라이프 사이클
 date: 2018-05-31 21:21:18
 categories: [이해하기, Vue]
 tags:
+banner:
+  url: https://image.toast.com/aaaadh/real/2016/techblog/vuejs.png
 ---
 
 > [`vue.js`](https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram)를 이해하는 가장 첫 걸음은 라이프 사이클을 이해하는 것입니다.  

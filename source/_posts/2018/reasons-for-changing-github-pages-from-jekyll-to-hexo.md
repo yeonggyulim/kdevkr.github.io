@@ -1,5 +1,5 @@
 ---
-title: 블로그 시스템을 Jekyll에서 Hexo로 변경한 이유
+title: Github Pages를 Jekyll에서 Hexo로 변경한 이유
 date: 2018-05-27 12:00:00
 categories: [끄적끄적]
 banner:

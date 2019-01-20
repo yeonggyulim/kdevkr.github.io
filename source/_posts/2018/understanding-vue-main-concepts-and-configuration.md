@@ -2,6 +2,8 @@
 title: Webpack 이해하기 - 주요 컨셉과 환경설정
 date: 2018-10-28 00:00:01
 categories: [이해하기, Webpack]
+banner:
+  url: https://raw.githubusercontent.com/webpack/media/master/logo/logo-on-white-bg.png
 ---
 
 > Webpack 이해하기 - 모듈과 번들러에 이어서 주요 컨셉과 환경설정에 대한 포스트 입니다.     

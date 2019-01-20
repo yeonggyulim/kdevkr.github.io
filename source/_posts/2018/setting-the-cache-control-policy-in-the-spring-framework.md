@@ -1,8 +1,10 @@
 ---
-title: Configuration Cache-Control in Spring Framework
+title: Setting the Cache-Control policy in the Spring Framework
 date: 2018-06-09 21:21:18
 categories: [끄적끄적, 자바]
 tags:
+banner:
+ url: https://hue9010.github.io/images/header/java-spring-logo.png
 ---
 
 ## The Cache-Control Header  

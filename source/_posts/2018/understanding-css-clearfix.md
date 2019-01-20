@@ -2,6 +2,8 @@
 title: CSS 이해하기 - Clearfix
 date: 2018-06-26 22:21:18
 categories: [이해하기, CSS]
+banner:
+  url: https://cdn-images-1.medium.com/max/1200/1*OFsc0SD55jhi8cjo7aCA4w.jpeg
 ---
 
 ## Clearfix  

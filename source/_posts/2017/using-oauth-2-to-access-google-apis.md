@@ -1,5 +1,5 @@
 ---
-title:      "Google OAuth 2.0"
+title:      "Using OAuth 2.0 to Access Google APIs"
 subtitle:   "OAuth"
 date:       2017-11-06 12:00:00
 categories: [끄적끄적, Java]

@@ -2,6 +2,8 @@
 title: CSS 이해하기 - PostCSS
 date: 2018-10-12 00:00:00
 categories: [이해하기, CSS]
+banner:
+  url: http://creator.dwango.co.jp/wp-content/uploads/2016/04/postcss_top-1.jpg
 ---
 
 > `PostCSS`는 자바스크립트를 이용하여 CSS 파일로 변환하는 `도구`입니다.  

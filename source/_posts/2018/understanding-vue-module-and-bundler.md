@@ -2,6 +2,8 @@
 title: Webpack 이해하기 - 모듈과 번들러
 date: 2018-10-28 00:00:00
 categories: [이해하기, Webpack]
+banner:
+  url: https://raw.githubusercontent.com/webpack/media/master/logo/logo-on-white-bg.png
 ---
 
 > 기존에 작성했던 Webpack 관련 글들을 지우고 Webpack을 이해하는 포스트로 다시 시작하려고 합니다.  

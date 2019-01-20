@@ -4,6 +4,8 @@ categories:
 - 북마크
 - Awesome Things
 date: 1970-01-01 00:00:00
+banner:
+  url: https://github.com/sindresorhus/awesome/raw/master/media/logo.svg?sanitize=true
 ---
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)

@@ -1,7 +1,9 @@
 ---
-title: Github Pages를 Travis CI로 배포하기
+title: Travis CI로 Github Pages 배포하기
 categories: [끄적끄적, 깃허브]
 date: 2018-10-26 00:00:00
+banner:
+ url: https://nesoy.github.io/assets/posts/20170105/travis-ci.jpg
 ---
 
 > [Gitlab Pages를 Gitlab CI로 배포하기](https://kdevkr.gitlab.io/archives/2018/Gitlab%20Pages%EB%A5%BC%20Gitlab%20CI%EB%A1%9C%20%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0/)를 해보면서 Github에서도 자동으로 배포할 수 없을까 찾아보던 중 [Travis CI를 이용한 Github Pages + Hexo 블로그 자동 배포하기](https://medium.com/@changjoopark/travis-ci%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-github-pages-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9E%90%EB%8F%99-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0-6a222a2013e6)에서 처럼 Travis CI를 통해 자동으로 배포하는 것을 해보고자 합니다.  
