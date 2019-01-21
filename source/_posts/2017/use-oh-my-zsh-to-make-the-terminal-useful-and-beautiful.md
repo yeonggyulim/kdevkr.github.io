@@ -123,8 +123,8 @@ Liberation Mono for Powerline Regular
 :::
 
 ### 참조  
-- [Zsh - macOS Setup Guide](https://sourabhbajaj.com/mac-setup/iTerm/zsh.html)
-- [Mac OS 터미널에 ZSH 설치하기](http://thdev.tech/mac/2016/05/01/Mac-ZSH-Install.html)  
-- [Installing ZSH](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH)  
+- [Installing ZSH](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH)
+- [Zsh - macOS Setup Guide](https://sourabhbajaj.com/mac-setup/iTerm/zsh.html)  
 - [zsh 와 oh my zsh 를 이용해 셸 꾸미기(대신 bash 버리기)](https://youngbin.xyz/blog//2015/05/17/using-zsh-and-oh-my-zsh-instead-of-bash-for-shell-customizing.html)  
 - [터미널 초보의 필수품인 Oh My ZSH!를 사용하자 ](https://nolboo.kim/blog/2015/08/21/oh-my-zsh/)
+- [Mac OS 터미널에 ZSH 설치하기](http://thdev.tech/mac/2016/05/01/Mac-ZSH-Install.html)
