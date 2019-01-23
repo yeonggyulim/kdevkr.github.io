@@ -1,18 +1,20 @@
 ---
-title: Webpack 이해하기 - 주요 컨셉과 환경설정
+title: Webpack 이해하기
 date: 2018-10-28 00:00:01
 categories: [이해하기, Webpack]
 banner:
   url: https://raw.githubusercontent.com/webpack/media/master/logo/logo-on-white-bg.png
 ---
 
-> Webpack 이해하기 - 모듈과 번들러에 이어서 주요 컨셉과 환경설정에 대한 포스트 입니다.     
+Webpack은 Scripts, Styles, Assets를 하나의 파일로 묶어주는 번들러이다.
 
-## Core Concepts  
-Webpack이 가지는 기본적인 개념에 대해서 알아보겠습니다.  
+## Core Concenpts
+Webpack의 주요 개념과 설정 방법에 대해서 알아보자.  
 
-#### [Entry](https://webpack.js.org/configuration/entry-context/)  
-엔트리 포인트는 내부적인 종속성을 만들기 위한 웹팩 모듈이라고 할 수 있습니다. 웹팩은 엔트리 포인트가 의존하고 있는 다른 모듈 또는 라이브러리를 파악합니다.  
+#### Entry  
+[`엔트리 포인트`](https://webpack.js.org/configuration/entry-context/)는 내부적인 종속성을 만들기 위한 `Webpack Module`이라고 할 수 있다. `Webpack`은 엔트리 포인트가 의존하고 있는 다른 모듈 또는 라이브러리를 파악한다.  
+
+기본적으로 `./src/index.js`를 엔트리 포인트로 사용하며 다음과 같이 `entry` 속성으로 (다중 엔트리 포인트도) 설정할 수 있다.
 
 ```js
 const path = require('path')
@@ -24,10 +26,8 @@ module.exports = {
 }
 ```
 
-> 웹팩은 단일 뿐만 아니라 다중 엔트리 포인트를 지원합니다.
-
-#### [Output](https://webpack.js.org/configuration/output/)  
-결과는 웹팩이 엔트리 포인트로 파악한 의존성을 어느 위치에 어떠한 이름으로 번들 파일로 생성할지를 결정합니다.  
+#### Output  
+[`출력`](https://webpack.js.org/configuration/output/)은 `Webpack`이 엔트리 포인트로 파악한 의존성을 어느 위치에 어떠한 이름으로 번들 파일로 생성할지를 결정하게 된다.  
 
 ```js
 const path = require('path')
@@ -40,10 +40,11 @@ module.exports = {
 }
 ```
 
-#### [Module](https://webpack.js.org/configuration/module/)  
-모듈은 엔트리 포인트에서 의존하는 다른 모듈들에 대해서 특정 파일 형식에 대한 것을 개별적인 로더를 이용하여 변환하거나 검증할 수 있도록 합니다.  
+#### Loaders  
+`Webpack`은 오직 자바스크립트와 JSON 파일만 이해할 수 있다. 
+[`로더`](https://webpack.js.org/concepts/#loaders)는 `Webpack`이 다른 유형의 파일들을 처리하여 애플리케이션에서 사용할 수 있게하고 종속성 그래프에 추가될 수 있는 유효한 모듈로 변환할 수 있다.
 
-예를 들어, 다음과 같이 `.scss` 파일에 대해서 번들링 하고 싶다면 sass-loader를 지정하면 됩니다.  
+예를 들어, 다음과 같이 `.scss` 파일에 대해서 번들링 하고 싶다면 `sass-loader`를 추가할 수 있다.
 
 ```js
 module.exports = {
@@ -74,29 +75,31 @@ module.exports = {
 }
 ```
 
-> webpack compiler는 `require()` 또는 `import`문 안에 `.scss`가 포함되면 엔트리 포인트 번들 파일에 추가하기 전에 style-loader, css-loaer, postcss-loader, sass-loader를 순서대로 거쳐 변환합니다.  
+> webpack compiler는 `require()` 또는 `import`문 안에 `.scss`가 포함되면 엔트리 포인트 번들 파일에 추가하기 전에 style-loader, css-loaer, postcss-loader, sass-loader를 순서대로 거쳐 변환하게 된다.  
 
-#### [Plugins](https://webpack.js.org/configuration/plugins/)  
-로더가 특정 형식의 모듈을 변환하는데 사용된다면 플러그인은 번들 최적화, 에셋 관리, 환경 변수 주입등 좀더 넓은 범위의 작업을 수행합니다.  
+#### Plugins  
+[`플러그인`](https://webpack.js.org/concepts/#plugins)은 번들 최적화, 에셋 관리, 환경 변수 주입등 좀더 넓은 범위의 작업을 수행한다.  
 
-#### [Mode](https://webpack.js.org/concepts/mode/)  
-모드는 웹팩이 어떤 환경을 위해서 최적화할지를 설정합니다. 기본적으로는 `production`으로 배포 환경을 위한 최적화를 제공합니다.  
+#### Mode  
+[`모드`](https://webpack.js.org/concepts/mode/)는 웹팩이 어떤 환경을 위해서 최적화할지를 설정합니다. 기본적으로는 `production`으로 배포 환경을 위한 최적화를 제공합니다.  
 
 각 모드별로 제공되는 설정은 다음과 같습니다.  
-> - `development`
+> - development
 >   Sets process.env.NODE_ENV on DefinePlugin to value development. Enables NamedChunksPlugin and NamedModulesPlugin.  
-> - `production`
+> - production
 >   Sets process.env.NODE_ENV on DefinePlugin to value production. Enables FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin and UglifyJsPlugin.  
-> - `none`
+> - none
 >   Opts out of any default optimization options.  
 
 #### Browser Compatibility  
-웹팩은 `import()`와 `require.ensure()`를 위해 `Promise`가 필요하기 때문에 ES5를 호환하는 모든 브라우저를 지원합니다. 만약 구형 브라우저도 지원하고 싶다면 [`polyfill`](https://webpack.js.org/guides/shimming/#loading-polyfills)을 먼저 불러와야합니다.  
+`Webpack`은 `import()`와 `require.ensure()`를 위해 `Promise`가 필요하기 때문에 `ES5`를 호환하는 모든 브라우저를 지원한다. 
+만약, 구형 브라우저도 지원하고 싶다면 [`polyfill`](https://webpack.js.org/guides/shimming/#loading-polyfills)을 먼저 불러와야한다.  
 
 ## Configuration  
-Webpack은 기본적으로 프로젝트 루트 폴더의 `webpack.config.js`를 설정파일로 사용합니다. 만약 이 파일이 없다면 `src/index`를 엔트리 포인트로 `dist/main.js`를 결과로 설정하며 배포 환경을 위한 번들링을 진행합니다.  
+Webpack은 기본적으로 프로젝트 루트 폴더의 `webpack.config.js`를 설정파일로 사용한다. 
+만약, 이 파일이 없다면 `src/index`를 엔트리 포인트로 `dist/main.js`를 결과로 설정하며 배포 환경을 위한 번들링을 진행한다.  
 
-다음은 웹팩 문서에서 제공하는 샘플 설정 파일입니다.  
+다음은 Webpack 문서에서 제공하는 설정 파일의 샘플이다.  
 ```js
 const path = require('path');
 

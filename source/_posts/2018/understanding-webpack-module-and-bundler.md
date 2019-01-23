@@ -1,6 +1,6 @@
 ---
 title: Webpack 이해하기 - 모듈과 번들러
-date: 2018-10-28 00:00:00
+date: 2099-10-28 00:00:00
 categories: [이해하기, Webpack]
 banner:
   url: https://raw.githubusercontent.com/webpack/media/master/logo/logo-on-white-bg.png
