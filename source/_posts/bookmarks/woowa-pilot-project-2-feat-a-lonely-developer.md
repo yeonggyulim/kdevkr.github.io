@@ -11,4 +11,3 @@ banner:
 기능 구현이나 기술에 대한 자세한 설명 보다는 느낀점과 생각 위주로 작성하려고 합니다. 그럼 스타뜨!
 
 [우아한 파일럿 프로젝트 2기(feat.고독한개발자)](http://woowabros.github.io/experience/2018/11/29/pilot-project.html)
-

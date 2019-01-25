@@ -6,7 +6,8 @@ banner:
  url: https://d81pi4yofp37g.cloudfront.net/wp-content/uploads/webpack2.png
 ---
 
-## [Webpack 2](https://webpack.js.org/)  
+## [Webpack 2](https://webpack.js.org/)
+
 Webpack은 assets이라고 불리는 자바스크립트, 이미지, CSS, 폰트들을 하나로 합쳐주는 자바스크립트 모듈러 또는 번들러라고 합니다. 보통은 프론트엔드에서 복잡하게 얽혀있는 스크립트나 CSS 파일들을 개별적으로 불러오는 것으로 하드코딩하였을 것입니다.  
 
 각 파일들을 개별적으로 불러오는 행위들은 결국에는 각 HTTP 요청에 의한 데이터 낭비, 로딩의 지연이라는 나쁜 결과물을 만들어내기도 합니다. 그래서 [구글 페이지 인사이트 도구](https://developers.google.com/speed/pagespeed/insights/?hl=ko)를 통해서 OKKY를 분석해보면 HTML 축소로 다운로드 및 파싱속도를 높일 수 있다고 분석해주기도 합니다.  
@@ -31,7 +32,8 @@ npm install -g webpack
 
 > 가이드에서 Webpack을 글로벌로 설치하는 것은 추천하지 않습니다만, 저는 글로벌로 사용하겠습니다. 이후 알아보는 webpack.config.js를 만들어놓고 webpack 이라는 명령어만 실행하더라도 webpack으로 빌드를 할 수 있게됩니다.  
 
-## webpack.config.js 만들기    
+## webpack.config.js 만들기
+
 앞서 이야기한대로 webpack.config.js로 설정파일을 구성할 수 있게됩니다.
 
 ```javascript
@@ -47,6 +49,7 @@ module.exports = {
 	}
 }
 ```
+
 아직까지는 간단하게 구성하겠습니다. 엔트리에 등록된 스크립트 파일별로 내부에서 사용하는 스크립트나 CSS등을 하나의 파일로 만들어주는 방식입니다.  
 
 ```bash
@@ -88,10 +91,11 @@ module.exports = {
 
 > 이로써 우리는 js폴더 내에 엔트리 목록에 추가하고 싶은 스크립트 파일만 만들면 됩니다.  
 
-## 개발 및 배포 전용 빌드로 나누기  
+## 개발 및 배포 전용 빌드로 나누기
+
 개발용과 배포용으로 webpack.config.js를 나누어 빌드할 수 있는 방법을 설명하겠습니다.
 
-```javascript  
+```javascript
 // webpack.config.js
 module.exports = function (env) {
 	env = env || 'dev';
@@ -187,7 +191,8 @@ webpack --env=dev
 webpack --env=prod
 ```
 
-## 로더  추가하기  
+## 로더  추가하기
+
 CSS 또는 폰트도 적용할 수 있는 로더를 추가할 수 있습니다. webpack1은 loaders 이지만 webpack2에서는 rules라는 이름의 속성을 사용합니다.  
 
 ```javascript
@@ -306,10 +311,11 @@ module.exports = {
 
 Webpack의 활용은 여기서 끝이 아닙니다. 팀 단위로 개발을 할 때 누구는 탭을 쓰고 누구는 스페이스를 쓰고 누구는 쌍따옴표를, 누구는 따옴표를 쓰는 등 자기가 원하는 대로 코딩을 하기도 합니다. 그래서 정적분석도구라는 것을 통해서 하나의 규격을 만들어놓고 그것에 맞춰 개발할 수 있도록 할 수 있습니다.  
 
-## [ESLint](http://eslint.org/)  
+## [ESLint](http://eslint.org/)
+
 > Webpack은 Linter도 지원합니다. 그 중 ESLint 라는 정적 분석 도구를 적용해보겠습니다.  
 
-[http://eslint.org/docs/user-guide/getting-started](http://eslint.org/docs/user-guide/getting-started)  
+<http://eslint.org/docs/user-guide/getting-started>  
 
 ```bash
 npm install -g eslint
@@ -372,7 +378,8 @@ module.exports = {
 
 `eslint를 적용해놓고 개발하다보면 온갖 규칙에 어긋난다는 메시지를 볼 수 있게 됩니다!`
 
-## 예제 보기  
+## 예제 보기
+
 그럼 빌드의 결과물을 어떻게 사용하는가를 알아보아야겠죠? 제가 공부중인 구글 애널리틱스 임베디드 API 테스트.html 입니다. head 태그에는 하나의 css 파일과 body에는 하나의 js 파일이 있습니다.
 
 ```javascript
@@ -444,13 +451,14 @@ Vue.use(VueRouter);
 </html>
 ```
 
-## 함께 보면 좋은 관련 글들을 소개합니다!  
-- [Webpack 적용기 1 : 왜 필요한가?](https://hjlog.me/post/117)  
-- [Webpack 적용기 2 : 어떻게 사용하는 가?](https://hjlog.me/post/118)
-- [Webpack2 입문 가이드](http://hyunseob.github.io/2017/03/21/webpack2-beginners-guide/)  
-- [자바스크립트 모듈화 도구, Webpack](http://d2.naver.com/helloworld/0239818)  
-- [linter를 이용한 코딩스타일과 에러 체크하기](https://subicura.com/2016/07/11/coding-convention.html)  
-- [javascript ESLint - Zerocho](https://www.zerocho.com/category/Javascript/post/583231719a87ec001834a0f2)  
-- [이해하기 쉬운 Webpack 가이드](http://haviyj.tistory.com/17)  
-- [NPM + Webpack 프론트엔드 모듈 관리전략](https://ironhee.com/2015/11/28/npm-webpack-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EB%AA%A8%EB%93%88-%EA%B4%80%EB%A6%AC%EC%A0%84%EB%9E%B5/)  
-- [The Next Generation JavaScript Linter](https://github.com/nhnent/fe.javascript/wiki/Issue-252-%E2%80%94-October-2,-2015:-ESLint:-The-Next-Generation-JavaScript-Linter)  
+## 함께 보면 좋은 관련 글들을 소개합니다!
+
+-   [Webpack 적용기 1 : 왜 필요한가?](https://hjlog.me/post/117)  
+-   [Webpack 적용기 2 : 어떻게 사용하는 가?](https://hjlog.me/post/118)
+-   [Webpack2 입문 가이드](http://hyunseob.github.io/2017/03/21/webpack2-beginners-guide/)  
+-   [자바스크립트 모듈화 도구, Webpack](http://d2.naver.com/helloworld/0239818)  
+-   [linter를 이용한 코딩스타일과 에러 체크하기](https://subicura.com/2016/07/11/coding-convention.html)  
+-   [javascript ESLint - Zerocho](https://www.zerocho.com/category/Javascript/post/583231719a87ec001834a0f2)  
+-   [이해하기 쉬운 Webpack 가이드](http://haviyj.tistory.com/17)  
+-   [NPM + Webpack 프론트엔드 모듈 관리전략](https://ironhee.com/2015/11/28/npm-webpack-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EB%AA%A8%EB%93%88-%EA%B4%80%EB%A6%AC%EC%A0%84%EB%9E%B5/)  
+-   [The Next Generation JavaScript Linter](https://github.com/nhnent/fe.javascript/wiki/Issue-252-%E2%80%94-October-2,-2015:-ESLint:-The-Next-Generation-JavaScript-Linter)  

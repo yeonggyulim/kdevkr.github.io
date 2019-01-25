@@ -7,7 +7,8 @@ banner:
   url: https://raw.githubusercontent.com/webpack/media/master/logo/logo-on-white-bg.png
 ---
 
-# [Webpack 4 release at 2018.02.25](https://medium.com/webpack/webpack-4-released-today-6cdb994702d4)  
+# [Webpack 4 release at 2018.02.25](https://medium.com/webpack/webpack-4-released-today-6cdb994702d4)
+
 > Wepback 4가 릴리즈되었지만 Webpack 설정에 관한 포스트들을 검색해보면 전부 Webpack 3 기준으로 작성되어있습니다. 물론 [Webpack Documentation](https://webpack.js.org/concepts/)을 제공하고 있지만 이것이 마냥 친절하진 않습니다.  
 
 일단 Webpack 3+를 아무것도 모르는 상태에서 Webpack 4+로 업데이트 해보겠습니다.
@@ -23,7 +24,8 @@ npm WARN webpack-dev-middleware@1.12.2 requires a peer of webpack@^1.0.0 || ^2.0
 
 이 상태에서 빌드를 해보겠습니다.  
 
-## Issue 1 : [Commons-Chunk-Plugin](https://webpack.js.org/plugins/commons-chunk-plugin/)  
+## Issue 1 : [Commons-Chunk-Plugin](https://webpack.js.org/plugins/commons-chunk-plugin/)
+
 > The CommonsChunkPlugin has been removed in webpack v4 legato. To learn how chunks are treated in the latest version, check out the SplitChunksPlugin.  
 >
 > Since webpack v4, the CommonsChunkPlugin was removed in favor of optimization.splitChunks.  
@@ -64,7 +66,7 @@ module.exports = {
 };
 ```
 
-## Issue 2 : [Extract-Text-Webpack-Plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin)  
+## Issue 2 : [Extract-Text-Webpack-Plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin)
 
 ```sh
 # Error: Chunk.entrypoints: Use Chunks.groupsIterable and filter by instanceof Entrypoint instead
@@ -74,7 +76,7 @@ npm i -D extract-text-webpack-plugin@next
 
 그랬더니 Chunks.groupsIterable를 사용하라고 합니다. 일단 검색을 통하여 extract-text-webpack-plugin을 최신버전으로 변경 해주었습니다.  
 
-## Issue 3 : [Required mode](https://webpack.js.org/concepts/mode/)  
+## Issue 3 : [Required mode](https://webpack.js.org/concepts/mode/)
 
 ```sh
 DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead
@@ -93,7 +95,6 @@ You can also set it to 'none' to disable any default behavior.
 Learn more: https://webpack.js.org/concepts/mode/
 ```
 
-
 > `none`, `development`, `production` 중 하나는 필수적으로 지정되어야합니다  
 
 ```js
@@ -103,13 +104,15 @@ module.exports = {
 };
 ```
 
-### development  
+### development
+
 > Enables NamedChunksPlugin and NamedModulesPlugin.  
 
-### production  
+### production
+
 > Enables FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin and UglifyJsPlugin.
 
-## Issue 4 : [Eslint-Loader](https://github.com/webpack-contrib/eslint-loader)  
+## Issue 4 : [Eslint-Loader](https://github.com/webpack-contrib/eslint-loader)
 
 ```sh
 ERROR in ./src/main/resources/static/js/entries/index.js
@@ -125,7 +128,7 @@ npm i -D eslint-loader@latest
 undefined된 변수에서 eslint 속성을 찾을 수 없다고 하는데 자세히 보니 `eslint-loader`에서 문제가 발생했으니
 [관련 링크](https://github.com/webpack-contrib/eslint-loader/issues/215)처럼 2.0.0에서 수정되었다고 하니 버전을 올리겠습니다.  
 
-## Issue 5 : [Html-Webpack-Plugin](https://github.com/jantimon/html-webpack-plugin)  
+## Issue 5 : [Html-Webpack-Plugin](https://github.com/jantimon/html-webpack-plugin)
 
 ```sh
 # npm run dev
@@ -142,6 +145,7 @@ BREAKING CHANGE: There need to exist a hook at 'this.hooks'. To create a compati
 npm i -D html-webpack-plugin@latest
 + html-webpack-plugin@3.2.0
 ```
+
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 {
@@ -150,6 +154,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
   ]
 }
 ```
+
 > HtmlWebpackPlugin을 등록하면서 Hooks가 Extend 되었기에 아래의 코드 둘다 가능합니다.  
 
 ```js
@@ -170,6 +175,7 @@ compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
 Webpack 4+를 지원하기 위하여 vue-loader도 15+로 업데이트 되었습니다. 공식 레퍼런스에서도 15+를 기준으로 설명하고 있고 v14에서 마이그레이션하기 위한 방법도 제공하고 있습니다.  
 
 `vue-loader의 버전을 굳이 올릴 필요는 없습니다.`
+
 ```sh
 npm i -D vue-loader@latest
 + vue-loader@15.2.4
@@ -248,11 +254,12 @@ const devMode = process.env.NODE_ENV !== 'production'
 
 > devMode일 경우에는 HMR이 동작하므로 CSS 추출에 대해서 지원하지 않기 때문에 vue-style-loader를 이용해서 js 내에 번들링하도록 합니다.  
 
+# Example for Webpack 4+ Configuration
 
-# Example for Webpack 4+ Configuration  
 > wepback-dev-server 대신 webpack-dev-middleware와 webpack-hot-middleware를 이용하는 방식입니다.  
 
-## `dev-server.js`  
+## `dev-server.js`
+
 ```js
 // ...
 const express = require('express')
@@ -286,7 +293,8 @@ app.use(hotMiddleware)
 // ...
 ```
 
-## `dev-client.js`  
+## `dev-client.js`
+
 ```js
 // https://github.com/webpack-contrib/webpack-hot-middleware/issues/11
 require('eventsource-polyfill')
@@ -300,7 +308,8 @@ hotClient.subscribe(function (event) {
 })
 ```
 
-## `webpack.base.config.js`  
+## `webpack.base.config.js`
+
 ```js
 const path = require('path')
 const fs = require('fs')
@@ -428,10 +437,10 @@ module.exports = {
         tls: 'empty'
     }
 }
-
 ```
 
-## `webpack.config.dev.js`  
+## `webpack.config.dev.js`
+
 > for development
 
 ```js
@@ -463,7 +472,8 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
 module.exports = webpackConfig
 ```
 
-## `webpack.config.prod.js`  
+## `webpack.config.prod.js`
+
 > for production
 
 ```js
@@ -529,11 +539,11 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
 module.exports = webpackConfig
 ```
 
+# Links
 
-# Links  
-- [Awesome Webpack](https://github.com/webpack-contrib/awesome-webpack)  
-- [Vue Loader Migration from v14](https://vue-loader.vuejs.org/migrating.html)  
-- [직접 설정해보는 Webpack4 / Babel7](https://gompro.postype.com/post/1699968)  
-- [Common-chunk and Vendor-chunk](https://github.com/webpack/webpack/tree/master/examples/common-chunk-and-vendor-chunk)- [웹팩 4 설정하기](https://www.zerocho.com/category/Webpack/post/58aa916d745ca90018e5301d)  
-- [upgrade to webpack 4](https://dev.to/flexdinesh/upgrade-to-webpack-4---5bc5)  
-- [Migrating to WEbpack 4 today](https://codeburst.io/migrating-to-webpack-4-today-d564b453a3ba)  
+-   [Awesome Webpack](https://github.com/webpack-contrib/awesome-webpack)  
+-   [Vue Loader Migration from v14](https://vue-loader.vuejs.org/migrating.html)  
+-   [직접 설정해보는 Webpack4 / Babel7](https://gompro.postype.com/post/1699968)  
+-   [Common-chunk and Vendor-chunk](https://github.com/webpack/webpack/tree/master/examples/common-chunk-and-vendor-chunk)- [웹팩 4 설정하기](https://www.zerocho.com/category/Webpack/post/58aa916d745ca90018e5301d)  
+-   [upgrade to webpack 4](https://dev.to/flexdinesh/upgrade-to-webpack-4---5bc5)  
+-   [Migrating to WEbpack 4 today](https://codeburst.io/migrating-to-webpack-4-today-d564b453a3ba)  

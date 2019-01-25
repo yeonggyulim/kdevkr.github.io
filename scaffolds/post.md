@@ -1,5 +1,7 @@
 ---
 title: {{ title }}
 date: {{ date }}
-categories:
+categories: []
+banner:
+    url:
 ---

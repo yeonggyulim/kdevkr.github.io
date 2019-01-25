@@ -1,139 +1,139 @@
 ## configuration
 # Site
-title: Github Pages
+title:                     Github Pages
 subtitle:
 description:
-author: kdevkr
-language: ko
-timezone: UTC
+author:                    kdevkr
+language:                  ko
+timezone:                  UTC
 
 # URL
-url: https://kdevkr.github.io
-root: /
-permalink: archives/:title/
+url:                       https://kdevkr.github.io
+root:                      /
+permalink:                 archives/:title/
 permalink_defaults:
 
 # Directory
-source_dir: source
-public_dir: public
-archive_dir: archives
-category_dir: categories
-i18n_dir: :lang
-tag_dir: tags
-skip_render: [README.md, tmp/**]
+source_dir:                source
+public_dir:                public
+archive_dir:               archives
+category_dir:              categories
+i18n_dir:                  :lang
+tag_dir:                   tags
+skip_render:               [README.md, tmp/**]
 
 # Writing
-default_layout: post
-render_drafts: false
-titlecase: true
-external_link: true
-post_asset_folder: true
-future: false
+default_layout:            post
+render_drafts:             false
+titlecase:                 true
+external_link:             true
+post_asset_folder:         true
+future:                    false
 highlight:
-  enable: true
-  line_number: false
-  auto_detect: false
+  enable:                  true
+  line_number:             false
+  auto_detect:             false
   tab_replace:
-  theme: github-gist
+  theme:                   github-gist
 
 # Category & Tag
-default_category: uncategorized
+default_category:          uncategorized
 category_map:
 tag_map:
 
 # Date / Time format
-date_format: YYYY-MM-DD
-time_format: H:mm:ss
+date_format:               YYYY-MM-DD
+time_format:               H:mm:ss
 
 # Pagination
-per_page: 10
-pagination_dir: page
+per_page:                  10
+pagination_dir:            page
 
 # Extendsions
-theme: snorlax
+theme:                     snorlax
 deploy:
-  type: git
-  repo: https://__GITHUB_TOKEN__@github.com/kdevkr/kdevkr.github.io.git
-  branch: master
+  type:                    git
+  repo:                    https://__GITHUB_TOKEN__@github.com/kdevkr/kdevkr.github.io.git
+  branch:                  master
 menu:
-  Home: /
-  Categories: /categories
-  About: /about
-google_analytics: UA-93954323-1
-google_site_verification: googled619795c447b2a1d
-naver_site_verification: 967670e7891eb52e115709ce4890e2e8f576a1e5
-disqus_shortname: kdevkr-github-io
+  Home:                    /
+  Categories:              /categories
+  About:                   /about
+google_analytics:          UA-93954323-1
+google_site_verification:  googled619795c447b2a1d
+naver_site_verification:   967670e7891eb52e115709ce4890e2e8f576a1e5
+disqus_shortname:          kdevkr-github-io
 
 ## plugins
 index_generator:
-  path: ''
-  per_page: 10
-  order_by: -date
+  path:                    ''
+  per_page:                10
+  order_by:                -date
 
 category_generator:
-  per_page: 10
+  per_page:                10
 
 archive_generator:
-  per_page: 10
-  yearly: true
-  monthly: true
-  daily: false
-  order_by: -date
+  per_page:                10
+  yearly:                  true
+  monthly:                 true
+  daily:                   false
+  order_by:                -date
 
 feed:
-  type: atom
-  path: atom.xml
-  limit: false
+  type:                    atom
+  path:                    atom.xml
+  limit:                   false
   hub:
-  content: true
+  content:                 true
 
 article_emoji:
-  full: true
+  full:                    true
 
 browsersync:
-  ui: false
+  ui:                      false
 
 # https://futurecreator.github.io/2016/06/23/search-engine-optimization-hexo-plugins/
 nofollow:
-  enable: true
+  enable:                  true
 
 sitemap:
-  path: sitemap.xml
-  tag: false
-  category: false
+  path:                    sitemap.xml
+  tag:                     false
+  category:                false
 
 markdown:
   render:
-    html: true # Doesn't escape HTML content so the tags will appear as html.
-    xhtmlOut: false # Parser will not produce XHTML compliant code.
-    breaks: true # Parser produces `<br>` tags every time there is a line break in the source document.
-    linkify: false # Returns text links as text.
-    typographer: true # Substitution of common typographical elements will take place.
-    quotes: '“”‘’' # "double" will be turned into “single”
+    html:                  true # Doesn't escape HTML content so the tags will appear as html.
+    xhtmlOut:              false # Parser will not produce XHTML compliant code.
+    breaks:                true # Parser produces `<br>` tags every time there is a line break in the source document.
+    linkify:               false # Returns text links as text.
+    typographer:           true # Substitution of common typographical elements will take place.
+    quotes:                '“”‘’' # "double" will be turned into “single”
                    # 'single' will be turned into ‘single’
   plugins:
     - markdown-it-abbr
-    - name: markdown-it-container
-      options: tip
-    - name: markdown-it-container
-      options: warning
-    - name: markdown-it-container
-      options: danger
+    - name:                markdown-it-container
+      options:             tip
+    - name:                markdown-it-container
+      options:             warning
+    - name:                markdown-it-container
+      options:             danger
     - markdown-it-deflist
-    - name: markdown-it-emoji
+    - name:                markdown-it-emoji
       options:
-        shortcuts: {}
+        shortcuts:         {}
     - markdown-it-footnote
     - markdown-it-ins
     - markdown-it-mark
     - markdown-it-sub
     - markdown-it-sup
-    - name: markdown-it-table-of-contents
+    - name:                markdown-it-table-of-contents
       options:
-        includeLevel: 1,2,3
+        includeLevel:      1,2,3
   anchors:
-    level: 1, 2 # Minimum level for ID creation. (Ex. h2 to h6)
-    collisionSuffix: 'v' # A suffix that is prepended to the number given if the ID is repeated.
-    permalink: true # If true, creates an anchor tag with a permalink besides the heading.
-    permalinkClass: header-anchor # Class used for the permalink anchor tag.
-    permalinkSymbol: '' # The symbol used to make the permalink.
+    level:                 1, 2 # Minimum level for ID creation. (Ex. h2 to h6)
+    collisionSuffix:       'v' # A suffix that is prepended to the number given if the ID is repeated.
+    permalink:             true # If true, creates an anchor tag with a permalink besides the heading.
+    permalinkClass:        header-anchor # Class used for the permalink anchor tag.
+    permalinkSymbol:       '' # The symbol used to make the permalink.

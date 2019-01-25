@@ -9,9 +9,11 @@ banner:
 Webpack은 Scripts, Styles, Assets를 하나의 파일로 묶어주는 번들러이다.
 
 ## Core Concenpts
+
 Webpack의 주요 개념과 설정 방법에 대해서 알아보자.  
 
-#### Entry  
+#### Entry
+
 [`엔트리 포인트`](https://webpack.js.org/configuration/entry-context/)는 내부적인 종속성을 만들기 위한 `Webpack Module`이라고 할 수 있다. `Webpack`은 엔트리 포인트가 의존하고 있는 다른 모듈 또는 라이브러리를 파악한다.  
 
 기본적으로 `./src/index.js`를 엔트리 포인트로 사용하며 다음과 같이 `entry` 속성으로 (다중 엔트리 포인트도) 설정할 수 있다.
@@ -26,7 +28,8 @@ module.exports = {
 }
 ```
 
-#### Output  
+#### Output
+
 [`출력`](https://webpack.js.org/configuration/output/)은 `Webpack`이 엔트리 포인트로 파악한 의존성을 어느 위치에 어떠한 이름으로 번들 파일로 생성할지를 결정하게 된다.  
 
 ```js
@@ -40,8 +43,9 @@ module.exports = {
 }
 ```
 
-#### Loaders  
-`Webpack`은 오직 자바스크립트와 JSON 파일만 이해할 수 있다. 
+#### Loaders
+
+`Webpack`은 오직 자바스크립트와 JSON 파일만 이해할 수 있다.
 [`로더`](https://webpack.js.org/concepts/#loaders)는 `Webpack`이 다른 유형의 파일들을 처리하여 애플리케이션에서 사용할 수 있게하고 종속성 그래프에 추가될 수 있는 유효한 모듈로 변환할 수 있다.
 
 예를 들어, 다음과 같이 `.scss` 파일에 대해서 번들링 하고 싶다면 `sass-loader`를 추가할 수 있다.
@@ -77,29 +81,35 @@ module.exports = {
 
 > webpack compiler는 `require()` 또는 `import`문 안에 `.scss`가 포함되면 엔트리 포인트 번들 파일에 추가하기 전에 style-loader, css-loaer, postcss-loader, sass-loader를 순서대로 거쳐 변환하게 된다.  
 
-#### Plugins  
+#### Plugins
+
 [`플러그인`](https://webpack.js.org/concepts/#plugins)은 번들 최적화, 에셋 관리, 환경 변수 주입등 좀더 넓은 범위의 작업을 수행한다.  
 
-#### Mode  
+#### Mode
+
 [`모드`](https://webpack.js.org/concepts/mode/)는 웹팩이 어떤 환경을 위해서 최적화할지를 설정합니다. 기본적으로는 `production`으로 배포 환경을 위한 최적화를 제공합니다.  
 
 각 모드별로 제공되는 설정은 다음과 같습니다.  
-> - development
->   Sets process.env.NODE_ENV on DefinePlugin to value development. Enables NamedChunksPlugin and NamedModulesPlugin.  
-> - production
->   Sets process.env.NODE_ENV on DefinePlugin to value production. Enables FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin and UglifyJsPlugin.  
-> - none
->   Opts out of any default optimization options.  
 
-#### Browser Compatibility  
-`Webpack`은 `import()`와 `require.ensure()`를 위해 `Promise`가 필요하기 때문에 `ES5`를 호환하는 모든 브라우저를 지원한다. 
+> -   development
+>     Sets process.env.NODE_ENV on DefinePlugin to value development. Enables NamedChunksPlugin and NamedModulesPlugin.  
+> -   production
+>     Sets process.env.NODE_ENV on DefinePlugin to value production. Enables FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin and UglifyJsPlugin.  
+> -   none
+>     Opts out of any default optimization options.  
+
+#### Browser Compatibility
+
+`Webpack`은 `import()`와 `require.ensure()`를 위해 `Promise`가 필요하기 때문에 `ES5`를 호환하는 모든 브라우저를 지원한다.
 만약, 구형 브라우저도 지원하고 싶다면 [`polyfill`](https://webpack.js.org/guides/shimming/#loading-polyfills)을 먼저 불러와야한다.  
 
-## Configuration  
-Webpack은 기본적으로 프로젝트 루트 폴더의 `webpack.config.js`를 설정파일로 사용한다. 
+## Configuration
+
+Webpack은 기본적으로 프로젝트 루트 폴더의 `webpack.config.js`를 설정파일로 사용한다.
 만약, 이 파일이 없다면 `src/index`를 엔트리 포인트로 `dist/main.js`를 결과로 설정하며 배포 환경을 위한 번들링을 진행한다.  
 
 다음은 Webpack 문서에서 제공하는 설정 파일의 샘플이다.  
+
 ```js
 const path = require('path');
 

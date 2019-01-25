@@ -20,6 +20,8 @@ editor:
     tabLength: 4
 ```
 
+폰트의 경우 [`fonts`](https://atom.io/packages/fonts)를 설치해도 된다. ([폰트 미리보기](https://app.programmingfonts.org/))
+
 ### 테마
 
 개인적으로 추천하는 테마 조합이다. 나는 기본값인 `One Dark`를 선호한다.
@@ -133,3 +135,7 @@ List of scoped to run ESLint on - source.js, source.jsx, source.js.jsx, source.f
 ## 아톰 동기화하기
 
 [`sync-setting`](https://atom.io/packages/sync-settings)은 기본 설정 및 설치했던 패키지들을 `Gist`로 저장해서 동기화를 도와준다.
+
+## 참조
+
+-   [awesome-atom](https://github.com/mehcode/awesome-atom)
