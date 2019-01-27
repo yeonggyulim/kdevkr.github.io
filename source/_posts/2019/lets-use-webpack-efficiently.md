@@ -1,7 +1,7 @@
 ---
-title: Webpack을 효율적으로 사용하자
+title: 초보 개발자가 알려주는 Webpack 효율적으로 사용하기
 date: 2019-01-27
-categories: [이해하기, Webpack]
+categories: [개발 이야기, Webpack]
 banner:
   url: https://raw.githubusercontent.com/webpack/media/master/logo/logo-on-white-bg.png
 ---

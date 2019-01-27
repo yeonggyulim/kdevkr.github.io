@@ -1,7 +1,6 @@
 ---
-title:      "Use Oh My Zsh to make the terminal useful and beautiful"
-subtitle:   "Shell"
-date:       2017-04-30 12:00:00
+title:      Oh My Zsh을 사용해서 터미널을 유용하고 이쁘게 만들어보자
+date:       2017-04-30
 categories: [도구, Shell]
 banner:
   url: https://www.planetargon.com/assets/open-source/logo-ohmyzsh-ce68f7c0711473bb619d23b1ce1e3a6e53895cd7cc56eb8af57d8076d1928759.png
@@ -66,9 +65,9 @@ sudo git clone https://gist.github.com/3712874.git
 sudo mv 3712874/agnoster.zsh-theme .
 sudo rm -rf 3712874
 
-# ~/.zshrc  
+# ~/.zshrc
 sudo vim ~/.zshrc
-ZSH_THEME="agnoster"  
+ZSH_THEME="agnoster"
 ```
 
 ##### [Bullet Train](https://github.com/caiogondim/bullet-train.zsh)
@@ -79,11 +78,11 @@ Bullet Train 테마도 Powerline Vim Plugin 기반으로 되어있다.
 
 ```bash
 cd ~/.oh-my-zsh/themes
-sudo wget https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme  
+sudo wget https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme
 
-# ~/.zshrc  
+# ~/.zshrc
 sudo vim ~/.zshrc
-ZSH_THEME="bullet-train"  
+ZSH_THEME="bullet-train"
 ```
 
 ##### [Powerlevel9k](https://github.com/bhilburn/powerlevel9k)
@@ -131,14 +130,14 @@ Powerline 폰트를 설치했다면 터미널 앱에 들어가서 해당 폰트�
 
 ::: tip 추천 폰트
 개인적으로 추천하는 폰트는 아래와 같다.
-Roboto Mono for Powerline Regular\
-Liberation Mono for Powerline Regular\
+Roboto Mono for Powerline Regular\\
+Liberation Mono for Powerline Regular\\
 :::
 
 ### 참조
 
 -   [Installing ZSH](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH)
--   [Zsh - macOS Setup Guide](https://sourabhbajaj.com/mac-setup/iTerm/zsh.html)  
--   [zsh 와 oh my zsh 를 이용해 셸 꾸미기(대신 bash 버리기)](https://youngbin.xyz/blog//2015/05/17/using-zsh-and-oh-my-zsh-instead-of-bash-for-shell-customizing.html)  
+-   [Zsh - macOS Setup Guide](https://sourabhbajaj.com/mac-setup/iTerm/zsh.html)
+-   [zsh 와 oh my zsh 를 이용해 셸 꾸미기(대신 bash 버리기)](https://youngbin.xyz/blog//2015/05/17/using-zsh-and-oh-my-zsh-instead-of-bash-for-shell-customizing.html)
 -   [터미널 초보의 필수품인 Oh My ZSH!를 사용하자 ](https://nolboo.kim/blog/2015/08/21/oh-my-zsh/)
 -   [Mac OS 터미널에 ZSH 설치하기](http://thdev.tech/mac/2016/05/01/Mac-ZSH-Install.html)

@@ -9,18 +9,18 @@ banner:
 
 ## 구글 인기검색어 피드
 
-[Google Trends](https://trends.google.com/trends/hottrends)에서 제공하는 인기 급상승 검색어 목록을 가져오는 기능을 구현해보고자 합니다.  
+[Google Trends](https://trends.google.com/trends/hottrends)에서 제공하는 인기 급상승 검색어 목록을 가져오는 기능을 구현해보고자 합니다.
 
 #### Dependencies
 
 -   Java 8+
--   Apache HttpClient  
--   Jsoup  
--   Guava  
+-   Apache HttpClient
+-   Jsoup
+-   Guava
 
 #### Google hot searches page analyze
 
-인기 급상승 검색어 데이터를 가져오기 위해서는 구글 인기 급상승 검색어 페이지가 어떤식으로 구성되어있는지를 파악할 필요가 있습니다.  
+인기 급상승 검색어 데이터를 가져오기 위해서는 구글 인기 급상승 검색어 페이지가 어떤식으로 구성되어있는지를 파악할 필요가 있습니다.
 
 ```bash
 // 한국, pn=p23
@@ -31,11 +31,11 @@ https://trends.google.com/trends/hottrends#pn=p4
 https://trends.google.com/trends/hottrends#pn=p1
 ```
 
-위 처럼 pn이라는 파라미터값으로 나라를 구분해서 제공하고 있습니다. 그런데 날짜를 기준으로는 못가져오나보네요?... 특정 날짜에 대한 데이터를 가져올 수 있다면 좋았을텐데 말이에요 (네이버 데이터 랩은 대한민국의 데이터만 제공)  
+위 처럼 pn이라는 파라미터값으로 나라를 구분해서 제공하고 있습니다. 그런데 날짜를 기준으로는 못가져오나보네요?... 특정 날짜에 대한 데이터를 가져올 수 있다면 좋았을텐데 말이에요 (네이버 데이터 랩은 대한민국의 데이터만 제공)
 
-HTML을 파싱하는 것 보다는 아톰 피드로 제공하는 XML을 분석하도록 하겠습니다.  
+HTML을 파싱하는 것 보다는 아톰 피드로 제공하는 XML을 분석하도록 하겠습니다.
 
--   <https://trends.google.com/trends/hottrends/atom/feed>  
+-   <https://trends.google.com/trends/hottrends/atom/feed>
 
 ```java
 CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -88,7 +88,7 @@ Map<Object, List<Map<String, Object>>> groupList = list.stream()
 
 #### Google Hot Searchs Data
 
-분석된 데이터는 다음과 같이 추출되었습니다.  
+분석된 데이터는 다음과 같이 추출되었습니다.
 
 ```json
 {
@@ -279,4 +279,4 @@ Map<Object, List<Map<String, Object>>> groupList = list.stream()
 
 ## 마치며
 
-본 포스트는 네이버 데이터 랩의 급상승 검색어 데이터를 구글 인기 급상승 검색어 데이터로 대체하기 위해서 작성하였습니다.  
+본 포스트는 네이버 데이터 랩의 급상승 검색어 데이터를 구글 인기 급상승 검색어 데이터로 대체하기 위해서 작성하였습니다.

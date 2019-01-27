@@ -1,7 +1,7 @@
 ---
-title: HTTP Content-Type 이해하기
+title: 초보 개발자가 이해하는 HTTP Content-Type
 date: 2018-12-13
-categories: [이해하기, HTTP]
+categories: [개발 이야기, HTTP]
 banner:
     url: https://dpsvdv74uwwos.cloudfront.net/statics/img/ogimage/Importance-content-type-header-http-requests.png
 ---
@@ -96,7 +96,7 @@ $.ajax({
 
 이때 processData라는 옵션이 중요해진다. 이 옵션은 Content-Type이 `application/x-www-form-urlencoded`일 때 요청 페이로드에 대하여 쿼리 스트링으로 변환 해야하는지에 대한 여부를 나타낸다.
 
-> Array가 올 경우 a\[]=1&a\[]=2 이런식으로 변환된다.  
+> Array가 올 경우 a\[]=1&a\[]=2 이런식으로 변환된다.
 
 따라서, `x-www-form-urlencoded`일 때 URL의 쿼리스트링으로 보내는 행위와 동일하다라고 이해할 수 있다.
 
@@ -112,37 +112,37 @@ $.ajax({
 
 ::: tip Examples of properties
 
--   name\
-    Indicates the property name that corresponds to the getName() or isName() and setName(..) methods.  
--   account.name\
+-   name\\
+    Indicates the property name that corresponds to the getName() or isName() and setName(..) methods.
+-   account.name\\
     Indicates the nested property name of the property account that corresponds to (for example) the getAccount().setName() or getAccount().getName() methods.
--   account[2]\
-    Indicates the third element of the indexed property account. Indexed properties can be of type array, list, or other naturally ordered collection.  
--   account[COMPANYNAME]\
-    Indicates the value of the map entry indexed by the COMPANYNAME key of the account Map property.\
+-   account[2]\\
+    Indicates the third element of the indexed property account. Indexed properties can be of type array, list, or other naturally ordered collection.
+-   account[COMPANYNAME]\\
+    Indicates the value of the map entry indexed by the COMPANYNAME key of the account Map property.\\
     :::
 
-간단하게 살펴보면 account 클래스의 `name 프로퍼티`를 바인딩할 경우에는 `account.name`이라고 표현되어야하고 `account[2]`라고 표현되면 3번째 `인덱스 프로퍼티`로 나타내며 `account[COMPANYNAME]`이면 `COMPANYNAME`을 키로 가지는 `Map 프로퍼티`인 것이다.  
+간단하게 살펴보면 account 클래스의 `name 프로퍼티`를 바인딩할 경우에는 `account.name`이라고 표현되어야하고 `account[2]`라고 표현되면 3번째 `인덱스 프로퍼티`로 나타내며 `account[COMPANYNAME]`이면 `COMPANYNAME`을 키로 가지는 `Map 프로퍼티`인 것이다.
 
 #### @ModelAttribute
 
 이 [`@ModelAttribute`](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-modelattrib-method-args) 어노테이션은 컨트롤러에서 리퀘스트 파라미터를 쉽게 빈 오브젝트로 바인딩하기 위해 사용한다.
 
-그런데 다음과 같이 빈 오브젝트에 `맵 프로퍼티`가 존재할 경우 `@ModelAttribute`로 데이터 바인딩을 시도할 때 `주의`해야한다. 앞서 `x-www-form-urlencoded` Content-Type의 데이터 구조를 살펴본 것은 바로 이 때문이다.  
+그런데 다음과 같이 빈 오브젝트에 `맵 프로퍼티`가 존재할 경우 `@ModelAttribute`로 데이터 바인딩을 시도할 때 `주의`해야한다. 앞서 `x-www-form-urlencoded` Content-Type의 데이터 구조를 살펴본 것은 바로 이 때문이다.
 
-만약에 빈 오브젝트에 메타데이터로 맵 오브젝트를 담고 싶다고 가정할 때 서버로 맵 오브젝트를 보내어야하는 요구사항이 생긴다. 그런데 위 자바 빈 스펙 규칙에 따르면 맵 프로퍼티는 `metadata[address][location]`와 같이 표현되어야 한다.  
+만약에 빈 오브젝트에 메타데이터로 맵 오브젝트를 담고 싶다고 가정할 때 서버로 맵 오브젝트를 보내어야하는 요구사항이 생긴다. 그런데 위 자바 빈 스펙 규칙에 따르면 맵 프로퍼티는 `metadata[address][location]`와 같이 표현되어야 한다.
 
-그런데 서버로 요청되는 페이로드가 `metadata[address][location]=value`가 되어버리면 metadata 프로퍼티의 address가 배열의 인덱스인지 맵의 인덱스 키인지 `구별할 수 없어` [관련 포스트](https://homoefficio.github.io/2017/04/25/Spring-%EA%B0%80-%ED%8F%AC%ED%95%A8%EB%90%9C-URL-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EB%B0%94%EC%9D%B8%EB%94%A9-%ED%95%98%EA%B8%B0/)처럼 다음과 같은 오류가 발생할 것이다.  
+그런데 서버로 요청되는 페이로드가 `metadata[address][location]=value`가 되어버리면 metadata 프로퍼티의 address가 배열의 인덱스인지 맵의 인덱스 키인지 `구별할 수 없어` [관련 포스트](https://homoefficio.github.io/2017/04/25/Spring-%EA%B0%80-%ED%8F%AC%ED%95%A8%EB%90%9C-URL-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EB%B0%94%EC%9D%B8%EB%94%A9-%ED%95%98%EA%B8%B0/)처럼 다음과 같은 오류가 발생할 것이다.
 
 ```java
 Property referenced in indexed property path 'metadata[address][location]' is neither an array nor a List nor a Map
 ```
 
-그래서 관련 포스트에서는 `@ModelAttribute`를 사용하지 않고 Spring MVC의 request 객체에서 parameterMap을 받아 `[]로 구성된 parameterName을 스프링이 이해할 수 있는 .형식으로 변환해서 에러없이 값을 집어넣을 수 있다고` 하는데 이는 빈 오브젝트의 프로퍼티가 다시 빈으로 표현될 때의 이야기이다.   
+그래서 관련 포스트에서는 `@ModelAttribute`를 사용하지 않고 Spring MVC의 request 객체에서 parameterMap을 받아 `[]로 구성된 parameterName을 스프링이 이해할 수 있는 .형식으로 변환해서 에러없이 값을 집어넣을 수 있다고` 하는데 이는 빈 오브젝트의 프로퍼티가 다시 빈으로 표현될 때의 이야기이다.
 
 > 자바빈 스펙에 따라 account 빈 오브젝트의 name 필드는 `account.name`이 되기 때문이다.
 
-위와 같은 상황은 서버에서 @ModelAttribute를 그대로 사용하고 프론트에서 서버로 데이터를 보낼때 [.형식으로 데이터를 변환](https://gist.github.com/codesnik/1433581)해서 요청하는 것으로 처리가 가능하다.  
+위와 같은 상황은 서버에서 @ModelAttribute를 그대로 사용하고 프론트에서 서버로 데이터를 보낼때 [.형식으로 데이터를 변환](https://gist.github.com/codesnik/1433581)해서 요청하는 것으로 처리가 가능하다.
 
 하지만, 맵 프로퍼티로 바인딩하기 위해서는 account[COMPANYNAME]이어야만 하기 때문에 돌고도는 문제가 될 수 밖에 없다.
 
@@ -162,9 +162,9 @@ Property referenced in indexed property path 'metadata[address][location]' is ne
 
 ### 참조
 
--   [HTTP Post Method](https://developer.mozilla.org/ko/docs/Web/HTTP/Methods/POST)  
--   [JQuery.ajax](http://api.jquery.com/jquery.ajax/)  
--   [Content Type : x-www-form-urlencoded, form-data and json](https://medium.com/@mohamedraja_77/content-type-x-www-form-urlencoded-form-data-and-json-e17c15926c69)  
+-   [HTTP Post Method](https://developer.mozilla.org/ko/docs/Web/HTTP/Methods/POST)
+-   [JQuery.ajax](http://api.jquery.com/jquery.ajax/)
+-   [Content Type : x-www-form-urlencoded, form-data and json](https://medium.com/@mohamedraja_77/content-type-x-www-form-urlencoded-form-data-and-json-e17c15926c69)
 -   [Understanding HTML Form Encoding: URL Encoded and Multipart Forms](https://dev.to/sidthesloth92/understanding-html-form-encoding-url-encoded-and-multipart-forms-3lpa)
 -   [Validation, Data Binding, and Type Conversion](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#validation)
 -   [HTTP multipart/form-data raw 데이터는 어떤 형태일까?](https://lng1982.tistory.com/209)

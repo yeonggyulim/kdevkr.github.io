@@ -1,7 +1,7 @@
 ---
-    title: 스프링에서 다국어 메시지를 XML로 관리하자
+    title: 초보 개발자가 알려주는 XML로 다국어 메시지 관리하기
     date: 2019-01-26
-    categories: [끄적끄적, 스프링]
+    categories: [개발 이야기, 스프링]
     banner:
         url: https://javatutorial.net/wp-content/uploads/2017/12/spring-featured-image.png
 ---

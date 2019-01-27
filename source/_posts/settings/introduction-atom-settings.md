@@ -1,5 +1,5 @@
 ---
-title: 잠만보가 쓰는 아톰 설정을 소개합니다.
+title: 잠만보가 사용하는 아톰 설정
 date: 2019-01-25
 categories: [설정, 아톰]
 banner:
