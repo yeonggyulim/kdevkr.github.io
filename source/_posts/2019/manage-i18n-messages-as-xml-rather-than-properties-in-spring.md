@@ -6,7 +6,7 @@
         url: https://javatutorial.net/wp-content/uploads/2017/12/spring-featured-image.png
 ---
 
-![](https://javatutorial.net/wp-content/uploads/2017/12/spring-featured-image.png)
+![](https://javatutorial.net/wp-content/uploads/2017/12/spring-featured-image.png#center)
 
 ## 개요
 
