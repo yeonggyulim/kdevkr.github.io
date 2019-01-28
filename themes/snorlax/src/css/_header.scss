@@ -1,6 +1,10 @@
 .page-header {
     .page-title {
         padding: 3em 5em 0 4em;
+
+        &.home {
+            text-align: center;
+        }
     }
 }
 

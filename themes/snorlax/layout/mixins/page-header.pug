@@ -1,8 +1,9 @@
 section.hero.page-header
     div.hero-body
         if is_home()
-            div.page-title
+            div.page-title.home
                 h1.title.is-size-1= theme.title
+                p.is-size-5= theme.subtitle
         if is_archive()
             if page.month
                 div.page-title
