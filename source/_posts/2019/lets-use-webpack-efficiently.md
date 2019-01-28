@@ -14,7 +14,7 @@ banner:
 
 웹팩의 최신 릴리즈 버전은 4.29.0이며 `webpack-cli`와 같이 동작하게 된다.
 
-```bash
+```sh
 npm i -D webpack webpack-cli @webpack-cli/init
 ```
 

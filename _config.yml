@@ -1,10 +1,11 @@
 ## configuration
 # Site
-title:                     Github Pages
-subtitle:
+title:                     잠만보의 개발 블로그
+subtitle:                  잠만보가 알려주는 개발 이야기
 description:
 author:                    kdevkr
 language:                  ko
+
 timezone:                  UTC
 
 # URL
@@ -34,7 +35,7 @@ highlight:
   line_number:             false
   auto_detect:             false
   tab_replace:
-  theme:                   github-gist
+  theme:                   atom-one-dark
 
 # Category & Tag
 default_category:          uncategorized

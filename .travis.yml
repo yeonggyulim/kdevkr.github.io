@@ -19,7 +19,5 @@ before_script:
 - sed -i "s/__GITHUB_TOKEN__/${__GITHUB_TOKEN__}/" _config.yml
 
 script:
-- git submodule init
-- git submodule update
 - npm run b
 - npm run p
