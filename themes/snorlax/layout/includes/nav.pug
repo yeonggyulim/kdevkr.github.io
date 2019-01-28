@@ -1,0 +1,46 @@
+-
+    function equalPath(target, current) {
+        var _target = target.slice(1, target.length);
+        var _current = current.replace(/\/?index.html/, '').split('/')[0];
+        return _target === _current;
+    }
+
+    function translate_categories(categories) {
+        var filterd = [];
+        categories.each(function(i) {
+            if(!i.parent) {
+                filterd.push({
+                    id: i._id,
+                    parent: i.parent,
+                    name: i.name,
+                    path: i.path,
+                    posts: i.posts
+                })
+            }
+
+        })
+        return filterd
+    }
+-
+
+nav.navbar.is-spaced(role="navigation" aria-label="main navigation")
+    div.navbar-brand
+        span.navbar-item= theme.author.toUpperCase()
+        a.navbar-burger.burger(aria-label="menu" aria-expanded="false")
+            span(aria-hidden="true")
+            span(aria-hidden="true")
+            span(aria-hidden="true")
+    div.navbar-menu
+        div.navbar-start
+            each url, label in theme.menu
+                if label != 'Categories'
+                    a.navbar-item(href=url class=equalPath(url, page.path) ? 'is-active' : '')= __(label)
+
+        div.navbar-end
+            each url, label in theme.menu
+                if label == 'Categories'
+                    div.navbar-item.has-dropdown.is-hoverable
+                        a.navbar-link(class=equalPath(url, page.path) ? 'is-active' : '')= __(label)
+                        div.navbar-dropdown
+                            each category in translate_categories(site.categories)
+                                a.navbar-item(href=url_for(category.path))= __(category.name)

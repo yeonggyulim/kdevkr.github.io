@@ -1,0 +1,28 @@
+@import 'normalize.css';
+@import 'variables';
+@import 'bulma/bulma.sass';
+@import 'header';
+@import 'footer';
+@import 'post';
+@import 'pagination';
+@import 'article';
+@import 'highlight';
+@import url('https://fonts.googleapis.com/css?family=Lato|Noto+Sans+KR|Roboto|Roboto+Slab');
+
+body {
+  font-family: 'Roboto', 'Roboto Slab', 'Noto Sans KR', sans-serif, serif, cursive;
+  overflow-wrap: break-word;
+  height: 100%;
+  // background-color: #fafafa;
+}
+
+a {
+    color: inherit;
+    &:hover {
+        text-decoration: underline;
+    }
+    &.vglnk:hover {
+        color: inherit;
+        opacity: 0.8;
+    }
+}

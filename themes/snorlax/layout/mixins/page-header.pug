@@ -1,0 +1,41 @@
+section.hero.page-header
+    div.hero-body
+        if is_home()
+            div.page-title
+                h1.title.is-size-1= theme.title
+        if is_archive()
+            if page.month
+                div.page-title
+                    h1.title.is-size-1= __('archives')
+                    div.control
+                        div.tags.has-addons
+                            span.tag.is-large
+                                i.fas.fa-calendar-alt
+                            span.tag.is-large= page.year + '-' + page.month
+            else if page.year
+                div.page-title
+                    h1.title.is-size-1= __('archives')
+                    div.control
+                        div.tags.has-addons
+                            span.tag.is-large
+                                i.fas.fa-calendar-alt
+                            span.tag.is-large= page.year
+            else
+                div.page-title
+                    h1.title.is-size-1= __('archives')
+        else if is_tag()
+            div.page-title
+                h1.title.is-size-1= __('tag')
+                div.control
+                    div.tags.has-addons
+                        span.tag.is-large
+                            i.fas.fa-tag
+                        span.tag.is-large= page.tag
+        else if is_category()
+            div.page-title
+                h1.title.is-size-1= __('category')
+                div.control
+                    div.tags.has-addons
+                        span.tag.is-large
+                            i.fas.fa-folder
+                        span.tag.is-warning.is-large= page.category

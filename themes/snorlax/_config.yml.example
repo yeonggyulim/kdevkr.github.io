@@ -1,0 +1,27 @@
+title:
+subtitle:
+description:
+author:
+
+menu:
+  Home: /
+  Archives: /archives
+
+profile:
+  image: /images/hexo-logo.png
+  gravatar:
+  link:
+  description:
+  social:
+    github:
+    facebook:
+    twitter:
+    instagram:
+    rss: /atom.xml
+
+widgets:
+  recent_post: recent_post
+
+google_analytics:
+google_site_verification:
+naver_site_verification:

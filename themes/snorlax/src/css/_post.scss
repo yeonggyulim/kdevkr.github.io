@@ -1,0 +1,26 @@
+.post-list {
+  padding: 0 5em 0 5em;
+
+  .post-list-item {
+    margin-bottom: 1em;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 1px 1px 1px 1px #dedede;
+    }
+
+    .card-image {
+      border-bottom: 1px solid #dedede;
+      background-color: transparent;
+
+      .image {
+        margin: 0 auto;
+        width: 100%;
+      }
+    }
+
+    .tags {
+      padding-top: 1em;
+    }
+  }
+}

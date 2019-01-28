@@ -1,0 +1,14 @@
+$snorlax: (
+    "outer-skin": hsl(196, 55%, 36%),
+    "skin": hsl(30, 71%, 93%),
+    "tongue": hsl(349, 69%, 54%),
+    "teeth": hsl(0, 0%, 97%),
+    "sole-of-foot": hsl(27, 13%, 44%),
+    "toenail": hsl(0, 0%, 96%),
+    "beam": hsl(45, 78%, 61%)
+)
+!default;
+// $primary: map-get($snorlax, 'outer-skin');
+// $warning: map-get($snorlax, 'beam');
+$danger: map-get($snorlax, 'tongue');
+$info: map-get($snorlax, 'sole-of-foot');

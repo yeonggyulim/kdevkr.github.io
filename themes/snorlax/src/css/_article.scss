@@ -1,0 +1,104 @@
+.articles-wrapper {
+    border-left: 2px solid $white-ter;
+
+    .article-header {
+        .hero-body {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+
+.articles {
+    font-size: $size-6;
+
+    h1 {
+        font-size: $size-1;
+        margin-bottom: 0.8em;
+        font-weight: 800;
+
+        &.title {
+            margin-bottom: 0;
+        }
+    }
+
+    h2 {
+        font-size: $size-2;
+        margin-bottom: 0.7em;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #dedede;
+        font-weight: $weight-bold;
+    }
+
+    h3 {
+        font-size: $size-3 - 0.3rem;
+        margin-bottom: 0.7em;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #dedede;
+        font-weight: $weight-bold;
+    }
+
+    h4 {
+        font-size: $size-4 - 0.2rem;
+        margin-bottom: 0.6em;
+        font-weight: $weight-bold;
+    }
+
+    h5 {
+        font-size: $size-5;
+        margin-bottom: 0.6em;
+        font-weight: $weight-semibold;
+    }
+
+    & > blockquote,
+    & > p,
+    & > ul {
+        margin-bottom: 1em;
+    }
+
+    & > blockquote {
+        border-left: 5px solid #dedede;
+        padding-left: 1rem;
+    }
+
+    ul {
+        list-style: initial;
+        margin-left: 1em;
+    }
+
+    .block {
+        background-color: $white-ter;
+        padding: 0.8rem 1.5rem;
+        border-left-width: 0.5rem;
+        border-left-style: solid;
+        margin: 1rem 0;
+
+        > .block-title {
+            font-weight: $weight-semibold;
+            margin-bottom: 0.8rem;
+        }
+
+        &.tip {
+            background-color: rgba($success, 0.5);
+            border-color: $success;
+        }
+
+        &.warning {
+            background-color: rgba($warning, 0.5);
+            border-color: $warning;
+        }
+
+        &.danger {
+            background-color: rgba($danger, 0.5);
+            border-color: $danger;
+        }
+    }
+
+    img[src*="#center"] {
+        display: block;
+        margin: 0 auto;
+    }
+    img[src*="#right"] {
+        float: right;
+    }
+}

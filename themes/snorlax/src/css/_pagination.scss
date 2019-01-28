@@ -1,0 +1,21 @@
+.pagination {
+  display: block;
+  text-align: center;
+  padding: 2em 0;
+
+  .page-number, .extend {
+    color: var(--gray);
+    display: inline-block;
+    padding: 0 15px;
+    font-size: 1.5rem;
+
+    &.current {
+      color: var(--darked-blue);
+      font-weight: bold;
+    }
+    &:hover:not(.current) {
+      text-decoration: none;
+      color: var(--darked-blue);
+    }
+  }
+}
