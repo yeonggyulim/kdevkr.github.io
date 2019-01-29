@@ -1,19 +1,16 @@
 .articles-wrapper {
-    border-left: 2px solid $white-ter;
+    border-left: 2px solid #dedede;
 
     .article-header {
-        .hero-body {
-            padding-left: 0;
-            padding-right: 0;
-        }
+
     }
 }
 
 .articles {
-    font-size: $size-6;
+    font-size: 1rem;
 
     h1 {
-        font-size: $size-1;
+        font-size: 3rem;
         margin-bottom: 0.8em;
         font-weight: 800;
 
@@ -23,31 +20,31 @@
     }
 
     h2 {
-        font-size: $size-2;
-        margin-bottom: 0.7em;
+        font-size: 2rem;
+        margin: 1em 0;
         padding-bottom: 0.5rem;
         border-bottom: 1px solid #dedede;
-        font-weight: $weight-bold;
+        font-weight: 700;
     }
 
     h3 {
-        font-size: $size-3 - 0.3rem;
-        margin-bottom: 0.7em;
+        font-size: 1.7rem;
+        margin: 1em 0 0.5em 0;
         padding-bottom: 0.5rem;
         border-bottom: 1px solid #dedede;
-        font-weight: $weight-bold;
+        font-weight: 700;
     }
 
     h4 {
-        font-size: $size-4 - 0.2rem;
-        margin-bottom: 0.6em;
-        font-weight: $weight-bold;
+        font-size: 1.2rem;
+        margin-bottom: 0.5em;
+        font-weight: 700;
     }
 
     h5 {
-        font-size: $size-5;
-        margin-bottom: 0.6em;
-        font-weight: $weight-semibold;
+        font-size: 1.1rem;
+        margin-bottom: 0.5em;
+        font-weight: 600;
     }
 
     & > blockquote,
@@ -62,19 +59,18 @@
     }
 
     ul {
-        list-style: initial;
-        margin-left: 1em;
+        padding-left: 1em;
     }
 
     .block {
-        background-color: $white-ter;
+        background-color: #dedede;
         padding: 0.8rem 1.5rem;
         border-left-width: 0.5rem;
         border-left-style: solid;
         margin: 1rem 0;
 
         > .block-title {
-            font-weight: $weight-semibold;
+            font-weight: 700;
             margin-bottom: 0.8rem;
         }
 
@@ -93,12 +89,17 @@
             border-color: $danger;
         }
     }
-
+    img {
+        max-width: 100%;
+    }
     img[src*="#center"] {
         display: block;
         margin: 0 auto;
+        max-width: 100%;
     }
     img[src*="#right"] {
         float: right;
+
+
     }
 }

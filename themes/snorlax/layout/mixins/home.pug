@@ -13,23 +13,22 @@
         });
     };
 
-section.section.post-list
-    div.columns.is-multiline.is-desktop.is-centered
+section.section.post-list.p-5
+    div.row
         each post in getLatestPosts()
-            div.column.is-one-half-tablet.is-half-desktop.is-one-third-widescreen.is-one-quarter-fullhd.is-centered
+            div.col-lg-4.col-md-6.col-sm-12
                 div.post-list-item
                     div.card
                         if post.banner && post.banner.url
-                            div.card-image
-                                img.image(src=url_for(post.banner.url))
-                        div.card-content
-                            h5.title.is-size-5
+                            img.card-img-top(src=url_for(post.banner.url))
+                        div.card-body
+                            h5.card-title
                                 if post.link
-                                    a.has-text-grey( href=post.link title=post.link target="_blank" )= post.link
+                                    a( href=post.link title=post.link target="_blank" )= post.link
                                 else
-                                    a.has-text-grey( href=url_for(post.path) title=post.title || 'Untitled' )= post.title || 'Untitled'
+                                    a( href=url_for(post.path) title=post.title || 'Untitled' )= post.title || 'Untitled'
                             p.is-size-6= truncate(strip_html(decodeHtmlEntity(post.excerpt || post.content)), truncOptions)
-                            div.tags
-                                if post.categories && post.categories.length
-                                    each category, index in post.categories.data
-                                        a.tag.is-medium.is-danger( href=url_for(category.path) )= category.name
+                        div.card-footer
+                            if post.categories && post.categories.length
+                                each category, index in post.categories.data
+                                    a.tag.btn.btn-sm.btn-outline-danger.mr-2( href=url_for(category.path) )= __('# '+category.name)

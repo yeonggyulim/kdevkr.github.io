@@ -4,13 +4,11 @@ html(lang=config.language)
         include head
     body
         include nav
-        section.section.is-paddingless
-            div.columns
-                div.column
-                    block header
-                    if body
-                        div!= body
-                    else
-                        block content
+        section.section
+            block header
+            if body
+                div!= body
+            else
+                block content
         include footer
         script(src="/js/index.bundle.js")

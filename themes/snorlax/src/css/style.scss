@@ -1,6 +1,10 @@
-@import 'normalize.css';
 @import 'variables';
-@import 'bulma/bulma.sass';
+@import 'bootstrap/scss/bootstrap.scss';
+// @import "bootstrap/scss/functions";
+// @import "bootstrap/scss/variables";
+// @import "bootstrap/scss/mixins";
+// @import "bootstrap/scss/grid";
+// @import "bootstrap/scss/dropdown";
 @import 'header';
 @import 'footer';
 @import 'post';
@@ -17,12 +21,23 @@ body {
 }
 
 a {
-    color: inherit;
+    text-decoration: underline;
+
     &:hover {
-        text-decoration: underline;
+        font-weight: bold;
     }
     &.vglnk:hover {
         color: inherit;
         opacity: 0.8;
     }
+
+    > code {
+        color: #e83e8c;
+        text-decoration: underline;
+    }
+}
+
+code {
+    padding: 5px;
+    vertical-align: initial;
 }

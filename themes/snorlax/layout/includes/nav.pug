@@ -23,24 +23,18 @@
     }
 -
 
-nav.navbar.is-spaced(role="navigation" aria-label="main navigation")
-    div.navbar-brand
-        span.navbar-item= theme.author.toUpperCase()
-        a.navbar-burger.burger(aria-label="menu" aria-expanded="false")
-            span(aria-hidden="true")
-            span(aria-hidden="true")
-            span(aria-hidden="true")
-    div.navbar-menu
-        div.navbar-start
+nav.navbar.navbar-expand-lg.navbar-light(role="navigation" aria-label="main navigation")
+    a.navbar-brand= theme.author.toUpperCase()
+    a.navbar-toggler(aria-label="menu" aria-expanded="false" data-toggle="collapse" data-target="#navigation")
+        span.navbar-toggler-icon
+    div#navigation.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
             each url, label in theme.menu
                 if label != 'Categories'
-                    a.navbar-item(href=url class=equalPath(url, page.path) ? 'is-active' : '')= __(label)
-
-        div.navbar-end
-            each url, label in theme.menu
-                if label == 'Categories'
-                    div.navbar-item.has-dropdown.is-hoverable
-                        a.navbar-link(class=equalPath(url, page.path) ? 'is-active' : '')= __(label)
-                        div.navbar-dropdown
-                            each category in translate_categories(site.categories)
-                                a.navbar-item(href=url_for(category.path))= __(category.name)
+                    li.nav-item
+                        a.nav-link(href=url class=equalPath(url, page.path) ? 'active' : '')= __(label)
+                else if label == 'Categories'
+                    each category in translate_categories(site.categories)
+                        li.nav-item
+                            a.nav-link(href=url_for(category.path) class=page.path.indexOf(category.path) > 0 ? 'active' : '')= __(category.name)
+                            

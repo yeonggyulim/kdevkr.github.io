@@ -31,11 +31,10 @@ external_link:             true
 post_asset_folder:         true
 future:                    false
 highlight:
-  enable:                  true
-  line_number:             false
-  auto_detect:             false
-  tab_replace:
-  theme:                   atom-one-dark
+    enable: true
+    line_number: false
+    auto_detect: false
+hljs: true
 
 # Category & Tag
 default_category:          uncategorized
