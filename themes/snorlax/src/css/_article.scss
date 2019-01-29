@@ -1,9 +1,7 @@
 .articles-wrapper {
     border-left: 2px solid #dedede;
 
-    .article-header {
-
-    }
+    .article-header {}
 }
 
 .articles {
@@ -29,7 +27,7 @@
 
     h3 {
         font-size: 1.7rem;
-        margin: 1em 0 0.5em 0;
+        margin: 1em 0 0.5em;
         padding-bottom: 0.5rem;
         border-bottom: 1px solid #dedede;
         font-weight: 700;
@@ -89,17 +87,102 @@
             border-color: $danger;
         }
     }
+
     img {
         max-width: 100%;
     }
+
     img[src*="#center"] {
         display: block;
         margin: 0 auto;
         max-width: 100%;
     }
+
     img[src*="#right"] {
         float: right;
+    }
+    /*
+     * converted by ProNomad(github.com/SungYeolWoo) from highlightjs
+     */
+    .highlight {
+        display: block;
+        overflow-x: auto;
+        padding: 0.5em;
+        color: #abb2bf;
+        background: #282c34;
+        padding: 1em;
 
+        pre {
+            color: inherit;
+        }
+    }
 
+    .comment,
+    .quote {
+        color: #5c6370;
+        font-style: italic;
+    }
+
+    .doctag,
+    .formula,
+    .keyword {
+        color: #c678dd;
+    }
+
+    .deletion,
+    .name,
+    .section,
+    .selector-tag,
+    .subst {
+        color: #e06c75;
+    }
+
+    .literal {
+        color: #56b6c2;
+    }
+
+    .addition,
+    .attribute,
+    .meta-string,
+    .regexp,
+    .string {
+        color: #98c379;
+    }
+
+    .built_in,
+    .class .title {
+        color: #e6c07b;
+    }
+
+    .attr,
+    .number,
+    .selector-attr,
+    .selector-class,
+    .selector-pseudo,
+    .template-variable,
+    .type,
+    .variable {
+        color: #d19a66;
+    }
+
+    .bullet,
+    .link,
+    .meta,
+    .selector-id,
+    .symbol,
+    .title {
+        color: #61aeee;
+    }
+
+    .emphasis {
+        font-style: italic;
+    }
+
+    .strong {
+        font-weight: bold;
+    }
+
+    .link {
+        text-decoration: underline;
     }
 }
