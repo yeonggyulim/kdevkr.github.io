@@ -7,6 +7,24 @@
 .articles {
     font-size: 1rem;
 
+    a {
+        color: inherit;
+        text-decoration: underline;
+
+        &:hover {
+            font-weight: bold;
+        }
+        &.vglnk:hover {
+            color: inherit;
+            opacity: 0.8;
+        }
+
+        > code {
+            color: #e83e8c;
+            text-decoration: underline;
+        }
+    }
+
     h1 {
         font-size: 3rem;
         margin-bottom: 0.8em;
@@ -114,6 +132,7 @@
 
         pre {
             color: inherit;
+            margin-bottom: 0;
         }
     }
 

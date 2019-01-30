@@ -2,41 +2,14 @@ section.hero.page-header
     div.hero-body
         if is_home()
             div.page-title.home
-                h1.title.is-size-1= theme.title
-                p.is-size-5= theme.subtitle
+                h1.display-4.font-weight-bold= theme.title
+                p.lead= theme.subtitle
         if is_archive()
-            if page.month
-                div.page-title
-                    h1.title.is-size-1= __('archives')
-                    div.control
-                        div.tags.has-addons
-                            span.tag.is-large
-                                i.fas.fa-calendar-alt
-                            span.tag.is-large= page.year + '-' + page.month
-            else if page.year
-                div.page-title
-                    h1.title.is-size-1= __('archives')
-                    div.control
-                        div.tags.has-addons
-                            span.tag.is-large
-                                i.fas.fa-calendar-alt
-                            span.tag.is-large= page.year
-            else
-                div.page-title
-                    h1.title.is-size-1= __('archives')
+            div.page-title
+                h1.display-4.font-weight-bold= __('archives')
         else if is_tag()
             div.page-title
-                h1.title.is-size-1= __('tag')
-                div.control
-                    div.tags.has-addons
-                        span.tag.is-large
-                            i.fas.fa-tag
-                        span.tag.is-large= page.tag
+                h1.display-4.font-weight-bold= __(page.tag)
         else if is_category()
             div.page-title
-                h1.title.is-size-1= __('category')
-                div.control
-                    div.tags.has-addons
-                        span.tag.is-large
-                            i.fas.fa-folder
-                        span.tag.is-warning.is-large= page.category
+                h1.display-4.font-weight-bold= __(page.category)

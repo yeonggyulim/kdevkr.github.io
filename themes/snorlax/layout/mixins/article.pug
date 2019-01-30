@@ -4,44 +4,19 @@ div.articles-wrapper
             div.container.articles
                 != page.content
         if is_post()
-            div.container.tags-wrapper
-                div.field.is-grouped.is-grouped-multiline
+            section.article-header
+                div.container.pt-5.pb-5
+                    time.text-muted(
+                        datetime=date_xml(page.date)
+                        itemprop="datePublished"
+                    )= full_date(page.date, 'YYYY-MM-DD')
+                    h1.font-weight-bold= page.title
                     if page.categories && page.categories.length
                         each category, index in page.categories.data
-                            div.control
-                                div.tags.has-addons
-                                    a.tag.is-medium.is-danger(href=url_for(category.path))= category.name
-
-                    div.control
-                        div.tags.has-addons
-                            span.tag.is-medium
-                                i.fas.fa-calendar-alt
-                            span.tag.is-medium.is-info
-                                time(
-                                    datetime=date_xml(page.date)
-                                    itemprop="datePublished"
-                                )= full_date(page.date, 'YYYY-MM-DD')
-
-            section.article-header
-                div.p-5.pb-0
-                    div.container.articles
-                        h1= page.title
+                            a.tag.btn.btn-sm.btn-outline-danger.mr-2( href=url_for(category.path) )= __('# '+category.name)
 
             div.container.articles
                 != page.content
 
                 if is_post()
                     include disqus
-
-            div.container
-                nav.level.is-mobile
-                    div.level-item.has-text-centered
-                        div
-                            p.heading
-                                |Views
-                            p.title= 3.456
-                    div.level-item.has-text-centered
-                        div
-                            p.heading
-                                |Shares
-                            p.title= 3.456

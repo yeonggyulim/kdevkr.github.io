@@ -31,4 +31,4 @@ section.section.post-list.p-5
                         div.card-footer
                             if post.categories && post.categories.length
                                 each category, index in post.categories.data
-                                    a.tag.btn.btn-sm.btn-outline-danger.mr-2( href=url_for(category.path) )= __('# '+category.name)
+                                    a.tag.btn.btn-sm.btn-outline-danger.mr-2( href=url_for(category.path) )= '# ' + __(category.name)
