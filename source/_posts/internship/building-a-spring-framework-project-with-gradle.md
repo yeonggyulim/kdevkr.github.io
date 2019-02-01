@@ -1,6 +1,6 @@
 ---
     title: Gradle과 함께 스프링 프레임워크 프로젝트 구성하기
-    date: 2019-01-31
+    date: 2019-02-01
     categories: [개발 이야기, 그래들, 스프링]
     banner:
         url: https://cdn.greenhouse.io/external_greenhouse_job_boards/logos/000/001/539/original/Logo_einfarbig_40_KB_Gradle-145_2x.png?1490258779
