@@ -1,7 +1,7 @@
 ---
 title: Github Pages를 Jekyll에서 Hexo로 변경한 이유
 date: 2018-05-27 12:00:00
-categories: [끄적끄적]
+categories: [공부]
 banner:
   url: /images/hexo/hexo-logo.png
 ---

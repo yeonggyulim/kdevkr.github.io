@@ -2,7 +2,7 @@
 title: Let's get the fastest rising searches on google trends.
 subtitle:   Crawling
 date:       2017-11-25 12:00:00
-categories: [끄적끄적, Java]
+categories: [공부, Java]
 banner:
  url: https://tribwgnam.files.wordpress.com/2018/12/trends.png
 ---
