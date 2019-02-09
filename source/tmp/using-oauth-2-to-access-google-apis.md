@@ -1,7 +1,6 @@
 ---
 title:      Using OAuth 2.0 to Access Google APIs
 date:       2017-11-06
-categories: [공부, Java]
 banner:
  url: https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/evolving_google_identity_share.jpg
 ---

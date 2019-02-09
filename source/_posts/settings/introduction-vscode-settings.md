@@ -1,7 +1,7 @@
 ---
 title: 잠만보가 사용하는 VSCode 설정
 date: 2019-01-26
-categories: [설정, VSCode]
+categories: [개발 환경, VSCode]
 banner:
   url: https://res.cloudinary.com/practicaldev/image/fetch/s--gJFmhmuB--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://john-dugan.com/wp-content/uploads/2015/11/vs-code-logo.png
 ---

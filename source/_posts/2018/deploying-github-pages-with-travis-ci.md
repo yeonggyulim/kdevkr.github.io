@@ -1,6 +1,5 @@
 ---
 title: Travis CI로 Github Pages 배포하기
-categories: [공부, 깃허브]
 date: 2018-10-26 00:00:00
 banner:
  url: https://nesoy.github.io/assets/posts/20170105/travis-ci.jpg

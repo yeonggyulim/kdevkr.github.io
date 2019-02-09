@@ -1,7 +1,7 @@
 ---
 title: 잠만보가 사용하는 아톰 설정
 date: 2019-01-25
-categories: [설정, 아톰]
+categories: [개발 환경, 아톰]
 banner:
     url: https://tr1.cbsistatic.com/hub/i/2014/10/17/6d0afe4a-ace2-475d-8f33-00f9e7a82e16/atom-mark1200x630.png
 ---
