@@ -37,7 +37,7 @@
 
     h2 {
         font-size: 2rem;
-        margin: 1em 0;
+        margin: 0.8em 0;
         padding-bottom: 0.5rem;
         border-bottom: 1px solid #dedede;
         font-weight: 700;
@@ -45,7 +45,8 @@
 
     h3 {
         font-size: 1.7rem;
-        margin: 1em 0 0.5em;
+        margin: 1.2em 0;
+        margin-bottom: 1em;
         padding-bottom: 0.5rem;
         border-bottom: 1px solid #dedede;
         font-weight: 700;
@@ -53,12 +54,14 @@
 
     h4 {
         font-size: 1.2rem;
-        margin-bottom: 0.5em;
+        margin: 1.5em 0;
+        margin-bottom: 1em;
         font-weight: 700;
     }
 
     h5 {
         font-size: 1.1rem;
+        margin: 1.5em 0;
         margin-bottom: 0.5em;
         font-weight: 600;
     }
