@@ -6,7 +6,6 @@
     "version": "3.9.0"
   },
   "scripts": {
-    "b": "cd themes/snorlax && npm i && npm run build",
     "l": "hexo clean && hexo server",
     "p": "hexo clean && hexo deploy -g"
   },
