@@ -336,7 +336,7 @@ theme_config:
       title:                     Follow me on GitHub
     disqus:
       enable:                    true
-      shortname:                 kdevkr
+      shortname:                 kdevkr-github-io
       count:                     false
       
     post_copyright:
