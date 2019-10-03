@@ -178,12 +178,12 @@ theme_config:
         rounded:                 true
         rotated:                 false
     motion:                      
-        enable:                  false
+        enable:                  true
     pace:
-        enable:                  false
+        enable:                  true
         theme:                   center-atom
     cheers:                      false
-    pjax:                        false
+    pjax:                        true
     creative_commons:
       license:                   by-nc-sa
       sidebar:                   true
