@@ -336,33 +336,8 @@ theme_config:
       title:                     Follow me on GitHub
     disqus:
       enable:                    true
-      shortname:                 kdevkr.github.io
+      shortname:                 kdevkr
       count:                     false
-    # Gitalk
-    # Demo:                      https://gitalk.github.io
-    gitalk:
-      enable:                    true
-      github_id:                 kdevkr
-      repo:                      kdevkr.github.io
-      client_id:                 1ab74be911b9dc8ec96c
-      client_secret:             105bdcfc824a0e92aa6ad635cb561b540221e252
-      admin_user:                kdevkr
-      distraction_free_mode:     true
-      language:                  en
-    comments:
-      style:                     tabs
-      active:                    disqus
-      storage:                   true
-      nav:
-        disqus:
-          order:                 -1
-        gitalk:
-          order:                 -2
-    vkontakte_api:
-      enable:                    true
-      app_id:                    21240 #<app_id>
-      like:                      true
-      num_of_posts:              10
       
     post_copyright:
         enable:                  false
