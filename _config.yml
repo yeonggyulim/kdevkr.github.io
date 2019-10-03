@@ -178,7 +178,7 @@ theme_config:
         rounded:                 true
         rotated:                 false
     motion:                      
-        enable:                  true
+        enable:                  false
     pace:
         enable:                  true
         theme:                   center-atom
@@ -402,7 +402,12 @@ theme_config:
         variable:                source/_data/variables.styl
         mixin:                   source/_data/mixins.styl
         style:                   source/_data/styles.styl
-
+        
+    vendors:
+        pjax: //cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js
+        pace: //cdn.jsdelivr.net/npm/pace-js@1/pace.min.js
+        pace_css: //cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css
+    
     # Allow to cache content generation. Introduced in NexT v6.0.0.
     cache:
       enable:                    false
