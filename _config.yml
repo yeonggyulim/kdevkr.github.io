@@ -1,247 +1,247 @@
 
 ## configuration
 # Site
-title:                     잠만보의 개발 블로그
-subtitle:                  잠만보가 알려주는 개발 이야기
+title:                           잠만보의 개발 블로그
+subtitle:                        잠만보가 알려주는 개발 이야기
 description:
-author:                    kdevkr
-language:                  ko
+author:                          kdevkr
+language:                        ko
 
-timezone:                  UTC
+timezone:                        UTC
 
 # URL
-url:                       https://kdevkr.github.io
-root:                      /
-permalink:                 archives/:title/
+url:                             https://kdevkr.github.io
+root:                            /
+permalink:                       archives/:title/
 permalink_defaults:
 
 # Directory
-source_dir:                source
-public_dir:                public
-archive_dir:               archives
-category_dir:              categories
-i18n_dir:                  :lang
-tag_dir:                   tags
-skip_render:               [README.md, tmp/**]
+source_dir:                      source
+public_dir:                      public
+archive_dir:                     archives
+category_dir:                    categories
+i18n_dir:                        :lang
+tag_dir:                         tags
+skip_render:                     [README.md, tmp/**]
 
 # Writing
-default_layout:            post
-render_drafts:             false
-titlecase:                 true
-external_link:             true
-post_asset_folder:         true
-future:                    false
+default_layout:                  post
+render_drafts:                   false
+titlecase:                       true
+external_link:                   true
+post_asset_folder:               true
+future:                          false
 
 # Category & Tag
-default_category:          uncategorized
+default_category:                uncategorized
 category_map:
 tag_map:
 
 # Date / Time format
-date_format:               YYYY-MM-DD
-time_format:               H:mm:ss
+date_format:                     YYYY-MM-DD
+time_format:                     H:mm:ss
 
 # Pagination
-per_page:                  10
-pagination_dir:            page
+per_page:                        10
+pagination_dir:                  page
     
 deploy:
-  type:                    git
-  repo:                    https://__GITHUB_TOKEN__@github.com/kdevkr/kdevkr.github.io.git
-  branch:                  master
+  type:                          git
+  repo:                          https://__GITHUB_TOKEN__@github.com/kdevkr/kdevkr.github.io.git
+  branch:                        master
 
-google_site_verification:  googled619795c447b2a1d
-naver_site_verification:   967670e7891eb52e115709ce4890e2e8f576a1e5
+google_site_verification:        googled619795c447b2a1d
+naver_site_verification:         967670e7891eb52e115709ce4890e2e8f576a1e5
 
 feed:
-  type:                    atom
-  path:                    atom.xml
-  limit:                   false
+  type:                          atom
+  path:                          atom.xml
+  limit:                         false
   hub:
-  content:                 true
+  content:                       true
 
 article_emoji:
-  full:                    true
+  full:                          true
 
 browsersync:
-  ui:                      false
+  ui:                            false
 
 # https://futurecreator.github.io/2016/06/23/search-engine-optimization-hexo-plugins/
 nofollow:
-  enable:                  true
+  enable:                        true
 
 sitemap:
-  path:                    sitemap.xml
-  tag:                     false
-  category:                false
+  path:                          sitemap.xml
+  tag:                           false
+  category:                      false
 
 markdown:
   render:
-    html:                  true # Doesn't escape HTML content so the tags will appear as html.
-    xhtmlOut:              false # Parser will not produce XHTML compliant code.
-    breaks:                true # Parser produces `<br>` tags every time there is a line break in the source document.
-    linkify:               false # Returns text links as text.
-    typographer:           true # Substitution of common typographical elements will take place.
-    quotes:                '“”‘’' # "double" will be turned into “single”
+    html:                        true # Doesn't escape HTML content so the tags will appear as html.
+    xhtmlOut:                    false # Parser will not produce XHTML compliant code.
+    breaks:                      true # Parser produces `<br>` tags every time there is a line break in the source document.
+    linkify:                     false # Returns text links as text.
+    typographer:                 true # Substitution of common typographical elements will take place.
+    quotes:                      '“”‘’' # "double" will be turned into “single”
                    # 'single' will be turned into ‘single’
   plugins:
     - markdown-it-abbr
-    - name:                markdown-it-container
-      options:             tip
-    - name:                markdown-it-container
-      options:             warning
-    - name:                markdown-it-container
-      options:             danger
+    - name:                      markdown-it-container
+      options:                   tip
+    - name:                      markdown-it-container
+      options:                   warning
+    - name:                      markdown-it-container
+      options:                   danger
     - markdown-it-deflist
-    - name:                markdown-it-emoji
+    - name:                      markdown-it-emoji
       options:
-        shortcuts:         {}
+        shortcuts:               {}
     - markdown-it-footnote
     - markdown-it-ins
     - markdown-it-mark
     - markdown-it-sub
     - markdown-it-sup
-    - name:                markdown-it-table-of-contents
+    - name:                      markdown-it-table-of-contents
       options:
-        includeLevel:      1,2,3
+        includeLevel:            1,2,3
   anchors:
-    level:                 1, 2 # Minimum level for ID creation. (Ex. h2 to h6)
-    collisionSuffix:       'v' # A suffix that is prepended to the number given if the ID is repeated.
-    permalink:             true # If true, creates an anchor tag with a permalink besides the heading.
-    permalinkClass:        header-anchor # Class used for the permalink anchor tag.
-    permalinkSymbol:       '' # The symbol used to make the permalink.
+    level:                       1, 2 # Minimum level for ID creation. (Ex. h2 to h6)
+    collisionSuffix:             'v' # A suffix that is prepended to the number given if the ID is repeated.
+    permalink:                   true # If true, creates an anchor tag with a permalink besides the heading.
+    permalinkClass:              header-anchor # Class used for the permalink anchor tag.
+    permalinkSymbol:             '' # The symbol used to make the permalink.
     
     
 # https://theme-next.org/docs/theme-settings/
 # Extendsions
-theme:                     next
+theme:                           next
 theme_config:
-    scheme: gemini
+    scheme:                      Gemini
     menu:
-      home: / || home
-      소개: /about/ || user
-      #tags: /tags/ || tags
-      # categories: /categories/ || th
-      archives: /archives/ || archive
-      개발 환경: /categories/개발-환경/ || th
-      개발 이야기: /categories/개발-이야기/ || th
-      북마크: /categories/북마크/ || th
-      # schedule: /schedule/ || calendar
-      # sitemap: /sitemap.xml || sitemap
-      #commonweal: /404/ || heartbeat
+      home:                      / || home
+      소개:                        /about/ || user
+      #tags:                     /tags/ || tags
+      # categories:              /categories/ || th
+      archives:                  /archives/ || archive
+      개발 환경:                     /categories/개발-환경/ || th
+      개발 이야기:                    /categories/개발-이야기/ || th
+      북마크:                       /categories/북마크/ || th
+      # schedule:                /schedule/ || calendar
+      # sitemap:                 /sitemap.xml || sitemap
+      #commonweal:               /404/ || heartbeat
     menu_settings:
-      icons: true
-      badges: true
+      icons:                     true
+      badges:                    true
         
     font:
       # Use custom fonts families or not.
-      # Depended options: `external` and `family`.
-      enable: true
+      # Depended options:        `external` and `family`.
+      enable:                    true
 
       # Uri of fonts host, e.g. //fonts.googleapis.com (Default).
-      host: //fonts.googleapis.com
+      host:                      //fonts.googleapis.com
 
       # Font options:
-      # `external: true` will load this font family from `host` above.
-      # `family: Times New Roman`. Without any quotes.
+      # `external:               true` will load this font family from `host` above.
+      # `family:                 Times New Roman`. Without any quotes.
       # `size: x.x`. Use `em` as unit. Default: 1 (16px)
 
       # Global font settings used for all elements inside <body>.
       global:
-        external: true
-        family: Noto Sans KR
-        size: 1
+        external:                true
+        family:                  Noto Sans KR
+        size:                    1
 
       # Font settings for site title (.site-title).
       title:
-        external: true
-        family: Cute Font
-        size: 1.25
+        external:                true
+        family:                  Cute Font
+        size:                    1.25
 
       # Font settings for headlines (<h1> to <h6>).
       headings:
-        external: true
-        family: Noto Sans KR
+        external:                true
+        family:                  Noto Sans KR
 
       # Font settings for posts (.post-body).
       posts:
-        external: true
-        family: Noto Sans KR
+        external:                true
+        family:                  Noto Sans KR
 
       # Font settings for <code> and code blocks.
       codes:
-        external: false
-        family: D2 coding
+        external:                false
+        family:                  D2 coding
     
     avatar:
-        url: https://avatars1.githubusercontent.com/u/17937604?s=460&v=4
-        rounded: true
-        rotated: false
-    motion: 
-        enable: false
+        url:                     https://avatars1.githubusercontent.com/u/17937604?s=460&v=4
+        rounded:                 true
+        rotated:                 false
+    motion:                      
+        enable:                  false
     pace:
-        enable: false
-        theme: center-atom
-    cheers: false
-    pjax: false
+        enable:                  false
+        theme:                   center-atom
+    cheers:                      false
+    pjax:                        false
     creative_commons:
-      license: by-nc-sa
-      sidebar: true
-      post: false
-      language: deed.ko
-    safari_rainbow: true
-    custom_scrollbar: true
-    site_state: true
+      license:                   by-nc-sa
+      sidebar:                   true
+      post:                      false
+      language:                  deed.ko
+    safari_rainbow:              true
+    custom_scrollbar:            true
+    site_state:                  true
     social:
-        GitHub: https://github.com/kdevkr || github
-        E-Mail: mailto:kdevkr@gmail.com || envelope
+        GitHub:                  https://github.com/kdevkr || github
+        E-Mail:                  mailto:kdevkr@gmail.com || envelope
     social_icons:
-      enable: true
-      icons_only: false
-      transition: false
+      enable:                    true
+      icons_only:                false
+      transition:                false
       
     toc:
-        enable: true
-        number: true
-        wrap: true
+        enable:                  true
+        number:                  true
+        wrap:                    true
     
     sidebar:
-        display: always
-        scrollpercent: true
-        b2t: true
+        display:                 always
+        scrollpercent:           true
+        b2t:                     true
         
     back2top:
-        enable: true
-        sidebar: true
-        scrollpercent: true
+        enable:                  true
+        sidebar:                 true
+        scrollpercent:           true
     
     CloudCalendar:
-      enable: true
-      language: ko-KR
-      single: true
-      root: /calendar/
-      calendarCdn: //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/calendar.min.js
-      langCdn: //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/languages.min.js
-      #disableSidebar: false
+      enable:                    true
+      language:                  ko-KR
+      single:                    true
+      root:                      /calendar/
+      calendarCdn:               //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/calendar.min.js
+      langCdn:                   //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/languages.min.js
+      #disableSidebar:           false
      # Change title and favicon when window is hidden and visible.
     title_change:
-      enable: false
+      enable:                    false
     
       # Enabling this feature on non-desktop devices may not be a good choice, but it depends on you.
-      onmobile: false
+      onmobile:                  false
     
       # Enable random title or not.
       # Basically `random: true` means you have several titles to display and `random: false` means you have only one title to display.
-      # When `random: true`, YOU MUST FOLLOW the format which has been commented in two title options below.
+      # When `random:            true`, YOU MUST FOLLOW the format which has been commented in two title options below.
       # When `random: false`, please fill in the same line of the title option, like `title: one title`.
-      random: false
+      random:                    false
     
       # Restore the original title after the specified time in milliseconds.
-      timeout: 2019
+      timeout:                   2019
     
       # Options when window is hidden.
       hidden:
-        favicon: /images/favicon-32x32-next.png
+        favicon:                 /images/favicon-32x32-next.png
         title:
           #- 404
           #- φ(*￣0￣)
@@ -249,40 +249,40 @@ theme_config:
     
       # Options when window is visible.
       visible:
-        favicon: /images/favicon-32x32-next.png
+        favicon:                 /images/favicon-32x32-next.png
         title:
           #- 200
           #- (✿◡‿◡)
           #- Welcome back!
           
     anchor:
-      enable: true
-      color: '#0e83cd'
-      position: right # If left, anchors will always be visible.
-      margin: 7px 
-      text: '#'
+      enable:                    true
+      color:                     '#0e83cd'
+      position:                  right # If left, anchors will always be visible.
+      margin:                    7px 
+      text:                      '#'
       icon:
         # If true, the `text` option will be ignored.
-        enable: false 
+        enable:                  false 
         # By default, NexT has built-in FontAwesome support.
         # This option means `font-family: FontAwesome`, so DO Not change it.
         # Also you can choose ForkAwesome, but that's another story.
-        font: FontAwesome
-        content: \f0c1 # CSS content for FontAwesome & ForkAwesome.
+        font:                    FontAwesome
+        content:                 \f0c1 # CSS content for FontAwesome & ForkAwesome.
         
     filter_optimize:
-      enable: true
+      enable:                    true
       # remove static resource query string
       #   - like `?v=1.0.0`
-      remove_query_string: true
+      remove_query_string:       true
       # remove the surrounding comments in each of the bundled files
-      remove_comments: false
+      remove_comments:           false
       css:
-        enable: true
+        enable:                  true
         # bundle loaded css file into the one
-        bundle: true
+        bundle:                  true
         # use a script block to load css elements dynamically
-        delivery: true
+        delivery:                true
         # make specific css content inline into the html page
         #   - only support the full path
         #   - default is ['css/main.css']
@@ -290,147 +290,147 @@ theme_config:
         excludes:
       js:
         # bundle loaded js file into the one
-        bundle: true
+        bundle:                  true
         excludes:
       # set the priority of this plugin,
       # lower means it will be executed first, default is 10
-      priority: 12
+      priority:                  12
       
     symbols_count_time:
-      symbols: true
-      time: true
-      total_symbols: true
-      total_time: true
-      exclude_codeblock: false
+      symbols:                   true
+      time:                      true
+      total_symbols:             true
+      total_time:                true
+      exclude_codeblock:         false
     codeblock:
         # Code Highlight theme
-        # Available values: normal | night | night eighties | night blue | night bright | solarized | solarized dark | galactic
-        # See: https://github.com/chriskempson/tomorrow-theme
-        highlight_theme: galactic
+        # Available values:      normal | night | night eighties | night blue | night bright | solarized | solarized dark | galactic
+        # See:                   https://github.com/chriskempson/tomorrow-theme
+        highlight_theme:         galactic
         # Add copy button on codeblock
         copy_button:
-          enable: true
+          enable:                true
           # Show text copy result.
-          show_result: true
-          # Available values: default | flat | mac
-          style: mac
+          show_result:           true
+          # Available values:    default | flat | mac
+          style:                 mac
     search:
-      path: search.xml
-      field: post
-      format: html
-      limit: 10000
-      content: true
+      path:                      search.xml
+      field:                     post
+      format:                    html
+      limit:                     10000
+      content:                   true
     githubEmojis:
-      enable: true
-      className: github-emoji
-      inject: true
+      enable:                    true
+      className:                 github-emoji
+      inject:                    true
       styles:
       customEmojis:
     reading_progress:
-        enable: true
-        color: "#37c6c0"
-        height: 5px
+        enable:                  true
+        color:                   "#37c6c0"
+        height:                  5px
     github_banner:
-      enable: true
-      permalink: https://github.com/kdevkr
-      title: Follow me on GitHub
+      enable:                    true
+      permalink:                 https://github.com/kdevkr
+      title:                     Follow me on GitHub
     disqus:
-      enable: true
-      shortname: kdevkr.github.io
-      count: false
+      enable:                    true
+      shortname:                 kdevkr.github.io
+      count:                     false
     # Gitalk
-    # Demo: https://gitalk.github.io
+    # Demo:                      https://gitalk.github.io
     gitalk:
-      enable: true
-      github_id: kdevkr
-      repo: kdevkr.github.io
-      client_id: 1ab74be911b9dc8ec96c
-      client_secret: 105bdcfc824a0e92aa6ad635cb561b540221e252
-      admin_user: kdevkr
-      distraction_free_mode: true
-      language: en
+      enable:                    true
+      github_id:                 kdevkr
+      repo:                      kdevkr.github.io
+      client_id:                 1ab74be911b9dc8ec96c
+      client_secret:             105bdcfc824a0e92aa6ad635cb561b540221e252
+      admin_user:                kdevkr
+      distraction_free_mode:     true
+      language:                  en
     comments:
-      style: tabs
-      active: disqus
-      storage: true
+      style:                     tabs
+      active:                    disqus
+      storage:                   true
       nav:
         disqus:
-          order: -1
+          order:                 -1
         gitalk:
-          order: -2
+          order:                 -2
     vkontakte_api:
-      enable:       true
-      app_id:       21240 #<app_id>
-      like:         true
-      num_of_posts: 10
+      enable:                    true
+      app_id:                    21240 #<app_id>
+      like:                      true
+      num_of_posts:              10
       
     post_copyright:
-        enable: false
+        enable:                  false
       
     # Local search
-    # Dependencies: https://github.com/wzpan/hexo-generator-search
+    # Dependencies:              https://github.com/wzpan/hexo-generator-search
     local_search:
-      enable: true
+      enable:                    true
       # If auto, trigger search by changing input.
       # If manual, trigger search by pressing enter key or search button.
-      trigger: auto
+      trigger:                   auto
       # Show top n results per article, show all results by setting to -1
-      top_n_per_article: 1
+      top_n_per_article:         1
       # Unescape html strings to the readable one.
-      unescape: false
+      unescape:                  false
       # Preload the search data when the page loads.
-      preload: false
+      preload:                   false
       
     # A JavaScript library for zooming images like Medium.
-    mediumzoom: true
+    mediumzoom:                  true
     
     # Vanilla JavaScript plugin for lazyloading images.
-    lazyload: true
+    lazyload:                    true
     
-    google_analytics:          
-      tracking_id: UA-93954323-1
-      localhost_ignored: true
+    google_analytics:            
+      tracking_id:               UA-93954323-1
+      localhost_ignored:         true
       
     busuanzi_count:
-        enable: true
-        total_visitors: true
-        total_visitors_icon: user
-        total_views: true
-        total_views_icon: user
-        post_views: true
-        post_views_icon: user
+        enable:                  true
+        total_visitors:          true
+        total_visitors_icon:     user
+        total_views:             true
+        total_views_icon:        user
+        post_views:              true
+        post_views_icon:         user
         
     index_generator:
-      path:                    ''
-      per_page:                10
-      order_by:                -date
+      path:                      ''
+      per_page:                  10
+      order_by:                  -date
     
     category_generator:
-      per_page:                10
+      per_page:                  10
     
     archive_generator:
-      per_page:                10
-      yearly:                  true
-      monthly:                 true
-      daily:                   false
-      order_by:                -date
+      per_page:                  10
+      yearly:                    true
+      monthly:                   true
+      daily:                     false
+      order_by:                  -date
     
     # Custom Settings
     custom_file_path:
-        #head: source/_data/head.swig
-        #header: source/_data/header.swig
-        #sidebar: source/_data/sidebar.swig
-        #postMeta: source/_data/post-meta.swig
-        #postBodyEnd: source/_data/post-body-end.swig
-        #footer: source/_data/footer.swig
-        #bodyEnd: source/_data/body-end.swig
-        variable: source/_data/variables.styl
-        mixin: source/_data/mixins.styl
-        style: source/_data/styles.styl
+        #head:                   source/_data/head.swig
+        #header:                 source/_data/header.swig
+        #sidebar:                source/_data/sidebar.swig
+        #postMeta:               source/_data/post-meta.swig
+        #postBodyEnd:            source/_data/post-body-end.swig
+        #footer:                 source/_data/footer.swig
+        #bodyEnd:                source/_data/body-end.swig
+        variable:                source/_data/variables.styl
+        mixin:                   source/_data/mixins.styl
+        style:                   source/_data/styles.styl
 
     # Allow to cache content generation. Introduced in NexT v6.0.0.
     cache:
-      enable: false
+      enable:                    false
           
     # Remove unnecessary files after hexo generate.
-    minify: true
+    minify:                      true
