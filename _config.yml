@@ -183,7 +183,7 @@ theme_config:
         enable: true
         theme: center-atom
     cheers: false
-    pjax: true
+    pjax: false
     creative_commons:
       license: by-nc-sa
       sidebar: true
