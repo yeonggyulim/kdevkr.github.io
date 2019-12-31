@@ -1,7 +1,7 @@
 ---
-title: 초보 개발자가 알려주는 비밀번호 암호화 하기
+title: 비밀번호 암호화 하기
 categories: [개발 이야기]
-date: 2019-03-20
+date: 2021-03-20
 banner:
     url: https://javatutorial.net/wp-content/uploads/2017/12/spring-featured-image.png
 ---

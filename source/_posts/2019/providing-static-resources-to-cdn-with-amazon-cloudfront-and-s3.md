@@ -1,7 +1,7 @@
 ---
 title: 아마존 CloudFront와 S3로 정적파일을 CDN으로 제공하기
 categories: [개발 이야기]
-date: 2019-05-15
+date: 2021-05-15
 banner:
     url: https://static.knackforge.in/sites/default/files/2017-06/Amazon-Cloudfront_0.png
 ---

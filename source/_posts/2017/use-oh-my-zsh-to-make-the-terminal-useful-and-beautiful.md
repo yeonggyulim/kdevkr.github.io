@@ -1,5 +1,5 @@
 ---
-title:      Oh My Zsh을 사용해서 터미널을 유용하고 이쁘게 만들어보자
+title: Oh My Zsh을 사용해서 터미널을 유용하고 이쁘게 만들어보자
 date:       2017-04-30
 categories: [개발 환경, Shell]
 banner:

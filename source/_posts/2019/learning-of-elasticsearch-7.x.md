@@ -1,6 +1,6 @@
 ---
 title: 엘라스틱서치 7.X를 알아보자
-date: 2019-10-16
+date: 2021-10-16
 categories: [개발 이야기, Elasticsearch]
 ---
 

@@ -1,6 +1,6 @@
 ---
-    title: 초보 개발자가 알려주는 포스트그레스 팁
-    date: 2019-06-23
+    title: 포스트그레스 팁
+    date: 2021-06-23
     categories: [개발 이야기, Postgres]
     banner:
         url: https://t1.daumcdn.net/cfile/tistory/99AE574A5C49905F20

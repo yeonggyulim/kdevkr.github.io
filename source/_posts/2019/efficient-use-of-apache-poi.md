@@ -1,5 +1,5 @@
 ---
-title: 초보 개발자가 알려주는 Apache POI 효율적으로 사용하기
+title: Apache POI 효율적으로 사용하기
 categories: [개발 이야기]
 date: 2019-05-29
 banner:

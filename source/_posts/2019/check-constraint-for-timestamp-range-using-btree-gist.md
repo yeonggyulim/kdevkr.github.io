@@ -1,6 +1,6 @@
 ---
 title: btree_gist를 이용한 타임스탬프 범위 조건 체크하기
-date: 2019-12-23
+date: 2021-12-23
 categories: [데이터베이스, Postgres]
 ---
 
