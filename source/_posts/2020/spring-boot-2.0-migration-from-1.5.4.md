@@ -1,6 +1,7 @@
 ---
     title: 스프링 부트 1.5.4에서 2.0으로 마이그레이션 하기
-    date: 2020-01-17
+    date: 2020-01-21
+    categories: [개발 이야기]
     tags: [스프링 부트, 마이그레이션, 삽질]
 ---
 
@@ -37,7 +38,7 @@
 |org.springframework.boot:spring-boot-gradle-plugin|1.5.7.RELEASE|   |
 |io.spring.gradle:dependency-management-plugin|0.5.2.RELEASE|   |
 
-### 그래들 버전 업그레이드
+### 그래들 버전 업그레이드 ✅
 Gradle Wrapper를 `3.5.1`로 사용하고 있었습니다. 그래서 먼저, 그래들 버전을 `5.6.4` 또는 1월 15일에 릴리즈된 `6.1`으로 올리고 애플리케이션 빌드에 문제가 없는지 확인합니다.
 
 5.6.4 릴리즈 노트에 따르면 [그루비 컴파일 속도가 빨라](https://docs.gradle.org/5.6.4/release-notes.html)졌다고 하니 최소한 5.6 이상으로 사용합시다.
@@ -64,6 +65,16 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-5.6.4-all.zip
 #distributionUrl=https\://services.gradle.org/distributions/gradle-6.1-all.zip
 ```
 
+#### 인텔리제이 Gradle 플러그인 충돌 ⚠️
+인텔리제이 버전에서 Gradle Wrapper 버전을 올린 후 자체 Gradle 플러그인 버전과 충돌되는 문제가 있었습니다.
+```sh
+org.jetbrains.plugins.gradle.tooling.util.ModuleComponentIdentifierImpl.getModuleIdentifier()
+```
+
+[Intellij Platform SDK DevGuide / Build Number Ranges](http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html)에서 192와 193 브랜치를 확인해보니 [192](https://github.com/JetBrains/intellij-community/blob/192/build/dependencies/gradle/wrapper/gradle-wrapper.properties)에서는 Gradle Wrapper가 4.10-all이고 [193](https://github.com/JetBrains/intellij-community/blob/193/build/dependencies/gradle/wrapper/gradle-wrapper.properties)에서 5.5-all로 변경되었습니다.
+
+> 이로 인해, 인텔리제이 커뮤니티 버전을 사용하는 분들께는 버전 업그레이드를 권고해드렸습니다.
+
 #### 빌드 태스크
 
 ##### Lombok Plugin
@@ -89,41 +100,22 @@ apply plugin: "io.freefair.lombok"
 ```groovy
 dependencies {
     compileOnly('org.projectlombok:lombok')
-    testCompileOnly('org.projectlombok:lombok')
     annotationProcessor('org.projectlombok:lombok')
-    testAnnotationProcessor('org.projectlombok:lombok')
 }
 ```
 
-```
-gradlew build --exclude-task test
-
-> Task :processResources
-> Task :cleanBootBuildInfo
-> Task :bootBuildInfo
-
-> Task :compileJava
-
-src\main\java\com\amazonaws\services\iot\client\shadow\AbstractAwsIotDevice.java:177: error: cannot find symbol
-            client.subscribe(awsIotTopic, client.getServerAckTimeout());
-                                                ^
-  symbol:   method getServerAckTimeout()
-  location: variable client of type AbstractAwsIotClient
-C:\Users\K\git\vpp-2\src\main\java\com\amazonaws\services\iot\client\shadow\AbstractAwsIotDevice.java:192: error: cannot find symbol
-            client.unsubscribe(awsIotTopic, client.getServerAckTimeout());
-                                                  ^
-  symbol:   method getServerAckTimeout()
-  location: variable client of type AbstractAwsIotClient
-```
+기존 프로젝트에 대해 Gradle 6.1로 빌드 및 구동까지 확인하였습니다. 이제는 JDK9+ 지원을 위해 스프링 부트 버전을 업그레이드할 차례입니다.
 
 ## 스프링 부트 마이그레이션
 
-[Spring Boot 2.0 Migration Guide](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide)를 참고하였습니다.
+마이그레이션 시 [Spring Boot 2.0 Migration Guide](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide)를 참고하였습니다.
+
+> 이런 것 까지 준비해주시는 스프링 개발자분들 존경합니다 ㅠㅡㅠ.
 
 ### 검토 및 사전 작업
-스프링 부트 2.X는 1.5.X와 비교하여 서블릿 뿐만 아니라 리액티브 스택을 지원함에따라 패키지 구조와 구성을 위한 프로퍼티에 대한 변화가 많습니다.
+스프링 부트 2.X는 1.5.X와 비교하여 서블릿 뿐만 아니라 `리액티브 스택`을 지원함에따라 패키지 구조와 구성을 위한 프로퍼티에 대한 변화가 많습니다.
 
-#### 의존성 검토
+#### 의존성 검토 ✅
 스프링 부트에서 사용하는 여러가지 의존성의 버전이 업데이트되면서 사용자마다 사용하는 기술 스택에 대한 의존성 버전을 확인해야합니다.
 
 - [1.5.X의 의존성 버전](https://docs.spring.io/spring-boot/docs/1.5.x/reference/html/appendix-dependency-versions.html)
@@ -158,7 +150,7 @@ C:\Users\K\git\vpp-2\src\main\java\com\amazonaws\services\iot\client\shadow\Abst
 |com.sun.mail|javax.mail|1.5.6|1.6.2|
 
 #### 프로퍼티 마이그레이터 설정
-스프링 부트 2.0에서 많은 설정 프로퍼티가 변경, 삭제되어서 이를 업데이트해야합니다. 스프링 부트에서는 이 행위를 도와주기 위하여 `spring-boot-properties-migrator` 모듈을 제공합니다.
+스프링 부트 2.0에서 많은 설정 프로퍼티가 변경, 삭제되어서 이를 업데이트해야합니다. 스프링 부트에서는 이 작업을 도와주기 위하여 `spring-boot-properties-migrator` 모듈을 제공합니다.
 
 ```groovy
 dependencies {
@@ -175,9 +167,10 @@ dependencies {
 ### 스프링 부트 2.0.X 업그레이드
 
 #### 변경사항 정리
+업그레이드하기에 앞서 릴리즈 노트를 통해 간단하게 무엇이 바뀌었는지 확인했습니다.
+
 - 리액티브 스택 지원으로 인한 의존성이 추가되었습니다.
     - 임베디드 컨테이터 패키지가 광범위하게 리팩토링되었습니다.
-    - 
 - 스프링 소셜에 대한 자동 구성이 제외되어 의존성 관리 목록에서 제거되었습니다.
 - 액추에이터가 자체적인 매트릭 API이 아닌 Micrometer에 의존합니다.
 - 기본 데이터베이스 커넥션 풀이 Tomcat-JDBC에서 HikariCP로 변경되었습니다.
@@ -202,7 +195,7 @@ dependencies {
 
 #### 업그레이드 후 문제점 수정
 
-##### 임베디드 톰캣 커스터마이저
+##### 임베디드 톰캣 커스터마이저 ⚠️
 임베디드 컨테이너 패키지가 리팩토링되어 기존의 톰캣 커스터마이즈를 위한 클래스를 변경해야합니다.
 
 |Before|After|
@@ -213,11 +206,11 @@ dependencies {
 |TomcatEmbeddedServletContainerFactory|TomcatServletWebServerFactory|
 |EmbeddedServletContainerCustomizer|WebServerFactoryCustomizer\<TomcatServletWebServerFactory\>|
 
-
-
-### 스프링 부트 2.1.X 업그레이드
+### 스프링 부트 2.1.X 업그레이드 ✅
 
 #### 변경사항 정리
+이번에도 무엇이 바뀌었는지, 크게 바뀐 부분이 있는지 확인했습니다.
+
 - 이제 Java 11을 지원합니다.
 - 기본적으로 [빈 오버라이딩](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes#bean-overriding)을 허용하지 않도록 변경되었습니다.
 - 자동 구성 제외에 대한 일관성을 제공합니다. `@EnableAutoConfiguration`, `@SpringBootApplication`, `@ImportAutoConfiguration` 또는 `spring.autoconfigure.exclude`로 정의합니다.
@@ -239,9 +232,6 @@ dependencies {
 - `spring.jackson.visiblity.*`를 사용하여 Jackson visibility를 설정할 수 있습니다.
 
 > 자세한 내용은 [Spring boot 2.1 Release Notes](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes)를 참고하세요
-
-
-
 
 ### 스프링 부트 2.2.X 업그레이드
 
@@ -271,3 +261,59 @@ dependencies {
 - Oracle’s JDBC driver에 대한 의존성 관리가 추가되었습니다.
 
 > 자세한 내용은 [Spring boot 2.2 Release Notes](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes)를 참고하세요
+
+#### 문제 및 해결
+
+##### ⚠️ Cannot choose between the following variants of org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3
+
+Spring Boot 2.2.3.RELEASE와 Gradle 5.6.4로 빌드를 시도했을때 발생한 문제점입니다.
+이 문제는 Gradle 6.1로 업그레이드하니 바로 해결되었습니다.
+
+> 사실 상 Spring Boot 2.2.2.RELEASE에서 2.2.3.RELEASE로 올렸을 때 발생했습니다.
+
+```sh
+Cannot choose between the following variants of org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3:
+  - enforcedRuntimeElements
+  - runtimeElements
+All of them match the consumer attributes:
+  - Variant 'enforcedRuntimeElements' capability org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3:
+      - Unmatched attributes:
+          - Found org.gradle.category 'enforced-platform' but wasn't required.
+          - Found org.gradle.status 'release' but wasn't required.
+          - Found org.gradle.usage 'java-runtime' but wasn't required.
+  - Variant 'runtimeElements' capability org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3:
+      - Unmatched attributes:
+          - Found org.gradle.category 'platform' but wasn't required.
+          - Found org.gradle.status 'release' but wasn't required.
+          - Found org.gradle.usage 'java-runtime' but wasn't required.
+```
+
+이와 관련하여 스프링 부트 깃허브에 [Dependency resolution fails with Gradle 5.3.x to 5.6.x](https://github.com/spring-projects/spring-boot/issues/19783) 이슈가 올라와있어 확인해보니 다음과 같은 답변이 있었습니다.
+
+```
+The problem’s caused by spring-boot-dependencies upgrading from Kotlin Coroutines 1.3.2 to 1.3.3. 
+Unfortunately this affects pure-Java projects as the Kotlin Coroutines bom is imported in the spring-boot-dependencies bom.
+
+You should be able to work around the problem by overriding the version of the Kotlin Coroutines bom that is imported by Boot’s dependency management:
+
+ext['kotlin-coroutines.version']='1.3.2'
+
+- https://github.com/spring-projects/spring-boot/issues/19783#issuecomment-575506102
+```
+> 제가 해봤는데 안되네요...
+> 2020-01-20, [io.spring.dependency-management:1.0.9.RELEASE](https://github.com/spring-projects/spring-boot/issues/19783#issuecomment-576235568) 버전으로 업데이트되어 해결되었습니다.
+
+## JDK
+마지막으로 JDK 버전을 업그레이드 후 빌드 확인하겠습니다.
+
+### OpenJDK 10 ✅
+
+#### JDK9(Java SE 9) 이상에서 JAXB(javax.xml.bind) 클래스 못 찾음 문제 ⚠️
+- https://blog.leocat.kr/notes/2019/02/12/java-cannot-find-jaxb-from-jdk9-and-above
+
+### OpenJDK 11 for HotswapAgent ✅
+프로젝트 개발 시 클래스 동적 로딩을 위해 `HotswapAgent`을 사용했는데 JDK8과 [JDK11](http://hotswapagent.org/mydoc_quickstart-jdk11.html)을 지원하여 [trava-jdk-11-dcevm](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)을 사용하여 빌드 및 구동 확인하였습니다.
+
+
+
+
