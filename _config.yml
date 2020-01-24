@@ -120,10 +120,10 @@ theme_config:
     menu:
       home:                      / || home
       소개:                        /about/ || user
+      일기장:                    /categories/일기장/ || th
       #tags:                     /tags/ || tags
       # categories:              /categories/ || th
       archives:                  /archives/ || archive
-      개발 환경:                     /categories/개발-환경/ || th
       개발 이야기:                    /categories/개발-이야기/ || th
       북마크:                       /categories/북마크/ || th
       # schedule:                /schedule/ || calendar
