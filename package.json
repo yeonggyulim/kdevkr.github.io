@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "hexo": {
-    "version": "3.9.0"
+    "version": "4.2.0"
   },
   "scripts": {
     "l": "hexo clean && hexo server",
@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/kdevkr/kdevkr.github.io#readme",
   "dependencies": {
-    "hexo": "^3.9.0",
+    "cheerio": "^1.0.0-rc.3",
+    "hexo": "^4.2.0",
     "hexo-article-emoji": "0.0.5",
     "hexo-auto-canonical": "^0.1.1",
     "hexo-autonofollow": "^1.0.1",
