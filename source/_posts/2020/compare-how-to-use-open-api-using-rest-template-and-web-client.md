@@ -25,7 +25,7 @@
 ```java
 @Test
     public void TEST_000_http_request_using_rest_template() {
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplateBuilder().build();
 
         DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory("https://openapi.kpx.or.kr");
         uriBuilderFactory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
