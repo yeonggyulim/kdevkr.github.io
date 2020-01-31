@@ -74,43 +74,21 @@ sitemap:
   path:                          sitemap.xml
   tag:                           false
   category:                      false
-
-markdown:
-  render:
-    html:                        true # Doesn't escape HTML content so the tags will appear as html.
-    xhtmlOut:                    false # Parser will not produce XHTML compliant code.
-    breaks:                      true # Parser produces `<br>` tags every time there is a line break in the source document.
-    linkify:                     false # Returns text links as text.
-    typographer:                 true # Substitution of common typographical elements will take place.
-    quotes:                      '“”‘’' # "double" will be turned into “single”
-                   # 'single' will be turned into ‘single’
-  plugins:
-    - markdown-it-abbr
-    - name:                      markdown-it-container
-      options:                   tip
-    - name:                      markdown-it-container
-      options:                   warning
-    - name:                      markdown-it-container
-      options:                   danger
-    - markdown-it-deflist
-    - name:                      markdown-it-emoji
-      options:
-        shortcuts:               {}
-    - markdown-it-footnote
-    - markdown-it-ins
-    - markdown-it-mark
-    - markdown-it-sub
-    - markdown-it-sup
-    - name:                      markdown-it-table-of-contents
-      options:
-        includeLevel:            1,2,3
-  anchors:
-    level:                       1, 2 # Minimum level for ID creation. (Ex. h2 to h6)
-    collisionSuffix:             'v' # A suffix that is prepended to the number given if the ID is repeated.
-    permalink:                   true # If true, creates an anchor tag with a permalink besides the heading.
-    permalinkClass:              header-anchor # Class used for the permalink anchor tag.
-    permalinkSymbol:             '' # The symbol used to make the permalink.
-    
+  
+marked:
+  gfm: true
+  pedantic: false
+  breaks: true
+  smartLists: true
+  smartypants: true
+  modifyAnchors: ''
+  autolink: true
+  sanitizeUrl: false
+  headerIds: true
+  prependRoot: false
+  external_link:
+    enable: false
+    exclude: []
     
 # https://theme-next.org/docs/theme-settings/
 # Extendsions
@@ -306,7 +284,7 @@ theme_config:
         # Code Highlight theme
         # Available values:      normal | night | night eighties | night blue | night bright | solarized | solarized dark | galactic
         # See:                   https://github.com/chriskempson/tomorrow-theme
-        highlight_theme:         galactic
+        highlight_theme:         night eighties
         # Add copy button on codeblock
         copy_button:
           enable:                true
@@ -420,3 +398,6 @@ theme_config:
           
     # Remove unnecessary files after hexo generate.
     minify:                      true
+    note:
+        style: flat
+        icons: true

@@ -10,6 +10,8 @@
 
 ## HTTP Request Client
 
+{% tabs Unique name %}
+<!-- tab RestTemplate -->
 ### RestTemplate
 `RestTemplate`는 [Apache HttpComponents](https://hc.apache.org/) 또는 [OkHttp](https://square.github.io/okhttp/)와 같은 라이브러리를 사용하여 HTTP 요청을 수행하는 클라이언트입니다.
 
@@ -39,7 +41,9 @@
         String response = responseEntity.getBody();
     }
 ```
+<!-- endtab -->
 
+<!-- tab WebClient -->
 ### WebClient
 `WebClient`는 리액티브 스택을 지원할 수 있도록 [Reactor Netty](https://github.com/reactor/reactor-netty)를 사용하여 논-블로킹으로 HTTP 요청을 수행하는 리액티브 클라이언트입니다. 
 
@@ -65,6 +69,8 @@
 ```
 
 > Mono.block()을 통해 비동기가 아닌 RestTemplate와 같은 동기로 수행할 수 있습니다.
+<!-- endtab -->
+{% endtabs %}
 
 ## 참고
 - [RestTemplate](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html)
