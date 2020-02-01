@@ -78,12 +78,24 @@ theme_config:
     scheme:                      Gemini
     
     menu:
-      home:                      / || home
-      소개:                        /about/ || user
-      일기장:                    /categories/일기장/ || th
-      archives:                  /archives/ || archive
-      개발 이야기:                    /categories/개발-이야기/ || th
-      북마크:                       /categories/북마크/ || th
+      home: / || home
+      archives: /archives/ || archive
+      개발 이야기:
+          default: /development/ || dev fab
+          코드:
+              default: /codes/ || code
+          이슈:
+              default: /issues/ || exclamation-circle
+          즐겨찾기:
+              default: /bookmark/ || bookmark
+              자바: /java || java fab
+              스프링: /spring || seedling
+              자바스크립트: /java-script || js-square fab
+              데이터베이스: /database || database
+              데브옵스: /dev-ops || connectdevelop fab
+              도구: /tool || tools
+              리뷰: /review || retweet
+      about: /about/ || user
               
     menu_settings:
         icons: true
@@ -138,7 +150,11 @@ theme_config:
         enable:                  true
         theme:                   center-atom
         
-    cheers:                      false
+    excerpt:
+      depth: 10
+      excerpt_excludes: []
+      more_excludes: []
+      hideWholePostExcerpts: true
     
     pjax:                        true
     
@@ -155,7 +171,7 @@ theme_config:
     site_state:                  true
     
     social:
-        GitHub:                  https://github.com/kdevkr || github
+        GitHub:                  https://github.com/kdevkr || github fab
         E-Mail:                  mailto:kdevkr@gmail.com || envelope
         
     social_icons:
@@ -318,6 +334,10 @@ theme_config:
       daily:                     false
       order_by:                  -date
       
+    tag_generator:
+      per_page: 10
+      order_by: -date
+      
     # Allow to cache content generation. Introduced in NexT v6.0.0.
     cache:
       enable:                    false
@@ -343,11 +363,20 @@ theme_config:
       # If auto, save the reading progress when closing the page or clicking the bookmark-icon.
       # If manual, only save it by clicking the bookmark-icon.
       save: auto
+    
+    disable_baidu_transformation: true
+    canonical: true
+    seo: true
         
     vendors:
         pjax: //cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js
         pace: //cdn.jsdelivr.net/npm/pace-js@1/pace.min.js
         pace_css: //cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css
+        
+        # Internal version: 4.7.0
+        # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
+        # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+        fontawesome: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css
         
     # Custom Settings
     custom_file_path:
