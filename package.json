@@ -22,25 +22,21 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "hexo": "^4.2.0",
-    "hexo-auto-canonical": "^0.1.1",
-    "hexo-autonofollow": "^1.0.1",
     "hexo-browsersync": "^0.3.0",
     "hexo-deployer-git": "^2.1.0",
     "hexo-filter-emoji": "^2.1.0",
     "hexo-filter-optimize": "^0.3.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
-    "hexo-generator-feed": "^2.2.0",
-    "hexo-generator-index": "^1.0.0",
     "hexo-generator-indexed": "^1.0.1",
     "hexo-generator-searchdb": "^1.2.0",
     "hexo-generator-seo-friendly-sitemap": "0.0.25",
+    "hexo-next-exif": "github:theme-next/hexo-next-exif",
+    "hexo-next-tag": "github:theme-next/hexo-next-tag",
     "hexo-next-title": "github:theme-next/hexo-next-title",
-    "hexo-next-utteranc": "github:theme-next/hexo-next-utteranc",
-    "hexo-renderer-marked": "^2.0.0",
+    "hexo-renderer-markdown-it": "^4.0.0",
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0",
-    "hexo-symbols-count-time": "^0.7.0",
     "hexo-theme-next-anchor": "^1.0.3"
   }
 }

@@ -1,12 +1,11 @@
-
 ## configuration
+
 # Site
 title:                           잠만보의 개발 블로그
 subtitle:                        잠만보가 알려주는 개발 이야기
-description:
 author:                          kdevkr
+description:
 language:                        ko
-
 timezone:                        UTC
 
 # URL
@@ -53,13 +52,6 @@ deploy:
 google_site_verification:        googled619795c447b2a1d
 naver_site_verification:         967670e7891eb52e115709ce4890e2e8f576a1e5
 
-feed:
-  type:                          atom
-  path:                          atom.xml
-  limit:                         false
-  hub:
-  content:                       true
-
 article_emoji:
   full:                          true
 
@@ -75,42 +67,28 @@ sitemap:
   tag:                           false
   category:                      false
   
-marked:
-  gfm: true
-  pedantic: false
-  breaks: true
-  smartLists: true
-  smartypants: true
-  modifyAnchors: ''
-  autolink: true
-  sanitizeUrl: false
-  headerIds: true
-  prependRoot: false
-  external_link:
-    enable: false
-    exclude: []
-    
-# https://theme-next.org/docs/theme-settings/
-# Extendsions
+markdown: 'default'
+
+highlight:
+    line_number: false
+    wrap: true
+  
 theme:                           next
 theme_config:
     scheme:                      Gemini
+    
     menu:
       home:                      / || home
       소개:                        /about/ || user
       일기장:                    /categories/일기장/ || th
-      #tags:                     /tags/ || tags
-      # categories:              /categories/ || th
       archives:                  /archives/ || archive
       개발 이야기:                    /categories/개발-이야기/ || th
       북마크:                       /categories/북마크/ || th
-      # schedule:                /schedule/ || calendar
-      # sitemap:                 /sitemap.xml || sitemap
-      #commonweal:               /404/ || heartbeat
+              
     menu_settings:
-      icons:                     true
-      badges:                    true
-        
+        icons: true
+        badges: true
+      
     font:
       # Use custom fonts families or not.
       # Depended options:        `external` and `family`.
@@ -155,29 +133,39 @@ theme_config:
         url:                     https://avatars1.githubusercontent.com/u/17937604?s=460&v=4
         rounded:                 true
         rotated:                 false
-    motion:                      
-        enable:                  false
+        
     pace:
         enable:                  true
         theme:                   center-atom
+        
     cheers:                      false
+    
     pjax:                        true
+    
     creative_commons:
       license:                   by-nc-sa
       sidebar:                   true
       post:                      false
       language:                  deed.ko
+      
     safari_rainbow:              true
+    
     custom_scrollbar:            true
+    
     site_state:                  true
+    
     social:
         GitHub:                  https://github.com/kdevkr || github
         E-Mail:                  mailto:kdevkr@gmail.com || envelope
+        
     social_icons:
       enable:                    true
       icons_only:                false
       transition:                false
-      
+        
+    motion:
+        enable:                  false
+        
     toc:
         enable:                  true
         number:                  true
@@ -192,47 +180,28 @@ theme_config:
         enable:                  true
         sidebar:                 true
         scrollpercent:           true
-    
-    CloudCalendar:
-      enable:                    true
-      language:                  ko-KR
-      single:                    true
-      root:                      /calendar/
-      calendarCdn:               //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/calendar.min.js
-      langCdn:                   //cdn.jsdelivr.net/gh/theme-next/theme-next-calendar/languages.min.js
-      #disableSidebar:           false
-     # Change title and favicon when window is hidden and visible.
+        
+    post_copyright:
+        enable:                  true
+        
     title_change:
       enable:                    false
-    
-      # Enabling this feature on non-desktop devices may not be a good choice, but it depends on you.
       onmobile:                  false
-    
-      # Enable random title or not.
-      # Basically `random: true` means you have several titles to display and `random: false` means you have only one title to display.
-      # When `random:            true`, YOU MUST FOLLOW the format which has been commented in two title options below.
-      # When `random: false`, please fill in the same line of the title option, like `title: one title`.
       random:                    false
-    
-      # Restore the original title after the specified time in milliseconds.
       timeout:                   2019
-    
-      # Options when window is hidden.
       hidden:
         favicon:                 /images/favicon-32x32-next.png
         title:
           #- 404
           #- φ(*￣0￣)
           #- Waiting for you.
-    
-      # Options when window is visible.
       visible:
         favicon:                 /images/favicon-32x32-next.png
         title:
           #- 200
           #- (✿◡‿◡)
           #- Welcome back!
-          
+    # hexo-theme-next-anchor
     anchor:
       enable:                    true
       color:                     '#0e83cd'
@@ -273,72 +242,47 @@ theme_config:
       # set the priority of this plugin,
       # lower means it will be executed first, default is 10
       priority:                  12
-      
+        
     symbols_count_time:
       symbols:                   true
       time:                      true
       total_symbols:             true
       total_time:                true
-      exclude_codeblock:         false
+      exclude_codeblock:         true
+      
     codeblock:
         # Code Highlight theme
         # Available values:      normal | night | night eighties | night blue | night bright | solarized | solarized dark | galactic
         # See:                   https://github.com/chriskempson/tomorrow-theme
-        highlight_theme:         night eighties
+      highlight_theme:         normal
         # Add copy button on codeblock
-        copy_button:
-          enable:                true
-          # Show text copy result.
-          show_result:           true
-          # Available values:    default | flat | mac
-          style:                 mac
-    search:
-      path:                      search.xml
-      field:                     post
-      format:                    html
-      limit:                     10000
-      content:                   true
+      copy_button:
+        enable:                true
+        # Show text copy result.
+        show_result:           true
+        # Available values:    default | flat | mac
+        style:                 mac
+        
     githubEmojis:
       enable:                    true
       className:                 github-emoji
       inject:                    true
-      styles:
-      customEmojis:
-    reading_progress:
-        enable:                  true
-        color:                   "#37c6c0"
-        height:                  5px
+          
     github_banner:
       enable:                    true
       permalink:                 https://github.com/kdevkr
       title:                     Follow me on GitHub
-          
-    disqus:
-      enable:                    false
-      shortname:                 kdevkr-github-io
-      count:                     false
+      
+    reading_progress:
+      enable:                  true
+      color:                   "#37c6c0"
+      height:                  5px
+      
     disqusjs:
       enable:                    true
       api: https://disqus.com/api/
       apikey: CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi
       shortname: kdevkr-github-io
-      
-    post_copyright:
-        enable:                  false
-      
-    # Local search
-    # Dependencies:              https://github.com/wzpan/hexo-generator-search
-    local_search:
-      enable:                    true
-      # If auto, trigger search by changing input.
-      # If manual, trigger search by pressing enter key or search button.
-      trigger:                   auto
-      # Show top n results per article, show all results by setting to -1
-      top_n_per_article:         1
-      # Unescape html strings to the readable one.
-      unescape:                  false
-      # Preload the search data when the page loads.
-      preload:                   false
       
     # A JavaScript library for zooming images like Medium.
     mediumzoom:                  true
@@ -373,7 +317,38 @@ theme_config:
       monthly:                   true
       daily:                     false
       order_by:                  -date
+      
+    # Allow to cache content generation. Introduced in NexT v6.0.0.
+    cache:
+      enable:                    false
+          
+    # Remove unnecessary files after hexo generate.
+    minify:                      true
     
+    note:
+        style: flat
+        icons: true
+        
+    exif:
+      enable: true
+      tags:
+        FocalLength: "{value}mm"
+        FNumber: "f/{value}"
+        ExposureTime: "{value}s"
+        
+    bookmark:
+      enable: false
+      # Customize the color of the bookmark.
+      color: "#222"
+      # If auto, save the reading progress when closing the page or clicking the bookmark-icon.
+      # If manual, only save it by clicking the bookmark-icon.
+      save: auto
+        
+    vendors:
+        pjax: //cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js
+        pace: //cdn.jsdelivr.net/npm/pace-js@1/pace.min.js
+        pace_css: //cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css
+        
     # Custom Settings
     custom_file_path:
         #head:                   source/_data/head.swig
@@ -386,18 +361,3 @@ theme_config:
         variable:                source/_data/variables.styl
         mixin:                   source/_data/mixins.styl
         style:                   source/_data/styles.styl
-        
-    vendors:
-        pjax: //cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js
-        pace: //cdn.jsdelivr.net/npm/pace-js@1/pace.min.js
-        pace_css: //cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css
-    
-    # Allow to cache content generation. Introduced in NexT v6.0.0.
-    cache:
-      enable:                    false
-          
-    # Remove unnecessary files after hexo generate.
-    minify:                      true
-    note:
-        style: flat
-        icons: true
