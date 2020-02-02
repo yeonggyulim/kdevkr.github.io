@@ -79,7 +79,7 @@ theme_config:
     
     menu:
       home: / || home
-      # archives: /archives || archive
+      archives: /archives/ || archive
       개발 이야기:
           default: /development/ || dev fab
           일기장: /diary/ || newspaper

@@ -2,8 +2,7 @@
 comments: false
 ---
 ## 프로필
-![Profile Img](/images/snorlax.gif)  
-
+![](https://i.pinimg.com/originals/4e/0e/7f/4e0e7f61d4b3f4ee482f2d2fc5097264.jpg)
 
 안녕하세요 아이온커뮤니케이션즈에서 일하고 있는 개발자 강교일이라고 합니다. 
 저는 잠만보라는 캐릭터를 좋아하고 심지어 닮았답니다. :heart_eyes:
