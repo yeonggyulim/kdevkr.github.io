@@ -40,6 +40,7 @@
     "hexo-next-title": "github:theme-next/hexo-next-title",
     "hexo-renderer-markdown-it": "^4.0.0",
     "hexo-renderer-stylus": "^1.1.0",
+    "hexo-renderer-swig": "^1.1.0",
     "hexo-server": "^1.0.0",
     "hexo-theme-next-anchor": "^1.0.3"
   }

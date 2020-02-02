@@ -83,10 +83,15 @@ theme_config:
       개발 이야기:
           default: /development/ || dev fab
           코드:
-              default: /codes/ || code
+              default: /code/ || code
+              연습: /practice || walking
+              고급: /advanced || running
           이슈:
               default: /issues/ || exclamation-circle
-          즐겨찾기:
+              크리티컬: /critical || radiation-alt
+              보통: /moderate || bomb
+              낮음: /low || low-vision
+          북마크:
               default: /bookmark/ || bookmark
               자바: /java || java fab
               스프링: /spring || seedling
@@ -95,7 +100,7 @@ theme_config:
               데브옵스: /dev-ops || connectdevelop fab
               도구: /tool || tools
               리뷰: /review || retweet
-      about: /about/ || user
+      소개: /about/ || user
               
     menu_settings:
         icons: true
