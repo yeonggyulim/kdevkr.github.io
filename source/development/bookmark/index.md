@@ -1,7 +1,7 @@
 ---
     title: 북마크
-    description: 
+    description: 글 스크랩
     comments: false
 ---
 
-_<center>북마크에 대한 전체 포스트는 [여기](/categories/북마크)에서 확인할 수 있습니다.</center>_
+_<center>북마크는 인터넷에 공유된 관심있는 글들을 스크랩해두는 공간입니다.</center>_

@@ -1,6 +1,6 @@
 ---
     title: 이슈
-    description: 
+    description: 개발하면서 경험한 이슈를 공유합니다.
     comments: false
 ---
 

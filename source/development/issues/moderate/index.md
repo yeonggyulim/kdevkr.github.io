@@ -1,6 +1,6 @@
 ---
     title: 보통
-    description: 
+    description: 일반적인 이슈
     comments: false
 ---
 

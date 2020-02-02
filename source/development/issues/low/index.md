@@ -1,6 +1,6 @@
 ---
     title: 낮음
-    description: 
+    description: 낮은 순위의 이슈
     comments: false
 ---
 

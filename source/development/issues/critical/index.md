@@ -1,6 +1,6 @@
 ---
     title: 크리티컬
-    description: 
+    description: 높은 순위의 이슈
     comments: false
 ---
 

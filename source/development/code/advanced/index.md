@@ -1,9 +1,6 @@
 ---
     title: 고급
-    description: 
+    description: 좀 더 난이도를 올려볼까
     comments: false
 ---
 
-{% note danger no-icon %}
-<center>준비중입니다.</center>
-{% endnote %}

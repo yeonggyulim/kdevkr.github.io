@@ -1,9 +1,9 @@
 ---
     title: 연습
-    description: 
+    description: 처음엔 간단하게
     comments: false
 ---
 
-{% note danger no-icon %}
-<center>준비중입니다.</center>
-{% endnote %}
+
+
+
