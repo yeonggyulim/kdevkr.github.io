@@ -85,8 +85,9 @@ theme_config:
           일기장: /diary/ || newspaper
           코드:
               default: /code/ || code
-              연습: /practice || walking
-              고급: /advanced || running
+              자바: /java || java fab
+              스프링: /spring || seedling
+              데이터베이스: /database || database
           이슈:
               default: /issues/ || exclamation-circle
               크리티컬: /critical || radiation-alt
