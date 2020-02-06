@@ -1,9 +1,7 @@
 ---
 title: Oh My Zsh을 사용해서 터미널을 유용하고 이쁘게 만들어보자
-date:       2017-04-30
+date: 2017-04-30
 categories: [개발 환경, Shell]
-banner:
-  url: https://www.planetargon.com/assets/open-source/logo-ohmyzsh-ce68f7c0711473bb619d23b1ce1e3a6e53895cd7cc56eb8af57d8076d1928759.png
 ---
 
 기본 터미널 쉘은 너무 너무 딱딱하다. 이쁘고 좀더 유용한 터미널 쉘인 `Oh My Zsh`을 사용하도록 하자.

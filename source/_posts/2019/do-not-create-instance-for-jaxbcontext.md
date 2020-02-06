@@ -1,7 +1,8 @@
 ---
 title: JAXBContext 인스턴스를 매번 만들지 말아야하는 이유
 date: 2019-10-30
-categories: [개발 이야기, Marshaller]
+categories: [개발 이야기, 이슈]
+tags: [Marshaller, JAXBContext]
 ---
 
 ## XML Marshaller

@@ -6,7 +6,7 @@
 
 ![](https://pbs.twimg.com/media/EPi86ypVAAEvTqN?format=jpg&name=small)
 
-_<center>이곳은 잠만보의 코딩 연습 공간입니다.</center>_
+_<center>이곳은 잠만보의 개발 공간입니다.</center>_
 
 ## 좋은 코드
 

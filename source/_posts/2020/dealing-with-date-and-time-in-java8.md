@@ -1,6 +1,7 @@
 ---
     title: 자바 8 에서 날짜와 시간 다루기
     description: 
+    date: 2021-02-04
 ---
 
 ## 들어가며
@@ -9,10 +10,11 @@
 ## DateTime  
 
 ### Instant  
-Instant 클래스는 UTC 시간대의 1970년 1월 1일 0분 0초를 기준으로 경과된 시간을 표현합니다. 
+Instant 클래스는 UTC 시간대의 1970-01-01T00:00:00Z를 기준으로 경과된 시간을 표현합니다. 
 
 ```java java.time.Instant
-
+Instant instant = Instant.EPOCH;
+// 1970-01-01T00:00:00Z
 ```
 
 ### Duration  

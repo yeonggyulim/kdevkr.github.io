@@ -80,19 +80,13 @@ theme_config:
     menu:
       home: / || home
       archives: /archives/ || archive
-      개발 이야기:
+      개발:
           default: /development/ || dev fab
           일기장: /diary/ || newspaper
-          코드:
-              default: /code/ || code
-              자바: /java || java fab
-              스프링: /spring || seedling
-              데이터베이스: /database || database
-          이슈:
-              default: /issues/ || exclamation-circle
-              크리티컬: /critical || radiation-alt
-              보통: /moderate || bomb
-              낮음: /low || low-vision
+          이야기:
+              default: /story/ || book-reader
+              코드: /code || code
+              이슈: /issue || exclamation-circle
           북마크:
               default: /bookmark/ || bookmark
               자바: /java || java fab
