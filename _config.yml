@@ -91,7 +91,7 @@ theme_config:
               default: /bookmark/ || bookmark
               자바: /java || java fab
               스프링: /spring || seedling
-              자바스크립트: /java-script || js-square fab
+              자바스크립트: /javascript || js-square fab
               데이터베이스: /database || database
               데브옵스: /dev-ops || connectdevelop fab
               도구: /tool || tools

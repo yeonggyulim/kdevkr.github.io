@@ -4,7 +4,7 @@
     comments: false
 ---
 
-![](https://media2.giphy.com/media/LT6BnfiyOWsqQ/giphy.gif "ss")
+![](https://media2.giphy.com/media/LT6BnfiyOWsqQ/giphy.gif#full)
 
 <center>멍~</center>
 

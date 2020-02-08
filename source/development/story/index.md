@@ -1,10 +1,10 @@
 ---
-    title: 코드
+    title: 이야기
     description: 
     comments: false
 ---
 
-![](https://pbs.twimg.com/media/EPi86ypVAAEvTqN?format=jpg&name=small)
+![](https://pbs.twimg.com/media/EPi86ypVAAEvTqN?format=jpg&name=small#full)
 
 _<center>이곳은 잠만보의 개발 공간입니다.</center>_
 

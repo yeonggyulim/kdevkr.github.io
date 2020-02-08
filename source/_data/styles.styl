@@ -35,3 +35,13 @@ i.fab {
 .post-body .image-caption {
     margin: -10px auto 15px;
 }
+.post-body img {
+    max-height: 180px;
+}
+.post-body img[src*="#thumbnail"] {
+    width: 100%;
+    max-height: 200px;
+}
+.post-body img[src*="#full"] {
+    max-height: 400px;
+}
