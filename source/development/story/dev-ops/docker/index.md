@@ -89,7 +89,37 @@ docker top nginx
 일반적으로 애플리케이션을 구동하기 위한 서버 환경을 구성하기 위해서는 사람들이 만들어놓은 이미지를 다운받아서 사용하거나 직접 컨테이너를 구성하는 이미지를 만들어야합니다.
 
 ##### Dockerfile  
-준비중
+간단하게 OpenJDK 11을 기반으로 하는 컨테이너를 설정하고 구동해보겠습니다.
+
+먼저 기존 명령어 방식으로 
+```sh
+docker run --name openjdk openjdk:11 "java" "-version"
+openjdk version "11.0.6" 2020-01-14
+OpenJDK Runtime Environment 18.9 (build 11.0.6+10)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.6+10, mixed mode)
+```
+
+> CMD 명령을 사용하지 않으면 컨테이너는 바로 종료됩니다.
+
+위 작업을 Dockerfile로 변경하면 다음과 같습니다.
+```groovy Dockerfile
+FROM openjdk:11
+CMD ["java", "-version"]
+```
+
+도커는 Dockerfile을 한줄 단위로 읽어서 컨테이너를 구성하는 이미지를 만듭니다.
+```sh
+docker build -t kdevkr/default .
+Sending build context to Docker daemon  2.048kB
+Step 1/2 : FROM openjdk:11
+ ---> a548e8a50190
+Step 2/2 : CMD ["java", "-version"]
+ ---> Running in 7ebdda012051
+Removing intermediate container 7ebdda012051
+ ---> 3440656b232c
+Successfully built 3440656b232c
+Successfully tagged kdevkr/default:latest
+```
 
 ### 도커 활용하기
 
