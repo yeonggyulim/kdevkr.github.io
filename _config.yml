@@ -301,6 +301,8 @@ theme_config:
       apikey: CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi
       shortname: kdevkr-github-io
       
+    fancybox: true
+      
     # A JavaScript library for zooming images like Medium.
     mediumzoom:                  true
     

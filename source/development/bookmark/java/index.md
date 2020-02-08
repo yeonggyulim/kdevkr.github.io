@@ -28,3 +28,9 @@ These are 10 best practices to design a clean RESTful API:
 ## [TLS / SSL 소개 및 Tomcat 에 HTTPS 적용하는 방법](https://joshuajangblog.wordpress.com/2016/09/02/tls-ssl-intro-and-tomcat-configuration/)  
 
 ![](https://joshuajangblog.files.wordpress.com/2016/09/tomcat1.jpg)
+
+#### [Apache, Nginx 웹서버 모니터링 (Telegraf, WhaTap)](https://www.whatap.io/ko/blog/43/)  
+
+##### [HTTP 상태 코드 정리](https://www.whatap.io/ko/blog/40/)  
+
+![](https://www.whatap.io/ko/blog/img/4/NoOps_1.webp)

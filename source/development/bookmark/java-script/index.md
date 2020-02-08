@@ -51,26 +51,10 @@ Whether it is a signup flow, a multi-view stepper, or a monotonous data entry in
 
 ### [Webpack에서 Tree Shaking 적용하기](https://medium.com/naver-fe-platform/webpack%EC%97%90%EC%84%9C-tree-shaking-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-1748e0e0c365)  
 
-![](https://cdn-images-1.medium.com/fit/t/800/240/1*he7Z9ibRPt_aoEznzQZltA.png)  
-
-Tree Shaking은 사용하지 않는 코드를 제거함으로써 용량을 줄일 수 있는 방식입니다.
-
-특정 라이브러리를 참조하면 참조한 라이브러리의 크기만큼 최종 번들의 용량이 증가하게 됩니다. 하지만 특정 라이브러리의 모든 코드를 쓰지 않습니다.
-
 ## [Simple Vue.js Form Validation with Vuelidate](https://vuejsdevelopers.com/2018/08/27/vue-js-form-handling-vuelidate/)  
 
 ![](https://vuejsdevelopers.com/images/posts/versions/form_handling_vuelidate_1200.webp)
 
-Thanks to Vue's reactivity model, it's really easy to roll your own form validations. This can be done with a simple method call on the form submit, or a computed property evaluating input data on each change.
+##### [React+Webpack에서 Code Splitting 적용기](https://www.whatap.io/ko/blog/44/)  
 
-Using your form validation can quickly become cumbersome and annoying, however, especially when the number of inputs in the form increase, or the form structure gets more complicated e.g. multi-step forms.
-
-Thankfully, there are great validation plugins for Vue like Vuelidate. In this article, we'll be looking at how Vuelidate can be used to simplify:
-
-- Validation
-- Multi-step form validation
-- Child component validation
-- Error messages
-
-We'll also see how the Vuelidate-error-extractor plugin can be used to simplify error message display per input, or as an error summary above or below the form.
-
+##### [ESLint 조금 더 잘 활용하기](https://tech.kakao.com/2019/12/05/make-better-use-of-eslint/)
