@@ -82,11 +82,16 @@ theme_config:
       archives: /archives/ || archive
       개발:
           default: /development/ || dev fab
-          일기장: /diary/ || newspaper
-          이야기:
-              default: /story/ || book-reader
-              코드: /code || code
-              이슈: /issue || exclamation-circle
+          일기장:
+              default: /diary/ || newspaper
+          코드:
+              default: /code || code
+              자바: /java || java fab
+              스프링: /spring || seedling
+          데브옵스: 
+              default: /dev-ops || connectdevelop fab
+              도커: /docker || docker fab
+          이슈: /issue || exclamation-circle
           북마크:
               default: /bookmark/ || bookmark
               자바: /java || java fab
