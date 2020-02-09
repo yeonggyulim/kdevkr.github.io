@@ -4,18 +4,12 @@
     comments: false
 ---
 
-![](/images/logo/devops.png)
-
-### 버전 관리
+![](/images/logo/devops.png)  
 
 
-#### [What is version control?](https://www.atlassian.com/git/tutorials/what-is-version-control)
-
-### 빌드  
+#### [What is version control?](https://www.atlassian.com/git/tutorials/what-is-version-control)  
 
 #### [Gradle 멀티 프로젝트 관리](https://jojoldu.tistory.com/123?category=721560)  
-
-### 배포  
 
 #### [라이더스 개발팀 모바일에서 CI/CD 도입](http://woowabros.github.io/experience/2018/06/26/bros-cicd.html)
 

@@ -1,6 +1,9 @@
 ---
-    title: 자바
+    title: Java
     description:
+    comments: false
 ---
 
-> 변경사항은 [여기](updates.html)에서 확인하세요 
+![](/images/logo/java.png)
+
+##### [자바 버전별 변경사항 알아보기](updates.html)  

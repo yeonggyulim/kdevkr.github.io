@@ -87,8 +87,10 @@ theme_config:
               이슈: /issue || exclamation-circle
           코드:
               default: /code || code
-              자바: /java || java fab
-              뷰: /vuejs || vuejs fab
+              Java: /java || java fab
+              Spring: /spring || seedling
+              Vue.js: /vuejs || vuejs fab
+              PostgreSQL: /postgresql || database
               # 파이썬: /python || python fab
           # 운영체제:
           #     default: /os || desktop
@@ -98,8 +100,8 @@ theme_config:
           데브옵스: 
               default: /dev-ops || connectdevelop fab
               # 터미널: /terminal || terminal
-              젠킨스: /jenkins || jenkins fab
-              도커: /docker || docker fab
+              Jenkins: /jenkins || jenkins fab
+              Docker: /docker || docker fab
               # 쿠버네티스: /kubernetes || none
           북마크:
               default: /bookmark/ || bookmark

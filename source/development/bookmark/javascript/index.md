@@ -4,9 +4,7 @@
     comments: false
 ---
 
-![](/images/logo/javascript.png)
-
-### JavaScript
+![](/images/logo/javascript.png)  
 
 #### [JavaScript Standard Style](https://standardjs.com/readme-kokr.html)  
 
@@ -15,17 +13,9 @@ standard에 대해 배우는 가장 좋은 방법은 그냥 설치하고 코드�
 
 #### [Vue Development In 2019: What You Need To Know](https://vuejsdevelopers.com/2018/12/04/vue-js-2019-knowledge-map)  
 
-### CSS  
-
-![](/images/logo/css.png)
-
 #### [Design Better Forms](https://uxdesign.cc/design-better-forms-96fadca0f49c)  
 
-### Lint
-
 #### [ESLint 조금 더 잘 활용하기](https://tech.kakao.com/2019/12/05/make-better-use-of-eslint/)  
-
-### Webpack
 
 #### [Webpack에서 Tree Shaking 적용하기](https://medium.com/naver-fe-platform/webpack%EC%97%90%EC%84%9C-tree-shaking-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-1748e0e0c365)  
 
