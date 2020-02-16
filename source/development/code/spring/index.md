@@ -21,5 +21,3 @@
 ##### [초보 개발자가 이해하는 HTTP Content-Type](/archives/2018/understanding-http-content-types/)  
 
 ##### [Gradle과 함께 스프링 프레임워크 프로젝트 구성하기](/archives/2019/building-a-spring-framework-project-with-gradle/)  
-
-##### [비밀번호 암호화 하기](/archives/2019/encrypt-password-with-spring-securityl/)
