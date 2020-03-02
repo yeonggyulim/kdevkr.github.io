@@ -134,29 +134,29 @@ theme_config:
       # Global font settings used for all elements inside <body>.
       global:
         external:                true
-        family:                  Noto Sans KR
+        family:                  Arita Dotum
         size:                    1
 
       # Font settings for site title (.site-title).
       title:
         external:                true
-        family:                  Cute Font
+        family:                  Mapo Peace Full
         size:                    1.25
 
       # Font settings for headlines (<h1> to <h6>).
       headings:
         external:                true
-        family:                  Noto Sans KR
+        family:                  Arita Dotum
 
       # Font settings for posts (.post-body).
       posts:
         external:                true
-        family:                  Noto Sans KR
+        family:                  Noto Serif KR
 
       # Font settings for <code> and code blocks.
       codes:
         external:                false
-        family:                  D2 coding
+        family:                  Jetbrains Mono
     
     avatar:
         url:                     https://avatars1.githubusercontent.com/u/17937604?s=460&v=4
