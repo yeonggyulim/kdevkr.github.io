@@ -295,7 +295,7 @@ theme_config:
         # Show text copy result.
         show_result:           true
         # Available values:    default | flat | mac
-        style:                 mac
+        style:                 flat
         
     githubEmojis:
       enable:                    true
@@ -338,7 +338,7 @@ theme_config:
         total_views_icon:        user
         post_views:              true
         post_views_icon:         user
-        
+    
     index_generator:
       path:                      ''
       per_page:                  10
