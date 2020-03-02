@@ -76,7 +76,7 @@ highlight:
 theme:                           next
 theme_config:
     scheme:                      Gemini
-    darkmode: true
+    darkmode: false
     
     menu:
       home: / || home
