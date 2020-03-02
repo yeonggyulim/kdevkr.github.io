@@ -109,6 +109,9 @@ scheme: Muse
 #scheme: Pisces
 #scheme: Gemini
 
+# Dark Mode
+darkmode: false
+
 
 # ---------------------------------------------------------------
 # Menu Settings
@@ -124,7 +127,7 @@ menu:
   #about: /about/ || user
   #tags: /tags/ || tags
   #categories: /categories/ || th
-  # archives: /archives/ || archive
+  archives: /archives/ || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -191,7 +194,6 @@ social:
   #YouTube: https://youtube.com/yourname || youtube
   #Instagram: https://instagram.com/yourname || instagram
   #Skype: skype:yourname?call|chat || skype
-  #RSS: /atom.xml || rss
 
 social_icons:
   enable: true
@@ -275,7 +277,16 @@ reward_settings:
 reward:
   #wechatpay: /images/wechatpay.png
   #alipay: /images/alipay.png
+  #paypal: /images/paypal.png
   #bitcoin: /images/bitcoin.png
+
+# Subscribe through Telegram Channel, Twitter, etc.
+# Usage: `Key: permalink || icon` (Font Awesome)
+follow_me:
+  #Twitter: https://twitter.com/username || twitter
+  #Telegram: https://t.me/channel_name || telegram
+  #WeChat: /images/wechat_channel.jpg || wechat
+  #RSS: /atom.xml || rss
 
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
@@ -411,7 +422,7 @@ github_banner:
 font:
   enable: false
 
-  # Uri of fonts host, e.g. //fonts.googleapis.com (Default).
+  # Uri of fonts host, e.g. https://fonts.googleapis.com (Default).
   host:
 
   # Font options:
@@ -909,12 +920,8 @@ vendors:
   fontawesome:
 
   # MathJax
-  # mathjax: //cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML
-  # mathjax: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML
-  # mhchem: //cdn.jsdelivr.net/npm/mathjax-mhchem@3
-  # mhchem: //cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0
+  # mathjax: //cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   mathjax:
-  mhchem:
 
   # KaTeX
   # katex: //cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css
@@ -973,10 +980,10 @@ vendors:
   gitalk_css:
 
   # Algolia Search
-  # algolia_instant_js: //cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.js
-  # algolia_instant_css: //cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.css
-  algolia_instant_js:
-  algolia_instant_css:
+  # algolia_search: //cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js
+  # instant_search: //cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js
+  algolia_search:
+  instant_search:
 
   # PDF
   # pdfobject: //cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js

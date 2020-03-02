@@ -46,7 +46,7 @@ NexT.utils = {
   registerExtURL: function() {
     document.querySelectorAll('.exturl').forEach(element => {
       element.addEventListener('click', event => {
-        var exturl = event.currentTarget.getAttribute('data-url');
+        var exturl = event.currentTarget.dataset.url;
         var decurl = decodeURIComponent(escape(window.atob(exturl)));
         window.open(decurl, '_blank', 'noopener');
         return false;
@@ -194,12 +194,11 @@ NexT.utils = {
 
   registerCanIUseTag: function() {
     // Get responsive height passed from iframe.
-    window.addEventListener('message', event => {
-      var data = event.data;
-      if ((typeof data === 'string') && (data.indexOf('ciu_embed') > -1)) {
+    window.addEventListener('message', ({ data }) => {
+      if ((typeof data === 'string') && data.includes('ciu_embed')) {
         var featureID = data.split(':')[1];
         var height = data.split(':')[2];
-        document.querySelector(`iframe[data-feature=${featureID}]`).style.height = parseInt(height, 10) + 'px';
+        document.querySelector(`iframe[data-feature=${featureID}]`).style.height = parseInt(height, 10) + 5 + 'px';
       }
     }, false);
   },
@@ -322,8 +321,8 @@ NexT.utils = {
     var sidebarOffset = CONFIG.sidebar.offset || 12;
     var sidebarb2tHeight = CONFIG.back2top.enable && CONFIG.back2top.sidebar ? document.querySelector('.back-to-top').offsetHeight : 0;
     var sidebarSchemePadding = (CONFIG.sidebar.padding * 2) + sidebarNavHeight + sidebarb2tHeight;
-    // Margin of sidebar b2t: 8px -10px -20px, brings a different of 12px.
-    if (CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini') sidebarSchemePadding += (sidebarOffset * 2) - 12;
+    // Margin of sidebar b2t: -4px -10px -18px, brings a different of 22px.
+    if (CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini') sidebarSchemePadding += (sidebarOffset * 2) - 22;
     // Initialize Sidebar & TOC Height.
     var sidebarWrapperHeight = document.body.offsetHeight - sidebarSchemePadding + 'px';
     document.querySelector('.site-overview-wrap').style.maxHeight = sidebarWrapperHeight;

@@ -75,7 +75,10 @@ reward:
   donate: Донат
   wechatpay: WeChat Pay
   alipay: Alipay
+  paypal: PayPal
   bitcoin: Bitcoin
+follow_me:
+  welcome: Welcome to my other publishing channels
 accessibility:
   nav_toggle: Показати/приховати меню
   prev_page: Попередня сторінка

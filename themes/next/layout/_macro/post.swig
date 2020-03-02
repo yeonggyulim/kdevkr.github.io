@@ -85,9 +85,7 @@
               <span class="post-meta-item-text">{{ __('post.in') }}</span>
               {%- for cat in post.categories.toArray() %}
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index">
-                    <span itemprop="name">{{ cat.name }}</span>
-                  </a>
+                  <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index"><span itemprop="name">{{ cat.name }}</span></a>
                 </span>
 
                 {%- set cat_length = post.categories.length %}
@@ -180,7 +178,7 @@
 
       {%- if is_index %}
         {%- if post.description and theme.excerpt_description %}
-          {{ post.description }}
+          <p>{{ post.description }}</p>
           <!--noindex-->
           {%- if theme.read_more_btn %}
             <div class="post-button">
@@ -226,6 +224,10 @@
 
       {%- if theme.creative_commons.license and theme.creative_commons.post %}
         {{ partial('_partials/post/post-copyright.swig') }}
+      {%- endif %}
+
+      {%- if theme.follow_me %}
+        {{ partial('_partials/post/post-followme.swig', {}, {cache: theme.cache.enable}) }}
       {%- endif %}
 
       <footer class="post-footer">
