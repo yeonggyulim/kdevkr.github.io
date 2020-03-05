@@ -5,7 +5,10 @@
     tags: [KDB, Q]
 ---
 
-> 본 글은 잠만보가 KDB+를 다루기위해 공부한 내용을 정리한 것입니다.
+1. **KDB 튜토리얼 - 설치 및 접속**
+2. [KDB 튜토리얼 - 변수 할당 및 테이블 생성](../kdb-tutorial-assign-variables-and-tables)
+3. [KDB 튜토리얼 - CSV to Table](../kdb-tutorial-csv-to-table)
+4. [KDB 튜토리얼 - q-sql](../kdb-tutorial-q-sql)
 
 ## 들어가며
 KDB+는 KxSystems에서 만든 시계열 데이터베이스입니다.

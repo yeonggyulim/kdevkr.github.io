@@ -1,12 +1,14 @@
 ---
     title: KDB 튜토리얼 - 변수 할당 및 테이블 생성
-    date: 2020-03-05
+    date: 2020-03-05 12:00
     categories: [개발 이야기]
     tags: [KDB, Q]
 ---
 
-1. [KDB 튜토리얼 - 설치 및 접속](kdb-tutorial-install-and-connection)
+1. [KDB 튜토리얼 - 설치 및 접속](../kdb-tutorial-install-and-connection)
 2. **KDB 튜토리얼 - 변수 할당 및 테이블 생성**
+3. [KDB 튜토리얼 - CSV to Table](../kdb-tutorial-csv-to-table)
+4. [KDB 튜토리얼 - q-sql](../kdb-tutorial-q-sql)
 
 ## 들어가며
 KDB+는 일반적인 데이터베이스와는 약간 다릅니다. 그것은 [데이터 유형](https://code.kx.com/q/basics/datatypes/)에서도 확인할 수 있습니다. 
