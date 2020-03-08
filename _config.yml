@@ -92,6 +92,7 @@ theme_config:
               Spring: /spring || seedling
               Vue.js: /vuejs || vuejs fab
               PostgreSQL: /postgresql || database
+              KDB+: /kdb || database
               # 파이썬: /python || python fab
           # 운영체제:
           #     default: /os || desktop

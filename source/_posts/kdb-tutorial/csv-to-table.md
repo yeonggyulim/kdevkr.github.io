@@ -5,10 +5,14 @@
     tags: [KDB, Q]
 ---
 
-1. [KDB 튜토리얼 - 설치 및 접속](../kdb-tutorial-install-and-connection)
-2. [KDB 튜토리얼 - 변수 할당 및 테이블 생성](../kdb-tutorial-assign-variables-and-tables)
+1. [KDB 튜토리얼 - 설치 및 접속](/archives/kdb-tutorial/install-and-connection)
+2. [KDB 튜토리얼 - 변수 할당 및 테이블 생성](/archives/kdb-tutorial/assign-variables-and-tables)
 3. **KDB 튜토리얼 - CSV to Table**
-4. [KDB 튜토리얼 - q-sql](../kdb-tutorial-q-sql)
+4. [KDB 튜토리얼 - Q-SQL](/archives/kdb-tutorial/q-sql)
+5. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
+6. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
+7. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
+8. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
 
 ## 들어가며
 이번 시간에는 q-sql를 다루기전 CSV 파일 데이터를 테이블로 구성하는 것을 다루겠습니다.
@@ -28,8 +32,9 @@ route: ("idsssff";enlist",") 0: `:data/dataset/route.csv
 time: ("diiiiiiiiii";enlist",") 0: `:data/dataset/time.csv
 ```
 
+> 각 컬럼별 데이터 유형을 확인하세요
 
-## Table to CSV
+### Table to CSV
 테이블을 CSV로 변환하기 위해서 구분자로 표현된 문자열로 변환해야합니다.
 그리고 구분자로 표현된 문자열을 파일로 저장할 수 있습니다.
 

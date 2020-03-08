@@ -5,10 +5,14 @@
     tags: [KDB, Q]
 ---
 
-1. [KDB 튜토리얼 - 설치 및 접속](../kdb-tutorial-install-and-connection)
+1. [KDB 튜토리얼 - 설치 및 접속](/archives/kdb-tutorial/install-and-connection)
 2. **KDB 튜토리얼 - 변수 할당 및 테이블 생성**
-3. [KDB 튜토리얼 - CSV to Table](../kdb-tutorial-csv-to-table)
-4. [KDB 튜토리얼 - q-sql](../kdb-tutorial-q-sql)
+3. [KDB 튜토리얼 - CSV to Table](/archives/kdb-tutorial/csv-to-table)
+4. [KDB 튜토리얼 - Q-SQL](/archives/kdb-tutorial/q-sql)
+5. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
+6. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
+7. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
+8. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
 
 ## 들어가며
 KDB+는 일반적인 데이터베이스와는 약간 다릅니다. 그것은 [데이터 유형](https://code.kx.com/q/basics/datatypes/)에서도 확인할 수 있습니다. 
