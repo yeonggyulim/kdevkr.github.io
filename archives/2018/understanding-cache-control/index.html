@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="The Cache-Control Header Cache-Control 헤더는 서버와 브라우저 사이의 캐시 정책이라고 할 수 있다. 이 헤더값에 따라서 브라우저가 해당 파일을 캐시해야하는지 언제 다시 서버에게 요청하는지를 결정하게 된다. Cache-Control: no-cache 그리고 no-store 캐시 정책을 이해하기 위해서는 no-cache와 no-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="초보 개발자가 이해하는 캐시 정책">
+<meta property="og:url" content="https://kdevkr.github.io/archives/2018/understanding-cache-control/index.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="The Cache-Control Header Cache-Control 헤더는 서버와 브라우저 사이의 캐시 정책이라고 할 수 있다. 이 헤더값에 따라서 브라우저가 해당 파일을 캐시해야하는지 언제 다시 서버에게 요청하는지를 결정하게 된다. Cache-Control: no-cache 그리고 no-store 캐시 정책을 이해하기 위해서는 no-cache와 no-">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kdevkr.github.io/images/logo/spring.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/spring/index-public.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/spring/index-disk-cache.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/spring/main-no-store.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/spring/index-js-memory-cache.png">
+<meta property="article:published_time" content="2018-06-09T21:21:18.000Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:author" content="kdevkr">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kdevkr.github.io/images/logo/spring.png">
+
+<link rel="canonical" href="https://kdevkr.github.io/archives/2018/understanding-cache-control/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>초보 개발자가 이해하는 캐시 정책 | 잠만보의 개발 블로그</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://kdevkr.github.io/archives/2018/understanding-cache-control/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+      <meta itemprop="name" content="kdevkr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="잠만보의 개발 블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          초보 개발자가 이해하는 캐시 정책
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2018-06-09 21:21:18" itemprop="dateCreated datePublished" datetime="2018-06-09T21:21:18Z">2018-06-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2020-03-08 14:25:00" itemprop="dateModified" datetime="2020-03-08T14:25:00Z">2020-03-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/" itemprop="url" rel="index"><span itemprop="name">개발 이야기</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/%EC%9E%90%EB%B0%94/" itemprop="url" rel="index"><span itemprop="name">자바</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-user"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img data-src="/images/logo/spring.png" alt=""></p>
+<h2 id="The-Cache-Control-Header">The Cache-Control Header</h2>
+<p><code>Cache-Control</code> 헤더는 서버와 브라우저 사이의 <code>캐시 정책</code>이라고 할 수 있다. 이 헤더값에 따라서 브라우저가 해당 파일을 캐시해야하는지 언제 다시 서버에게 요청하는지를 결정하게 된다.</p>
+<h3 id="Cache-Control-no-cache-그리고-no-store">Cache-Control: no-cache 그리고 no-store</h3>
+<p>캐시 정책을 이해하기 위해서는 <code>no-cache</code>와 <code>no-store</code>의 차이점을 알아야 한다.</p>
+<h4 id="no-cache">no-cache</h4>
+<p><code>no-cache</code>는 브라우저가 서버의 응답을 캐시할지 스스로 결정할 수 있다. 하지만, 캐시된 정보가 해당 서버에서 제공한 것인지는 요청을 하게 된다.</p>
+<h4 id="no-store">no-store</h4>
+<p><code>no-store</code>는 브라우저가 서버의 응답을 캐시하지 못하도록 한다. 이 말은 반드시 매번 서버에 요청해야만 한다는 의미이다.</p>
+<h2 id="스프링-MVC-캐시-정책">스프링 MVC 캐시 정책</h2>
+<p>스프링 MVC에서 캐시 정책을 설정하기 위해서는 어떻게 해야할까?<br>
+다음 글들을 참고해보자.</p>
+<ul>
+<li><a href="https://www.lesstif.com/pages/viewpage.action?pageId=20775788" target="_blank" rel="noopener">browser가 caching 하지 않게 하는 http header</a></li>
+<li><a href="https://support.microsoft.com/ko-kr/help/234067/how-to-prevent-caching-in-internet-explorer" target="_blank" rel="noopener">Internet Explorer에서 캐싱을 방지하는 방법</a></li>
+<li><a href="http://cyberx.tistory.com/9" target="_blank" rel="noopener">더 빠른 웹을 위하여 - 웹 캐쉬</a></li>
+</ul>
+<p>다음 코드는 캐시 정책이 설정되지 않는다. 무엇이 문제일까.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MvcConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  	<span class="meta">@Override</span></span><br><span class="line">  	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">  		registry.addResourceHandler(<span class="string">"/**"</span>)</span><br><span class="line">                  .setCachePeriod(<span class="number">0</span>)</span><br><span class="line">                  .addResourceLocations(<span class="string">"classpath:/META-INF/resources/"</span>,<span class="string">"classpath:/resources/"</span>,<span class="string">"classpath:/static/"</span>,<span class="string">"classpath:/public/"</span>)</span><br><span class="line">                  .resourceChain(<span class="keyword">true</span>)</span><br><span class="line">                  .addResolver(<span class="keyword">new</span> PathResourceResolver()).addResolver(<span class="keyword">new</span> GzipResourceResolver());</span><br><span class="line">  	&#125;</span><br><span class="line"></span><br><span class="line">  	<span class="meta">@Override</span></span><br><span class="line">  	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">      registry.addInterceptor(<span class="keyword">new</span> HandlerInterceptorAdapter() &#123;</span><br><span class="line"></span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">              response.setHeader(<span class="string">"Cache-Control"</span>,<span class="string">"private, no-cache, no-store, must-revalidate"</span>);</span><br><span class="line">              response.setHeader(<span class="string">"Pragma"</span>,<span class="string">"no-cache"</span>);</span><br><span class="line">              response.setDateHeader(<span class="string">"Expires"</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">if</span> (request.getProtocol().equals(<span class="string">"HTTP/1.1"</span>)) &#123;</span><br><span class="line">                  response.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-cache"</span>);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      registry.addInterceptor(webContentInterceptor());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  	<span class="meta">@Bean</span></span><br><span class="line">  	<span class="function"><span class="keyword">public</span> WebContentInterceptor <span class="title">webContentInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  		WebContentInterceptor webContentInterceptor = <span class="keyword">new</span> WebContentInterceptor();</span><br><span class="line">  		webContentInterceptor.setCacheSeconds(<span class="number">0</span>);</span><br><span class="line">  		<span class="keyword">return</span> webContentInterceptor;</span><br><span class="line">  	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>혹시 다음 부분에서 문제가 있었을까?</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addInterceptor(<span class="keyword">new</span> HandlerInterceptorAdapter() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        response.setHeader(<span class="string">"Cache-Control"</span>,<span class="string">"private, no-cache, no-store, must-revalidate"</span>); <span class="comment">// HTTP/1.1</span></span><br><span class="line">        response.setHeader(<span class="string">"Pragma"</span>,<span class="string">"no-cache"</span>); <span class="comment">// HTTP/1.0</span></span><br><span class="line">        response.setDateHeader(<span class="string">"Expires"</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (request.getProtocol().equals(<span class="string">"HTTP/1.1"</span>)) &#123;</span><br><span class="line">            response.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-cache"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>스프링에서 브라우저 캐시와 관련된 정보를 검색하면 위와 같이 설정하는 것을 많이 찾을 수 있다. 그런데 사실 스프링 프레임워크에서 캐시 정책을 적용하기 위해서는 <code>WebContentInterceptor</code>라는 것을 이용해야 한다.</p>
+<p>이상하다. 위 코드에서 <code>WebContentInterceptor</code>는 이미 빈으로 등록하고 있다. 더구나 <code>setCacheSeconds(0)</code>이다.</p>
+<h4 id="WebContentGenerator-setCacheSeconds">WebContentGenerator.setCacheSeconds</h4>
+<p>WebContentGenerator의 setCacheSeconds 함수에 대해서 살펴보면 다음과 같이 설명하고 있다.</p>
+<p>::: tip WebContentGenerator.setCacheSeconds<br>
+Cache content for the given number of seconds, by writing cache-related HTTP headers to the response:</p>
+<p>seconds == -1 (default value) : no generation cache-related headers<br>
+seconds == 0 : “Cache-Control: no-store” will prevent caching<br>
+seconds &gt; 0 : “Cache-Control: max-age=seconds” will ask to cache content<br>
+:::</p>
+<p>CacheSeconds가 -1이면 캐시와 관련된 헤더를 만들지 않고 0이면 <code>Cache-Control: no-store</code>로 캐시를 막는다.<br>
+이미 <code>setCacheSeconds(0)</code>인데 그럼 무엇때문에 캐시를 했던 것일까</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">registry.addInterceptor(<span class="keyword">new</span> HandlerInterceptorAdapter() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        response.setHeader(<span class="string">"Cache-Control"</span>,<span class="string">"private, no-cache, no-store, must-revalidate"</span>); <span class="comment">// HTTP/1.1</span></span><br><span class="line">        response.setHeader(<span class="string">"Pragma"</span>,<span class="string">"no-cache"</span>); <span class="comment">// HTTP/1.0</span></span><br><span class="line">        response.setDateHeader(<span class="string">"Expires"</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ERROR!</span></span><br><span class="line">        <span class="keyword">if</span> (request.getProtocol().equals(<span class="string">"HTTP/1.1"</span>)) &#123;</span><br><span class="line">            response.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-cache"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>자세히 살펴보면 요청 프로토콜이 HTTP/1.1일때 <code>Cache-Control: no-cache</code>를 지정한다는 것이 잘못된 코드이다. 프로토콜에 따라 무조건 적용하는 것이 아니라 요청에 의한 응답 리소스에 따라 캐시 정책을 지정해야 한다.</p>
+<blockquote>
+<p><code>Pragma : no-cache</code> 도 HTTP/1.0의 표준 스펙은 아니다. 다만, Cache-Control을 지원하지 않으므로 대안으로 사용하는 것일 뿐이다.</p>
+</blockquote>
+<p>그래서 스프링 MVC는 <code>인터셉터</code>를 통해 헤더에 직접 지정하지 않고 <code>WebContentInterceptor</code>를 제공하여 캐시 정책을 등록하게 도와준다.</p>
+<p>그러므로 스프링은 WebContentInterceptor을 제공하고 캐시 전략을 등록하게 도와주는 것입니다.</p>
+<blockquote>
+<p><code>인터셉터</code>에서 캐시 정책을 지정하는 부분을 지우자.</p>
+</blockquote>
+<p>최종적으로 WebContentInterceptor에 의해 캐시 방지 처리된 페이지 결과는 다음과 같다.</p>
+<p><code>Chrome</code></p>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200</span><br><span class="line">Cache-Control: no-store, must-revalidate, proxy-revalidate</span><br><span class="line">Content-Language: ko-KR</span><br><span class="line">Content-Type: text/html;charset=UTF-8</span><br><span class="line">Date: Sat, 09 Jun 2018 07:54:50 GMT</span><br><span class="line">Server: nginx/1.10.3</span><br><span class="line">X-Application-Context: application:production:5000</span><br><span class="line">Content-Length: 2049</span><br><span class="line">Connection: keep-alive</span><br></pre></td></tr></table></figure>
+<p><code>IE 11</code></p>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">Cache-Control: no-store, must-revalidate, proxy-revalidate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Language: ko</span><br><span class="line">Content-Length: 2049</span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line">Date: Sat, 09 Jun 2018 08:24:47 GMT</span><br><span class="line">Server: nginx/1.10.3</span><br><span class="line">X-Application-Context: application:production:5000</span><br></pre></td></tr></table></figure>
+<h4 id="Path별-캐시-정책-지정하기">Path별 캐시 정책 지정하기</h4>
+<p>스프링 MVC에서 Path별 캐시 정책을 지정할 수 있다. <code>WebContentInterceptor.setCacheMappings(Properties cacheMappings</code>와 <code>WebContentInterceptor.addCacheMapping(CacheControl cacheControl, String... paths)</code>으로 지원한다.</p>
+<h2 id="샘플-애플리케이션에-캐시-정책을-지정해보자">샘플 애플리케이션에 캐시 정책을 지정해보자</h2>
+<p>스프링 MVC에서 캐시 정책을 지정하는 방법을 알아보았다. 이제는 실제로 캐시 정책을 지정해보도록 하겠다.</p>
+<p>먼저, <code>캐시 정책을 지정하기 위한 샘플 애플리케이션</code>은 다음과 같이 구성된다.</p>
+<p><strong>/</strong><br>
+index.html으로 렌더링한 페이지를 응답한다.</p>
+<p><strong>/main</strong><br>
+main.html으로 렌더링한 페이지를 응답한다.</p>
+<p><strong>/api/users</strong><br>
+샘플 애플리케이션의 사용자 목록을 응답하는 API으로 JSON 형식으로 응답된다.</p>
+<p><strong>/resources/index.js</strong><br>
+/resources/index.js 경로로 index.js라는 정적 리소스를 응답한다.</p>
+<p>인터셉터에서는 <code>Cache-Control</code> 헤더를 지정하지 않고 응답하기전에 <code>Cache-Control</code>의 헤더를 확인만 한다.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Configuration</span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MvcConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger console = LoggerFactory.getLogger(MvcConfig<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(webContentInterceptor());</span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> HandlerInterceptorAdapter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                console.info(<span class="string">"---- Cache-Control ----"</span>);</span><br><span class="line">                console.info(<span class="string">"request : &#123;&#125;"</span>, request.getHeader(<span class="string">"Cache-Control"</span>));</span><br><span class="line">                console.info(<span class="string">"response : &#123;&#125;"</span>, response.getHeader(<span class="string">"Cache-Control"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Serve For Static Resources</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">"/resources/**"</span>)</span><br><span class="line">                .addResourceLocations(<span class="string">"classpath:/static/"</span>)</span><br><span class="line"><span class="comment">//                .setCachePeriod(3600)</span></span><br><span class="line">                .setCacheControl(CacheControl.maxAge(<span class="number">1</span>, TimeUnit.HOURS))</span><br><span class="line">                .resourceChain(<span class="keyword">true</span>)</span><br><span class="line">                .addResolver(<span class="keyword">new</span> GzipResourceResolver())</span><br><span class="line">                .addResolver(<span class="keyword">new</span> PathResourceResolver());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Serve For Dynamic Response</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> WebContentInterceptor <span class="title">webContentInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        WebContentInterceptor webContentInterceptor = <span class="keyword">new</span> WebContentInterceptor();</span><br><span class="line">        webContentInterceptor.addCacheMapping(CacheControl.noStore().mustRevalidate().proxyRevalidate().cachePrivate(), <span class="string">"/api/**"</span>);</span><br><span class="line"><span class="comment">//        webContentInterceptor.addCacheMapping(CacheControl.noCache(), "/main/**");</span></span><br><span class="line">        webContentInterceptor.addCacheMapping(CacheControl.noStore(), <span class="string">"/main/**"</span>);</span><br><span class="line">        <span class="keyword">return</span> webContentInterceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="index-html의-캐시-정책">index.html의 캐시 정책</h3>
+<p>동적 리소스인 index.html은 아무런 캐시 전략을 설정하지 않았다.</p>
+<p><img data-src="/images/spring/index-public.png" alt=""></p>
+<p>index.html을 응답받은 브라우저는 응답 헤더에 <code>Cache-Control</code>이 없으므로 스스로 판단하여 캐시 정책을 설정하게 된다.</p>
+<p>다음은 <code>/</code>에서 <code>/main</code>으로 이동한 뒤에 브라우저의 뒤로가기 기능으로 <code>/</code>로 되돌아 갔을 때의 <code>index.html</code>의 응답 헤더이다.</p>
+<p><img data-src="/images/spring/index-disk-cache.png" alt=""></p>
+<p>브라우저는 <code>from disk cache</code> 디스크에 저장된 캐시 파일로 index.html을 보여주고 있다.</p>
+<h3 id="main-html의-캐시-정책">main.html의 캐시 정책</h3>
+<p><code>동적 리소스</code>인 main.html은 <code>no-store</code> 캐시 정책을 설정하였다.</p>
+<p>브라우저는 main.html에 대하여 캐시 정책을 세우지 않고 매번 서버에 요청한다.</p>
+<p><img data-src="/images/spring/main-no-store.png" alt=""></p>
+<h3 id="index-js의-캐시-정책">index.js의 캐시 정책</h3>
+<p>index.js와 같은 정적 리소스의 경우에는 <code>ResourceHandlerRegistry</code>에서 캐시 정책을 지정할 수 있다. <code>ResourceHandlerRegistry.setCacheControl</code>으로 <code>CacheControl.maxAge(1, TimeUnit.HOURS)</code>을 지정하여 index.js의 캐시 기간은 1시간이 된다.</p>
+<p><img data-src="/images/spring/index-js-memory-cache.png" alt=""></p>
+<p>위 처럼 <code>max-age</code>를 설정하면 해당 리소스의 <code>Last-Modified 헤더</code>에 따라 캐시할 기간이 설정되어지며 기간이 지났으면 다시 서버에서 요청한다.</p>
+<h2 id="참조">참조</h2>
+<ul>
+<li><a href="https://www.incapsula.com/cdn-guide/glossary/cache-control.html" target="_blank" rel="noopener">Cache-Control</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/2017/understanding-spring-security/" rel="prev" title="초보가 이해하는 스프링 시큐리티">
+      <i class="fa fa-chevron-left"></i> 초보가 이해하는 스프링 시큐리티
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/2018/understanding-http-content-types/" rel="next" title="초보 개발자가 이해하는 HTTP Content-Type">
+      초보 개발자가 이해하는 HTTP Content-Type <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Cache-Control-Header"><span class="nav-number">1.</span> <span class="nav-text">The Cache-Control Header</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control-no-cache-그리고-no-store"><span class="nav-number">1.1.</span> <span class="nav-text">Cache-Control: no-cache 그리고 no-store</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#no-cache"><span class="nav-number">1.1.1.</span> <span class="nav-text">no-cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#no-store"><span class="nav-number">1.1.2.</span> <span class="nav-text">no-store</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#스프링-MVC-캐시-정책"><span class="nav-number">2.</span> <span class="nav-text">스프링 MVC 캐시 정책</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#WebContentGenerator-setCacheSeconds"><span class="nav-number">2.0.1.</span> <span class="nav-text">WebContentGenerator.setCacheSeconds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Path별-캐시-정책-지정하기"><span class="nav-number">2.0.2.</span> <span class="nav-text">Path별 캐시 정책 지정하기</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#샘플-애플리케이션에-캐시-정책을-지정해보자"><span class="nav-number">3.</span> <span class="nav-text">샘플 애플리케이션에 캐시 정책을 지정해보자</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#index-html의-캐시-정책"><span class="nav-number">3.1.</span> <span class="nav-text">index.html의 캐시 정책</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main-html의-캐시-정책"><span class="nav-number">3.2.</span> <span class="nav-text">main.html의 캐시 정책</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#index-js의-캐시-정책"><span class="nav-number">3.3.</span> <span class="nav-text">index.js의 캐시 정책</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참조"><span class="nav-number">4.</span> <span class="nav-text">참조</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/archives/2018/understanding-cache-control/",
+      identifier: "archives/2018/understanding-cache-control/",
+      title     : "초보 개발자가 이해하는 캐시 정책",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

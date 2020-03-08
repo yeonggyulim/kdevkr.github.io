@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="KDB 튜토리얼 - 설치 및 접속 KDB 튜토리얼 - 변수 할당 및 테이블 생성 KDB 튜토리얼 - Q-SQL KDB 튜토리얼 - 그룹핑과 집계 KDB 튜토리얼 - 파일 다루기 KDB 튜토리얼 - 네임스페이스 KDB 튜토리얼 - 함수 KDB 튜토리얼 - 자바 클라이언트  들어가며 KDB+에서 파일을 다루는 방법에 대해서 알아봅니다. 메모리(RDB)에 존재">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KDB 튜토리얼 - 파일 다루기">
+<meta property="og:url" content="https://kdevkr.github.io/archives/kdb-tutorial/file/index.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="KDB 튜토리얼 - 설치 및 접속 KDB 튜토리얼 - 변수 할당 및 테이블 생성 KDB 튜토리얼 - Q-SQL KDB 튜토리얼 - 그룹핑과 집계 KDB 튜토리얼 - 파일 다루기 KDB 튜토리얼 - 네임스페이스 KDB 튜토리얼 - 함수 KDB 튜토리얼 - 자바 클라이언트  들어가며 KDB+에서 파일을 다루는 방법에 대해서 알아봅니다. 메모리(RDB)에 존재">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kdevkr.github.io/images/2020/kdb-rsave.PNG">
+<meta property="article:published_time" content="2020-03-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:author" content="kdevkr">
+<meta property="article:tag" content="KDB">
+<meta property="article:tag" content="Q">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kdevkr.github.io/images/2020/kdb-rsave.PNG">
+
+<link rel="canonical" href="https://kdevkr.github.io/archives/kdb-tutorial/file/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>KDB 튜토리얼 - 파일 다루기 | 잠만보의 개발 블로그</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://kdevkr.github.io/archives/kdb-tutorial/file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+      <meta itemprop="name" content="kdevkr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="잠만보의 개발 블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          KDB 튜토리얼 - 파일 다루기
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2020-03-06 0:00:00" itemprop="dateCreated datePublished" datetime="2020-03-06T00:00:00Z">2020-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2020-03-08 14:25:00" itemprop="dateModified" datetime="2020-03-08T14:25:00Z">2020-03-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/" itemprop="url" rel="index"><span itemprop="name">개발 이야기</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-user"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol>
+<li><a href="/archives/kdb-tutorial/install-and-connection">KDB 튜토리얼 - 설치 및 접속</a></li>
+<li><a href="/archives/kdb-tutorial/assign-variables-and-tables">KDB 튜토리얼 - 변수 할당 및 테이블 생성</a></li>
+<li><a href="/archives/kdb-tutorial/q-sql">KDB 튜토리얼 - Q-SQL</a></li>
+<li><a href="/archives/kdb-tutorial/grouping-and-aggregation">KDB 튜토리얼 - 그룹핑과 집계</a></li>
+<li><strong>KDB 튜토리얼 - 파일 다루기</strong></li>
+<li><a href="/archives/kdb-tutorial/namespace">KDB 튜토리얼 - 네임스페이스</a></li>
+<li><a href="/archives/kdb-tutorial/function">KDB 튜토리얼 - 함수</a></li>
+<li><a href="/archives/kdb-tutorial/java-client">KDB 튜토리얼 - 자바 클라이언트</a></li>
+</ol>
+<h2 id="들어가며">들어가며</h2>
+<p>KDB+에서 파일을 다루는 방법에 대해서 알아봅니다. 메모리(RDB)에 존재하는 데이터를 디스크(HDB)에 저장하거나 반대로 디스크에 존재하는 데이터를 메모리에 불러올 수 있습니다.</p>
+<p>자 그럼 파일을 다루는 법을 배우러 가보실까요?</p>
+<h2 id="파일-다루기">파일 다루기</h2>
+<p>아래는 파일 관련 키워드입니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> console     <span class="built_in">read0</span>  <span class="number">0</span>: File Text      read/write chars¹</span><br><span class="line"><span class="number">1</span> stdout      <span class="built_in">read1</span>  <span class="number">1</span>: File Binary    read/write bytes¹</span><br><span class="line"><span class="number">2</span> stderr             <span class="number">2</span>: Dynamic Load   <span class="built_in">load</span> shared object</span><br><span class="line">                     ?  Enum Extend</span><br><span class="line"></span><br><span class="line"><span class="built_in">get</span> <span class="built_in">set</span>       read/write <span class="built_in">or</span> memory-map a data file¹</span><br><span class="line"></span><br><span class="line"><span class="built_in">hopen</span> <span class="built_in">hclose</span>  open/close a file¹</span><br><span class="line"></span><br><span class="line"><span class="built_in">hcount</span>        file size</span><br><span class="line"><span class="built_in">hdel</span>          <span class="keyword">delete</span> a file <span class="built_in">or</span> folder</span><br><span class="line"><span class="built_in">hsym</span>          symbol/s to file symbol/s¹</span><br><span class="line"></span><br><span class="line"><span class="built_in">save</span>   <span class="built_in">load</span>   a table</span><br><span class="line"><span class="built_in">rsave</span>  <span class="built_in">rload</span>  a splayed table</span><br><span class="line">dsave         <span class="built_in">tables</span></span><br></pre></td></tr></table></figure>
+<p>우리는 이 키워드들을 활용해서 파일을 다루게 됩니다.</p>
+<h3 id="텍스트-저장-및-읽기">텍스트 저장 및 읽기</h3>
+<p><code>0:</code>는 텍스트를 파일에 저장하고 <code>read0</code>은 파일에 저장된 텍스트를 불러올 수 있습니다.</p>
+<p>먼저, <code>0:</code>으로 텍스트를 파일에 저장합니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">/ file_symbol <span class="number">0</span>: strings</span><br><span class="line">`:data/hello.txt <span class="number">0</span>: <span class="built_in">enlist</span> <span class="string">"Hello World"</span></span><br></pre></td></tr></table></figure>
+<p>그리고 다시 <code>read0</code>으로 파일에 저장된 텍스트를 읽을 수 있습니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line"><span class="built_in">read0</span> `:data/hello.txt</span><br><span class="line"><span class="string">"Hello World"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">read0</span> `:data/dataset/patient.<span class="built_in">csv</span></span><br><span class="line"><span class="string">"id,sex,birth_year,country,region,group,infection_reason,infection_order,infected_by,contact_number,confirmed_date,released_date,deceased_date,state"</span></span><br><span class="line"><span class="string">"1,female,1984,China,filtered at airport,,visit to Wuhan,1,,45,2020-01-20,2020-02-06,,released"</span></span><br><span class="line"><span class="string">"2,male,1964,Korea,filtered at airport,,visit to Wuhan,1,,75,2020-01-24,2020-02-05,,released"</span></span><br><span class="line"><span class="string">"3,male,1966,Korea,capital area,,visit to Wuhan,1,,16,2020-01-26,2020-02-12,,released"</span></span><br></pre></td></tr></table></figure>
+<h4 id="CSV로-저장하고-불러오기">CSV로 저장하고 불러오기</h4>
+<p>KDB+는 쉽게 테이블을 CSV 형식의 텍스트로 만들수 있습니다. 그리고 <code>0:</code>을 통해 CSV 파일로 저장할 수 있게 됩니다.</p>
+<p>먼저, 테이블을 CSV 형식의 텍스트로 만듭니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line"><span class="built_in">csv</span> <span class="number">0</span>: patient</span><br><span class="line"></span><br><span class="line"><span class="string">"id,sex,birth_year,country,region,group,infection_reason,infection_order,infected_by,contact_number,confirmed_date,released_date,deceased_date,state"</span></span><br><span class="line"><span class="string">"1,female,1984,China,filtered at airport,,visit to Wuhan,1,,45,2020-01-20,2020-02-06,,released"</span></span><br><span class="line"><span class="string">"2,male,1964,Korea,filtered at airport,,visit to Wuhan,1,,75,2020-01-24,2020-02-05,,released"</span></span><br><span class="line"><span class="string">"3,male,1966,Korea,capital area,,visit to Wuhan,1,,16,2020-01-26,2020-02-12,,released"</span></span><br></pre></td></tr></table></figure>
+<p>그리고 CSV 형식의 텍스트를 <code>0:</code>으로 파일로 저장합니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">`:data/patient.<span class="built_in">csv</span> <span class="number">0</span>: <span class="built_in">csv</span> <span class="number">0</span>: patient</span><br></pre></td></tr></table></figure>
+<p>다시 CSV 파일에 저장된 데이터를 기반으로 테이블로 구성할 수 있습니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">/ (types;delimiter) <span class="number">0</span>: file_symbol</span><br><span class="line">patient: `id <span class="built_in">xkey</span> (<span class="string">"isissssiiiddds"</span>;<span class="built_in">enlist</span><span class="string">","</span>) <span class="number">0</span>: `:data/dataset/patient.<span class="built_in">csv</span></span><br><span class="line">route: (<span class="string">"idsssff"</span>;<span class="built_in">enlist</span><span class="string">","</span>) <span class="number">0</span>: `:data/dataset/route.<span class="built_in">csv</span></span><br><span class="line">time: (<span class="string">"diiiiiiiiii"</span>;<span class="built_in">enlist</span><span class="string">","</span>) <span class="number">0</span>: `:data/dataset/time.<span class="built_in">csv</span></span><br></pre></td></tr></table></figure>
+<h4 id="특정-포맷으로-불러오기">특정 포맷으로 불러오기</h4>
+<p>파일에 저장된 텍스트에 대하여 특정 포맷 형식으로 변환하여 불러올 수 있습니다.</p>
+<p>다음은 처음 8자리는 date 형식이고 나머지 9자리는 time 형식으로 구분한 것입니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">/ (types; widths) <span class="number">0</span>: file_descriptor <span class="built_in">or</span> list_of_strings</span><br><span class="line"><span class="built_in">flip</span> <span class="type">`date</span><span class="type">`time</span>!(<span class="string">"DT"</span>;<span class="number">8</span> <span class="number">9</span>) <span class="number">0</span>: (<span class="string">"20200201000000000"</span>;<span class="string">"20200301235959000"</span>)</span><br><span class="line"></span><br><span class="line">date       time        </span><br><span class="line">-----------------------</span><br><span class="line"><span class="number">2020.02</span><span class="number">.01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.000</span></span><br><span class="line"><span class="number">2020.03</span><span class="number">.01</span> <span class="number">23</span>:<span class="number">59</span>:<span class="number">59.000</span></span><br></pre></td></tr></table></figure>
+<h3 id="데이터-설정-및-가져오기">데이터 설정 및 가져오기</h3>
+<p>키워드 <code>get</code> 그리고 <code>set</code>은 텍스트 파일이 아닌 바이너리 파일로 저장하고 불러올 수 있습니다.</p>
+<p>따라서, KDB+가 읽을 수 있는 데이터 파일이 아닌 경우 오류가 발생합니다.</p>
+<p>다음은 간단한 텍스트를 데이터 파일로 저장하고 불러오는 예제입니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">`:data/hello <span class="built_in">set</span> <span class="string">"Hello World"</span></span><br><span class="line"><span class="built_in">get</span> `:data/hello</span><br><span class="line"></span><br><span class="line">/ 데이터 파일이 아닌 경우</span><br><span class="line"><span class="built_in">get</span> `:data/dataset/patient.<span class="built_in">csv</span></span><br><span class="line">error: `data/dataset/patient.<span class="built_in">csv</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>CSV 파일은 불러오지 못했죠?</p>
+</blockquote>
+<h3 id="테이블-저장-및-불러오기">테이블 저장 및 불러오기</h3>
+<p>키워드 <code>save</code>와 <code>load</code>를 이용하여 테이블 데이터를 저장하고 불러올 수 있습니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">/ <span class="built_in">save</span> x</span><br><span class="line"><span class="built_in">save</span> `patient</span><br><span class="line">`:patient</span><br><span class="line"></span><br><span class="line">/ 현재 컨텍스트의 patient를 삭제합니다.</span><br><span class="line"><span class="keyword">delete</span> patient <span class="keyword">from</span> `. </span><br><span class="line"></span><br><span class="line">/ 현재 컨텍스트에 patient 테이블이 없습니다.</span><br><span class="line">patient</span><br><span class="line">error: `patient</span><br><span class="line"></span><br><span class="line">/ <span class="built_in">load</span> x</span><br><span class="line"><span class="built_in">load</span> `patient</span><br><span class="line">`patient</span><br><span class="line"></span><br><span class="line">/ 다시 불러온 patient 테이블을 확인합니다.</span><br><span class="line">patient</span><br><span class="line"></span><br><span class="line">id| sex    birth_year country region              <span class="built_in">group</span>                    infection_reason                  infection_order infected_by contact_number confirmed_date released_date deceased_date state   </span><br><span class="line">--| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"><span class="number">1</span> | female <span class="number">1984</span>       China   filtered at airport                          visit to Wuhan                    <span class="number">1</span>                           <span class="number">45</span>             <span class="number">2020.01</span><span class="number">.20</span>     <span class="number">2020.02</span><span class="number">.06</span>                  released</span><br><span class="line"><span class="number">2</span> | male   <span class="number">1964</span>       Korea   filtered at airport                          visit to Wuhan                    <span class="number">1</span>                           <span class="number">75</span>             <span class="number">2020.01</span><span class="number">.24</span>     <span class="number">2020.02</span><span class="number">.05</span>                  released</span><br><span class="line"><span class="number">3</span> | male   <span class="number">1966</span>       Korea   capital area                                 visit to Wuhan                    <span class="number">1</span>                           <span class="number">16</span>             <span class="number">2020.01</span><span class="number">.26</span>     <span class="number">2020.02</span><span class="number">.12</span>                  released</span><br><span class="line"><span class="number">4</span> | male   <span class="number">1964</span>       Korea   capital area                                 visit to Wuhan                    <span class="number">1</span>                           <span class="number">95</span>             <span class="number">2020.01</span><span class="number">.27</span>     <span class="number">2020.02</span><span class="number">.09</span>                  released</span><br></pre></td></tr></table></figure>
+<h4 id="특정-파일-포맷으로-저장">특정 파일 포맷으로 저장</h4>
+<p>KDB+는 바이너리 뿐만 아니라 <code>csv</code>, <code>txt</code>, <code>xls</code>, <code>xml</code>형식으로 저장할 수 있습니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">(none)   binary</span><br><span class="line"> <span class="built_in">csv</span>     comma-separated values</span><br><span class="line"> txt     plain text</span><br><span class="line"> xls     Excel spreadsheet</span><br><span class="line"> xml     Extensible Markup Language (XML)</span><br><span class="line"> </span><br><span class="line">/ <span class="built_in">save</span> x.extension</span><br><span class="line"><span class="built_in">save</span> `:data/patient.<span class="built_in">csv</span></span><br><span class="line"><span class="built_in">save</span> `:data/patient.txt</span><br><span class="line"></span><br><span class="line"><span class="built_in">save</span> `:data/patient.xls</span><br><span class="line"><span class="built_in">read0</span> `:data/patient.xls</span><br></pre></td></tr></table></figure>
+<h3 id="재생-테이블-저장-및-불러오기">재생 테이블 저장 및 불러오기</h3>
+<p>키워드 <code>rsave</code>와 <code>rload</code>로 키가 없는 일반 테이블에 대하여 컬럼별로 저장되는 재생 테이블로 저장하고 불러올 수 있습니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">/ <span class="built_in">rsave</span> x</span><br><span class="line"><span class="built_in">rsave</span> `:data/time</span><br><span class="line"></span><br><span class="line">/ 키 테이블을 저장하려는 경우</span><br><span class="line"><span class="built_in">rsave</span> `:data/patient</span><br><span class="line">error: `type</span><br><span class="line"></span><br><span class="line">/ reload x</span><br><span class="line"><span class="built_in">rload</span> `:data/time</span><br><span class="line">date       acc_test acc_negative acc_confirmed acc_released acc_deceased new_test new_negative new_confirmed new_released new_deceased</span><br><span class="line">--------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"><span class="number">2020.01</span><span class="number">.20</span> <span class="number">1</span>        <span class="number">0</span>            <span class="number">1</span>             <span class="number">0</span>            <span class="number">0</span>            <span class="number">1</span>        <span class="number">0</span>            <span class="number">1</span>             <span class="number">0</span>            <span class="number">0</span>           </span><br><span class="line"><span class="number">2020.01</span><span class="number">.21</span> <span class="number">1</span>        <span class="number">0</span>            <span class="number">1</span>             <span class="number">0</span>            <span class="number">0</span>            <span class="number">0</span>        <span class="number">0</span>            <span class="number">0</span>             <span class="number">0</span>            <span class="number">0</span>           </span><br><span class="line"><span class="number">2020.01</span><span class="number">.22</span> <span class="number">4</span>        <span class="number">3</span>            <span class="number">1</span>             <span class="number">0</span>            <span class="number">0</span>            <span class="number">3</span>        <span class="number">3</span>            <span class="number">0</span>             <span class="number">0</span>            <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>재생 테이블로 저장하는 경우 테이블 이름이 폴더 이름이 되며 각 컬럼이 파일로 구분되어 저장됨을 확인할 수 있습니다.</p>
+<p><img data-src="/images/2020/kdb-rsave.PNG" alt=""></p>
+<h3 id="기타-명령어">기타 명령어</h3>
+<h4 id="파일-사이즈-확인하기">파일 사이즈 확인하기</h4>
+<p>키워드 <code>hcount</code>는 파일의 바이트 단위 크기를 가져옵니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line"><span class="built_in">hcount</span> `:data/dataset/patient.<span class="built_in">csv</span></span><br><span class="line"><span class="number">254898</span></span><br></pre></td></tr></table></figure>
+<h4 id="파일-삭제하기">파일 삭제하기</h4>
+<p>키워드 <code>hdel</code>로 파일을 삭제할 수 있습니다.</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">/ <span class="built_in">hdel</span> file_symbol</span><br><span class="line"><span class="built_in">hdel</span> `:data/time.<span class="built_in">csv</span></span><br><span class="line">`:data/time.<span class="built_in">csv</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">hdel</span> `:data/dataset</span><br><span class="line">error: `data/dataset. OS reports: Directory <span class="built_in">not</span> empty</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>hdel</code>은 폴더가 비어있어야 삭제할 수 있습니다.</p>
+</blockquote>
+<h3 id="Q-네임스페이스">.Q 네임스페이스</h3>
+<p>다음에 알아볼 네임스페이스 중 <code>.Q</code>에는 테이블을 저장하고 불러오는 프로세스를 처리할 수 있는 함수를 포함하고 있습니다.</p>
+<ul>
+<li><code>.Q.dpft</code> : 테이블 저장</li>
+<li><code>.Q.v</code> : 테이블 불러오기</li>
+</ul>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">/ <span class="built_in">save</span> table</span><br><span class="line">/ .Q.dpft[filpath;partition;fields;table]</span><br><span class="line">.Q.dpft[`:data;`;`id;`route]</span><br><span class="line"></span><br><span class="line">/ <span class="built_in">load</span> splayed table</span><br><span class="line">.Q.v `:data/time</span><br><span class="line"></span><br><span class="line">/ <span class="built_in">load</span> splayed table to dict</span><br><span class="line">.Q.v `:data/time</span><br><span class="line"></span><br><span class="line">date         | <span class="number">2020.01</span><span class="number">.20</span> <span class="number">2020.01</span><span class="number">.21</span> <span class="number">2020.01</span><span class="number">.22</span> <span class="number">2020.01</span><span class="number">.23</span> <span class="number">2020.01</span><span class="number">.24</span> <span class="number">2020.01</span><span class="number">.25</span> <span class="number">2020.01</span><span class="number">.26</span> <span class="number">2020.01</span><span class="number">.27</span> <span class="number">2020.01</span><span class="number">.28</span> <span class="number">2020.01</span><span class="number">.29</span> <span class="number">2020.01</span><span class="number">.30</span> <span class="number">2020.01</span><span class="number">.31</span> <span class="number">2020.02</span><span class="number">.01</span> <span class="number">2020.02</span><span class="number">.02</span> <span class="number">2020.02</span><span class="number">.03</span> <span class="number">2020.02</span><span class="number">.04</span> <span class="number">2020.02</span><span class="number">.05</span> <span class="number">2020.02</span><span class="number">.06</span> <span class="number">2020.02</span><span class="number">.07</span> <span class="number">2020.02</span><span class="number">.08</span> <span class="number">2020.02</span><span class="number">.09</span> <span class="number">2020.02</span><span class="number">.10</span> <span class="number">2020.02</span><span class="number">.11</span> <span class="number">2020.02</span><span class="number">.12</span> <span class="number">2020.02</span><span class="number">.13</span> <span class="number">2020.02</span><span class="number">.14</span> <span class="number">2020.02</span><span class="number">.15</span> <span class="number">2020.02</span><span class="number">.16</span> <span class="number">2020.02</span><span class="number">.17</span> <span class="number">2020.02</span><span class="number">.18</span> <span class="number">2020.02</span><span class="number">.19</span> <span class="number">2020.02</span><span class="number">.20</span> <span class="number">2020.02</span><span class="number">.21</span> <span class="number">2020.02</span><span class="number">.22</span> <span class="number">2020.02</span><span class="number">.23</span> <span class="number">2020.02</span><span class="number">.24</span> <span class="number">2020.02</span><span class="number">.25</span> <span class="number">2020.02</span><span class="number">.26</span> <span class="number">2020.02</span><span class="number">.27</span> <span class="number">2020.02</span><span class="number">.28</span> <span class="number">2020.02</span><span class="number">.29</span> <span class="number">2020.03</span><span class="number">.01</span> <span class="number">2020.03</span><span class="number">.02</span> <span class="number">2020.03</span><span class="number">.03</span> <span class="number">2020.03</span><span class="number">.04</span></span><br><span class="line">acc_test     | <span class="number">1</span>          <span class="number">1</span>          <span class="number">4</span>          <span class="number">22</span>         <span class="number">27</span>         <span class="number">27</span>         <span class="number">51</span>         <span class="number">61</span>         <span class="number">116</span>        <span class="number">187</span>        <span class="number">246</span>        <span class="number">312</span>        <span class="number">371</span>        <span class="number">429</span>        <span class="number">490</span>        <span class="number">607</span>        <span class="number">714</span>        <span class="number">885</span>        <span class="number">1352</span>       <span class="number">2097</span>       <span class="number">2598</span>       <span class="number">3110</span>       <span class="number">4325</span>       <span class="number">5624</span>       <span class="number">6511</span>       <span class="number">7242</span>       <span class="number">7734</span>       <span class="number">8161</span>       <span class="number">8718</span>       <span class="number">9772</span>       <span class="number">11173</span>      <span class="number">13202</span>      <span class="number">16400</span>      <span class="number">21586</span>      <span class="number">26179</span>      <span class="number">32756</span>      <span class="number">40304</span>      <span class="number">53553</span>      <span class="number">66652</span>      <span class="number">81167</span>      <span class="number">94055</span>      <span class="number">109591</span>     <span class="number">125851</span>     <span class="number">136707</span>     <span class="number">146541</span>    </span><br><span class="line">acc_negative | <span class="number">0</span>          <span class="number">0</span>          <span class="number">3</span>          <span class="number">21</span>         <span class="number">25</span>         <span class="number">25</span>         <span class="number">47</span>         <span class="number">56</span>         <span class="number">97</span>         <span class="number">155</span>        <span class="number">199</span>        <span class="number">245</span>        <span class="number">289</span>        <span class="number">327</span>        <span class="number">414</span>        <span class="number">462</span>        <span class="number">522</span>        <span class="number">693</span>        <span class="number">1001</span>       <span class="number">1134</span>       <span class="number">1683</span>       <span class="number">2552</span>       <span class="number">3535</span>       <span class="number">4811</span>       <span class="number">5921</span>       <span class="number">6679</span>       <span class="number">7148</span>       <span class="number">7647</span>       <span class="number">7980</span>       <span class="number">8923</span>       <span class="number">9973</span>       <span class="number">11238</span>      <span class="number">13016</span>      <span class="number">15116</span>      <span class="number">17520</span>      <span class="number">20292</span>      <span class="number">25447</span>      <span class="number">31576</span>      <span class="number">39318</span>      <span class="number">48593</span>      <span class="number">55723</span>      <span class="number">71580</span>      <span class="number">85484</span>      <span class="number">102965</span>     <span class="number">118965</span>    </span><br><span class="line">acc_confirmed| <span class="number">1</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">2</span>          <span class="number">2</span>          <span class="number">3</span>          <span class="number">4</span>          <span class="number">4</span>          <span class="number">4</span>          <span class="number">6</span>          <span class="number">11</span>         <span class="number">12</span>         <span class="number">15</span>         <span class="number">15</span>         <span class="number">16</span>         <span class="number">18</span>         <span class="number">23</span>         <span class="number">24</span>         <span class="number">24</span>         <span class="number">27</span>         <span class="number">27</span>         <span class="number">28</span>         <span class="number">28</span>         <span class="number">28</span>         <span class="number">28</span>         <span class="number">28</span>         <span class="number">29</span>         <span class="number">30</span>         <span class="number">31</span>         <span class="number">51</span>         <span class="number">104</span>        <span class="number">204</span>        <span class="number">433</span>        <span class="number">602</span>        <span class="number">833</span>        <span class="number">977</span>        <span class="number">1261</span>       <span class="number">1766</span>       <span class="number">2337</span>       <span class="number">3150</span>       <span class="number">4212</span>       <span class="number">4812</span>       <span class="number">5328</span>       <span class="number">5766</span>      </span><br><span class="line">acc_released | <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">2</span>          <span class="number">2</span>          <span class="number">2</span>          <span class="number">3</span>          <span class="number">4</span>          <span class="number">4</span>          <span class="number">7</span>          <span class="number">7</span>          <span class="number">7</span>          <span class="number">9</span>          <span class="number">9</span>          <span class="number">10</span>         <span class="number">12</span>         <span class="number">16</span>         <span class="number">16</span>         <span class="number">17</span>         <span class="number">18</span>         <span class="number">18</span>         <span class="number">24</span>         <span class="number">24</span>         <span class="number">24</span>         <span class="number">27</span>         <span class="number">27</span>         <span class="number">28</span>         <span class="number">31</span>         <span class="number">34</span>         <span class="number">41</span>         <span class="number">88</span>        </span><br><span class="line">acc_deceased | <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">2</span>          <span class="number">2</span>          <span class="number">6</span>          <span class="number">8</span>          <span class="number">12</span>         <span class="number">12</span>         <span class="number">13</span>         <span class="number">16</span>         <span class="number">17</span>         <span class="number">22</span>         <span class="number">28</span>         <span class="number">32</span>         <span class="number">35</span>        </span><br><span class="line">new_test     | <span class="number">1</span>          <span class="number">0</span>          <span class="number">3</span>          <span class="number">18</span>         <span class="number">5</span>          <span class="number">0</span>          <span class="number">24</span>         <span class="number">10</span>         <span class="number">55</span>         <span class="number">71</span>         <span class="number">59</span>         <span class="number">66</span>         <span class="number">59</span>         <span class="number">58</span>         <span class="number">61</span>         <span class="number">117</span>        <span class="number">107</span>        <span class="number">171</span>        <span class="number">467</span>        <span class="number">745</span>        <span class="number">501</span>        <span class="number">512</span>        <span class="number">1215</span>       <span class="number">1299</span>       <span class="number">887</span>        <span class="number">731</span>        <span class="number">492</span>        <span class="number">427</span>        <span class="number">557</span>        <span class="number">1054</span>       <span class="number">1401</span>       <span class="number">2029</span>       <span class="number">3198</span>       <span class="number">5186</span>       <span class="number">4593</span>       <span class="number">6577</span>       <span class="number">7548</span>       <span class="number">13249</span>      <span class="number">13099</span>      <span class="number">14515</span>      <span class="number">12888</span>      <span class="number">15536</span>      <span class="number">16260</span>      <span class="number">10856</span>      <span class="number">9834</span>      </span><br><span class="line">new_negative | <span class="number">0</span>          <span class="number">0</span>          <span class="number">3</span>          <span class="number">18</span>         <span class="number">4</span>          <span class="number">0</span>          <span class="number">22</span>         <span class="number">9</span>          <span class="number">41</span>         <span class="number">58</span>         <span class="number">44</span>         <span class="number">46</span>         <span class="number">44</span>         <span class="number">38</span>         <span class="number">87</span>         <span class="number">48</span>         <span class="number">60</span>         <span class="number">171</span>        <span class="number">308</span>        <span class="number">133</span>        <span class="number">549</span>        <span class="number">869</span>        <span class="number">983</span>        <span class="number">1276</span>       <span class="number">1110</span>       <span class="number">758</span>        <span class="number">469</span>        <span class="number">499</span>        <span class="number">333</span>        <span class="number">943</span>        <span class="number">1050</span>       <span class="number">1265</span>       <span class="number">1778</span>       <span class="number">2100</span>       <span class="number">2404</span>       <span class="number">2772</span>       <span class="number">5155</span>       <span class="number">6129</span>       <span class="number">7742</span>       <span class="number">9275</span>       <span class="number">7130</span>       <span class="number">15857</span>      <span class="number">13904</span>      <span class="number">17481</span>      <span class="number">16000</span>     </span><br><span class="line">new_confirmed| <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">2</span>          <span class="number">5</span>          <span class="number">1</span>          <span class="number">3</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">2</span>          <span class="number">5</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">3</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">20</span>         <span class="number">53</span>         <span class="number">100</span>        <span class="number">229</span>        <span class="number">169</span>        <span class="number">231</span>        <span class="number">144</span>        <span class="number">284</span>        <span class="number">505</span>        <span class="number">571</span>        <span class="number">813</span>        <span class="number">1062</span>       <span class="number">600</span>        <span class="number">516</span>        <span class="number">438</span>       </span><br><span class="line">new_released | <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">3</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">2</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">2</span>          <span class="number">4</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">6</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">3</span>          <span class="number">0</span>          <span class="number">1</span>          <span class="number">3</span>          <span class="number">3</span>          <span class="number">7</span>          <span class="number">47</span>        </span><br><span class="line">new_deceased | <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>이번에는 파일을 저장하고 불러오며 파일을 다루는 방법에 대해서 알아보았습니다. 이제 다른 시스템(자바 애플리케이션 등)에서 필요한 데이터를 추출하여 파일로 저장하여 사용할 수 있게 되었습니다.</p>
+<h2 id="참고">참고</h2>
+<ul>
+<li><a href="https://code.kx.com/q/basics/files/" target="_blank" rel="noopener">Reference - File system</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/KDB/" rel="tag"># KDB</a>
+              <a href="/tags/Q/" rel="tag"># Q</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/kdb-tutorial/namespace/" rel="prev" title="KDB 튜토리얼 - 네임스페이스">
+      <i class="fa fa-chevron-left"></i> KDB 튜토리얼 - 네임스페이스
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/kdb-tutorial/function/" rel="next" title="KDB 튜토리얼 - 함수">
+      KDB 튜토리얼 - 함수 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#들어가며"><span class="nav-number">1.</span> <span class="nav-text">들어가며</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#파일-다루기"><span class="nav-number">2.</span> <span class="nav-text">파일 다루기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#텍스트-저장-및-읽기"><span class="nav-number">2.1.</span> <span class="nav-text">텍스트 저장 및 읽기</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSV로-저장하고-불러오기"><span class="nav-number">2.1.1.</span> <span class="nav-text">CSV로 저장하고 불러오기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#특정-포맷으로-불러오기"><span class="nav-number">2.1.2.</span> <span class="nav-text">특정 포맷으로 불러오기</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#데이터-설정-및-가져오기"><span class="nav-number">2.2.</span> <span class="nav-text">데이터 설정 및 가져오기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#테이블-저장-및-불러오기"><span class="nav-number">2.3.</span> <span class="nav-text">테이블 저장 및 불러오기</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#특정-파일-포맷으로-저장"><span class="nav-number">2.3.1.</span> <span class="nav-text">특정 파일 포맷으로 저장</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#재생-테이블-저장-및-불러오기"><span class="nav-number">2.4.</span> <span class="nav-text">재생 테이블 저장 및 불러오기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#기타-명령어"><span class="nav-number">2.5.</span> <span class="nav-text">기타 명령어</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#파일-사이즈-확인하기"><span class="nav-number">2.5.1.</span> <span class="nav-text">파일 사이즈 확인하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#파일-삭제하기"><span class="nav-number">2.5.2.</span> <span class="nav-text">파일 삭제하기</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-네임스페이스"><span class="nav-number">2.6.</span> <span class="nav-text">.Q 네임스페이스</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고"><span class="nav-number">3.</span> <span class="nav-text">참고</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/archives/kdb-tutorial/file/",
+      identifier: "archives/kdb-tutorial/file/",
+      title     : "KDB 튜토리얼 - 파일 다루기",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

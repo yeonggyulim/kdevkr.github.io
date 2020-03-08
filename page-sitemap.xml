@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://kdevkr.github.io</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/diary/introduction-atom-settings.html</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/diary/introduction-vscode-settings.html</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/diary/use-oh-my-zsh-to-make-the-terminal-useful-and-beautiful.html</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/network/</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/os/</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/diary/issue/</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/os/linux/</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/os/mac/</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/os/windows/</loc>
+        <lastmod>2020-03-08T14:25:00.767Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/about/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/dev-ops/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/diary/deploying-github-pages-with-travis-ci.html</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/diary/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/python/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/database/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/dev-ops/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/java/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/javascript/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/network/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/review/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/spring/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/bookmark/tool/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/java/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/java/updates.html</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/kdb/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/postgresql/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/spring/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/code/vuejs/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/dev-ops/docker/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/dev-ops/jenkins/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://kdevkr.github.io/development/dev-ops/terminal/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->

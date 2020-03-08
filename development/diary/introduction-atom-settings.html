@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="유저 인터페이스 꾸미기 기본적인 에디터 설정은 다음과 같이 했다. editor:    fontFamily: &quot;D2Coding, Hack, DejaVu Sans Mono, Menlo, Consolas, monospace&quot;    showInvisibles: true    softWrap: true    tabLength: 4 폰트의 경우 fonts를 설치해도">
+<meta property="og:type" content="website">
+<meta property="og:title" content="잠만보가 사용하는 아톰 설정">
+<meta property="og:url" content="https://kdevkr.github.io/development/diary/introduction-atom-settings.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="유저 인터페이스 꾸미기 기본적인 에디터 설정은 다음과 같이 했다. editor:    fontFamily: &quot;D2Coding, Hack, DejaVu Sans Mono, Menlo, Consolas, monospace&quot;    showInvisibles: true    softWrap: true    tabLength: 4 폰트의 경우 fonts를 설치해도">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://user-images.githubusercontent.com/378023/49132477-f4b77680-f31f-11e8-8357-ac6491761c6c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/file-icons/atom/6714706f268e257100e03c9eb52819cb97ad570b/preview.png">
+<meta property="og:image" content="https://i.github-camo.com/8387595328108e1dce2b658a6827140047e286e9/687474703a2f2f636c2e6c792f696d6167652f3277307533633178314b33572f53637265656e73686f742d323031352d30342d32312d31362e34362e34392e706e67">
+<meta property="og:image" content="https://i.github-camo.com/a7fa1da3b5b4bdea00b5d25591f47e0751f64d4e/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f343237383131332f32333837393933332f31616231376532612d303837322d313165372d383033642d3366653063636663363739302e676966">
+<meta property="og:image" content="https://i.github-camo.com/0f7ea286f12d90256431c2edb65087dacb8ad73a/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f41746f6d4c696e7465722f6c696e7465722d7374796c656c696e742f6d61737465722f64656d6f2e706e67">
+<meta property="og:image" content="https://i.github-camo.com/a917b5ee7f755895922efa2706d699b0a5c167f7/68747470733a2f2f6672697a692e78797a2f65787465726e616c732f7675652d6879706572636c69636b2d64656d6f2e676966">
+<meta property="og:image" content="https://i.github-camo.com/c33845e7be99491bd3e728ec53941753c680dcb2/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f766e2d6b692f627261636b65742d636f6c6f72697a65722f76312e322e302f2e6769746875622f73637265656e73686f74312e706e67">
+<meta property="og:image" content="https://i.github-camo.com/802d8b759d01e70861f95f99495731f19b145b03/687474703a2f2f61626533332e6769746875622e696f2f61746f6d2d7069676d656e74732f7069676d656e74732e6769663f7261773d74727565">
+<meta property="article:published_time" content="2020-03-08T14:25:00.767Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.767Z">
+<meta property="article:author" content="kdevkr">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/378023/49132477-f4b77680-f31f-11e8-8357-ac6491761c6c.png">
+
+<link rel="canonical" href="https://kdevkr.github.io/development/diary/introduction-atom-settings">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>잠만보가 사용하는 아톰 설정 | 잠만보의 개발 블로그
+  </title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+
+      
+
+        
+        <ul id="sub-menu" class="sub-menu menu">
+          
+            
+          
+          
+            
+                
+  <li class="menu-item menu-item-일기장">
+
+    <a href="/development/diary/" rel="section"><i class="fa fa-fw fa-newspaper"></i>일기장</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-코드">
+
+    <a href="/development/code" rel="section"><i class="fa fa-fw fa-code"></i>코드</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-데브옵스">
+
+    <a href="/development/dev-ops" rel="section"><i class="fa fa-fw fa-connectdevelop fab"></i>데브옵스</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-북마크">
+
+    <a href="/development/bookmark/" rel="section"><i class="fa fa-fw fa-bookmark"></i>북마크</a>
+
+  </li>
+
+
+        </ul>
+        
+
+        
+
+                
+
+                    
+                    <ul id="sub-menu-2" class="sub-menu menu">
+                      
+                        
+  <li class="menu-item menu-item-이슈">
+
+    <a href="/development/diary/issue" rel="section"><i class="fa fa-fw fa-exclamation-circle"></i>이슈</a>
+
+  </li>
+
+
+                    </ul>
+                    
+                
+
+                
+                
+
+                
+                
+
+                
+                
+        
+      
+  
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+    
+    
+    
+    <div class="post-block" lang="ko">
+      <header class="post-header">
+
+<h2 class="post-title" itemprop="name headline">잠만보가 사용하는 아톰 설정
+</h2>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/development/">DEVELOPMENT</a></li>
+            <li><a href="/development/diary/">DIARY</a></li>
+            <li>INTRODUCTION-ATOM-SETTINGS</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p><img data-src="https://user-images.githubusercontent.com/378023/49132477-f4b77680-f31f-11e8-8357-ac6491761c6c.png" alt=""></p>
+<h2 id="유저-인터페이스-꾸미기">유저 인터페이스 꾸미기</h2>
+<p>기본적인 에디터 설정은 다음과 같이 했다.</p>
+<figure class="highlight cson"><table><tr><td class="code"><pre><span class="line">editor:</span><br><span class="line">    fontFamily: <span class="string">"D2Coding, Hack, DejaVu Sans Mono, Menlo, Consolas, monospace"</span></span><br><span class="line">    showInvisibles: <span class="literal">true</span></span><br><span class="line">    softWrap: <span class="literal">true</span></span><br><span class="line">    tabLength: <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>폰트의 경우 <a href="https://atom.io/packages/fonts" target="_blank" rel="noopener"><code>fonts</code></a>를 설치해도 된다. (<a href="https://app.programmingfonts.org/" target="_blank" rel="noopener">폰트 미리보기</a>)</p>
+<h3 id="테마">테마</h3>
+<p>개인적으로 추천하는 테마 조합이다. 나는 기본값인 <code>One Dark</code>를 선호한다.</p>
+<ul>
+<li>One Dark (default) ⭐</li>
+<li>Atom Material + Atom Material Dark</li>
+<li>Atom Material + One Dark</li>
+</ul>
+<h3 id="아이콘">아이콘</h3>
+<p>기본 아이콘을 사용하기 보다는 <a href="https://atom.io/packages/file-icons" target="_blank" rel="noopener"><code>file-icons</code></a>를 적용했다.</p>
+<p><img data-src="https://raw.githubusercontent.com/file-icons/atom/6714706f268e257100e03c9eb52819cb97ad570b/preview.png" alt=""></p>
+<h3 id="툴바">툴바</h3>
+<p><a href="https://atom.io/packages/tool-bar" target="_blank" rel="noopener"><code>tool-bar</code></a> 패키지는 인터페이스에 툴바를 만들어준다.<br>
+tool-bar를 설치하면 생기는 빈 툴바에 사용할 플러그인을 추가로 설치해야한다. <a href="https://atom.io/packages/tool-bar-main" target="_blank" rel="noopener"><code>tool-bar-main</code></a>은 가장 심플한 툴바 메뉴를 만들어준다. 그리고 마크다운을 위한 <a href="https://atom.io/packages/tool-bar-markdown-writer" target="_blank" rel="noopener"><code>tool-bar-markdown-writer</code></a>도 설치했다.</p>
+<p><img data-src="https://i.github-camo.com/8387595328108e1dce2b658a6827140047e286e9/687474703a2f2f636c2e6c792f696d6167652f3277307533633178314b33572f53637265656e73686f742d323031352d30342d32312d31362e34362e34392e706e67" alt=""></p>
+<h2 id="개발-환경-구성하기">개발 환경 구성하기</h2>
+<p>개발 시 활용되는 패키지를 구성하고 관련된 설정을 해보자.</p>
+<h3 id="구문-하이라이팅">구문 하이라이팅</h3>
+<p>아톰은 <code>Vue.js</code>에 대한 구문 하이라이팅을 기본으로 제공하지 않는다.</p>
+<h4 id="Vue">Vue</h4>
+<p><a href="https://atom.io/packages/language-vue" target="_blank" rel="noopener"><code>langauge-vue</code></a>는 Vue 파일에서 구문 하이라이팅을 <a href="https://github.com/vuejs/vue-syntax-highlight/tree/479672799b4162996e3c3c7e09583fb6d98e1e6c" target="_blank" rel="noopener"><code>vue-syntax-highlight</code></a> 기반으로 지원하게 해준다.</p>
+<h3 id="Formatting">Formatting</h3>
+<p>아톰에서 Formatting을 위한 패키지로 <a href="https://atom.io/packages/atom-beautify" target="_blank" rel="noopener"><code>atom-beautify</code></a>를 사용한다.<br>
+그리고 자주 사용하는 파일들의 포맷 방식을 설정하자. 모든 들여쓰기 사이즈는 공백 4개이다.</p>
+<h4 id="Javascript">Javascript</h4>
+<p>Default Beautifier - JS Beautifier<br>
+Brace Style - collapse-preserve-inline</p>
+<h4 id="SCSS">SCSS</h4>
+<p>Default Beautifier - Pretty Diff</p>
+<h4 id="Vue-2">Vue</h4>
+<p>Default Beautifier - Vue Beautifier<br>
+Brace Style - collapse-preserve-inline<br>
+Space Before Conditional - ✔️<br>
+Wrap Attributes - force-aligned</p>
+<h4 id="Markdown">Markdown</h4>
+<p>Default Beautifier - Remark<br>
+Commonmark - ✔️<br>
+Gfm - ✔️</p>
+<h3 id="코드-분석">코드 분석</h3>
+<h4 id="linter">linter</h4>
+<p><a href="https://atom.io/packages/linter" target="_blank" rel="noopener"><code>linter</code></a>는 작성된 코드를 분석하여 알려주거나 고쳐주는 것을 지원한다.</p>
+<p><img data-src="https://i.github-camo.com/a7fa1da3b5b4bdea00b5d25591f47e0751f64d4e/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f343237383131332f32333837393933332f31616231376532612d303837322d313165372d383033642d3366653063636663363739302e676966" alt=""></p>
+<h4 id="linter-eslint">linter-eslint</h4>
+<p><a href="https://atom.io/packages/linter-eslint" target="_blank" rel="noopener"><code>linter-eslint</code></a>는 자바스크립트를 <code>eslint</code>를 사용해서 분석한다.</p>
+<h5 id="Enable-ESlint-Plugin-Vue">Enable ESlint-Plugin-Vue</h5>
+<p>만약, <code>Vue.js</code>를 위해 <code>ESlint-Plugin-Vue</code>를 적용했다면 <code>linter-eslint</code>에 <code>text.html.vue</code> 포맷을 추가해야한다.<br>
+List of scoped to run ESLint on - source.js, source.jsx, source.js.jsx, source.flow, source.babel, source.js-semantic, text.html.vue</p>
+<h4 id="linter-stylelint">linter-stylelint</h4>
+<p><a href="https://atom.io/packages/linter-stylelint" target="_blank" rel="noopener"><code>linter-stylelint</code></a>는 스타일 관련 파일을 <a href="https://github.com/stylelint/stylelint" target="_blank" rel="noopener"><code>stylelint</code></a>를 사용해서 분석한다.<br>
+<img data-src="https://i.github-camo.com/0f7ea286f12d90256431c2edb65087dacb8ad73a/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f41746f6d4c696e7465722f6c696e7465722d7374796c656c696e742f6d61737465722f64656d6f2e706e67" alt=""></p>
+<h3 id="유용하게-사용할-수-있는-패키지">유용하게 사용할 수 있는 패키지</h3>
+<h4 id="vue-hyperclick">vue-hyperclick</h4>
+<p><a href="https://atom.io/packages/vue-hyperclick" target="_blank" rel="noopener">vue-hyperclick</a>는 Vue 컴포넌트 파일에서 <code>마우스 클릭</code>으로 해당 모듈이 선언된 파일로 이동하는 기능이다. <a href="https://atom.io/packages/hyperclick" target="_blank" rel="noopener"><code>hyperclick</code></a>와 <a href="https://atom.io/packages/js-hyperclick" target="_blank" rel="noopener"><code>js-hyperclick</code></a>를 요구한다.</p>
+<p><img data-src="https://i.github-camo.com/a917b5ee7f755895922efa2706d699b0a5c167f7/68747470733a2f2f6672697a692e78797a2f65787465726e616c732f7675652d6879706572636c69636b2d64656d6f2e676966" alt=""></p>
+<h4 id="autoclose-html">autoclose-html</h4>
+<p><a href="https://atom.io/packages/autoclose-html" target="_blank" rel="noopener"><code>autoclose-html</code></a>은 HTML 태그들을 작성할 때 자동으로 닫아주는 아주 유용한 패키지이다.</p>
+<h4 id="bracket-colorizer">bracket-colorizer</h4>
+<p><a href="https://atom.io/packages/bracket-colorizer" target="_blank" rel="noopener"><code>bracket-colorizer</code></a>는 중첩된 브라켓에서 서로 매칭되는 것들을 <code>컬러</code>로 구별해준다.</p>
+<p><img data-src="https://i.github-camo.com/c33845e7be99491bd3e728ec53941753c680dcb2/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f766e2d6b692f627261636b65742d636f6c6f72697a65722f76312e322e302f2e6769746875622f73637265656e73686f74312e706e67" alt=""></p>
+<h4 id="pigments">pigments</h4>
+<p><a href="https://atom.io/packages/pigments" target="_blank" rel="noopener"><code>pigments</code></a>는 색상과 관련된 코드에 색상을 입혀 보여준다. 또한, <code>RGB &lt;-&gt; HSL 변환 기능도 지원</code>한다.</p>
+<p><img data-src="https://i.github-camo.com/802d8b759d01e70861f95f99495731f19b145b03/687474703a2f2f61626533332e6769746875622e696f2f61746f6d2d7069676d656e74732f7069676d656e74732e6769663f7261773d74727565" alt=""></p>
+<h4 id="실시간-페어-프로그래밍">실시간 페어 프로그래밍</h4>
+<p><a href="https://atom.io/packages/teletype" target="_blank" rel="noopener"><code>teletype</code></a>은 워크스페이스를 공유하여 팀원들과 실시간으로 코딩할 수 있다.</p>
+<h2 id="아톰-동기화하기">아톰 동기화하기</h2>
+<p><a href="https://atom.io/packages/sync-settings" target="_blank" rel="noopener"><code>sync-setting</code></a>은 기본 설정 및 설치했던 패키지들을 <code>Gist</code>로 저장해서 동기화를 도와준다.</p>
+<h2 id="참조">참조</h2>
+<ul>
+<li><a href="https://github.com/mehcode/awesome-atom" target="_blank" rel="noopener">awesome-atom</a></li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/development/">DEVELOPMENT</a></li>
+            <li><a href="/development/diary/">DIARY</a></li>
+            <li>INTRODUCTION-ATOM-SETTINGS</li>
+          
+  </ul>
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#유저-인터페이스-꾸미기"><span class="nav-number">1.</span> <span class="nav-text">유저 인터페이스 꾸미기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#테마"><span class="nav-number">1.1.</span> <span class="nav-text">테마</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#아이콘"><span class="nav-number">1.2.</span> <span class="nav-text">아이콘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#툴바"><span class="nav-number">1.3.</span> <span class="nav-text">툴바</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#개발-환경-구성하기"><span class="nav-number">2.</span> <span class="nav-text">개발 환경 구성하기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#구문-하이라이팅"><span class="nav-number">2.1.</span> <span class="nav-text">구문 하이라이팅</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue"><span class="nav-number">2.1.1.</span> <span class="nav-text">Vue</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Formatting"><span class="nav-number">2.2.</span> <span class="nav-text">Formatting</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Javascript"><span class="nav-number">2.2.1.</span> <span class="nav-text">Javascript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCSS"><span class="nav-number">2.2.2.</span> <span class="nav-text">SCSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-2"><span class="nav-number">2.2.3.</span> <span class="nav-text">Vue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Markdown"><span class="nav-number">2.2.4.</span> <span class="nav-text">Markdown</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#코드-분석"><span class="nav-number">2.3.</span> <span class="nav-text">코드 분석</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#linter"><span class="nav-number">2.3.1.</span> <span class="nav-text">linter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linter-eslint"><span class="nav-number">2.3.2.</span> <span class="nav-text">linter-eslint</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Enable-ESlint-Plugin-Vue"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">Enable ESlint-Plugin-Vue</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linter-stylelint"><span class="nav-number">2.3.3.</span> <span class="nav-text">linter-stylelint</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#유용하게-사용할-수-있는-패키지"><span class="nav-number">2.4.</span> <span class="nav-text">유용하게 사용할 수 있는 패키지</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vue-hyperclick"><span class="nav-number">2.4.1.</span> <span class="nav-text">vue-hyperclick</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#autoclose-html"><span class="nav-number">2.4.2.</span> <span class="nav-text">autoclose-html</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bracket-colorizer"><span class="nav-number">2.4.3.</span> <span class="nav-text">bracket-colorizer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pigments"><span class="nav-number">2.4.4.</span> <span class="nav-text">pigments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#실시간-페어-프로그래밍"><span class="nav-number">2.4.5.</span> <span class="nav-text">실시간 페어 프로그래밍</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#아톰-동기화하기"><span class="nav-number">3.</span> <span class="nav-text">아톰 동기화하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참조"><span class="nav-number">4.</span> <span class="nav-text">참조</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/development/diary/introduction-atom-settings.html",
+      identifier: "development/diary/introduction-atom-settings.html",
+      title     : "잠만보가 사용하는 아톰 설정",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

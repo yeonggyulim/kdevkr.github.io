@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="본 글은 https:&#x2F;&#x2F;github.com&#x2F;kdevkr&#x2F;spring-demo-ajax 에서 제공했던 정보입니다.  들어가며  웹 서비스를 만들 때 자주 사용되는 비동기 통신 기술인 AJAX를 스프링 프레임워크와 연계하여 활용하는 다양한 방식에 대해서 알아보고자 합니다.  XHR(XMLHttpRequest)를 직접적으로 이용하는 것보다는 JQuery에서 지">
+<meta property="og:type" content="article">
+<meta property="og:title" content="초보 개발자들을 위한 AJAX에 대한 정리">
+<meta property="og:url" content="https://kdevkr.github.io/archives/2017/understanding-asynchronos-javascript-and-xml-with-spring/index.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="본 글은 https:&#x2F;&#x2F;github.com&#x2F;kdevkr&#x2F;spring-demo-ajax 에서 제공했던 정보입니다.  들어가며  웹 서비스를 만들 때 자주 사용되는 비동기 통신 기술인 AJAX를 스프링 프레임워크와 연계하여 활용하는 다양한 방식에 대해서 알아보고자 합니다.  XHR(XMLHttpRequest)를 직접적으로 이용하는 것보다는 JQuery에서 지">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2017-02-13T00:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:author" content="kdevkr">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="AJAX">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kdevkr.github.io/archives/2017/understanding-asynchronos-javascript-and-xml-with-spring/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>초보 개발자들을 위한 AJAX에 대한 정리 | 잠만보의 개발 블로그</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://kdevkr.github.io/archives/2017/understanding-asynchronos-javascript-and-xml-with-spring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+      <meta itemprop="name" content="kdevkr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="잠만보의 개발 블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          초보 개발자들을 위한 AJAX에 대한 정리
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2017-02-13 0:00:00" itemprop="dateCreated datePublished" datetime="2017-02-13T00:00:00Z">2017-02-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2020-03-08 14:25:00" itemprop="dateModified" datetime="2020-03-08T14:25:00Z">2020-03-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/" itemprop="url" rel="index"><span itemprop="name">개발 이야기</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-user"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>본 글은 <a href="https://github.com/kdevkr/spring-demo-ajax" target="_blank" rel="noopener">https://github.com/kdevkr/spring-demo-ajax</a> 에서 제공했던 정보입니다.</p>
+</blockquote>
+<h2 id="들어가며">들어가며</h2>
+<blockquote>
+<p><em>웹 서비스를 만들 때 자주 사용되는 비동기 통신 기술인 AJAX를 스프링 프레임워크와 연계하여 활용하는 다양한 방식에 대해서 알아보고자 합니다.</em></p>
+</blockquote>
+<p>XHR(XMLHttpRequest)를 직접적으로 이용하는 것보다는 JQuery에서 지원하는 AJAX(Asynchronos Javascript And XML)기능을 활용하도록 하는 것이 나을 것 같다는 생각입니다.</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ko/docs/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequest, Mozilla Developer Network</a></li>
+<li><a href="http://api.jquery.com/jquery.ajax/" target="_blank" rel="noopener">Ajax, JQuery</a></li>
+</ul>
+<p>JQuery 이외에도 ajax를 지원하는 다양한 라이브러리가 존재합니다. 예를 들어, <a href="http://prototypejs.org/learn/introduction-to-ajax" target="_blank" rel="noopener">Prototypejs</a>도 많이 사용되는 유틸성 라이브러리 중 하나입니다. 그러나 저와 같은 초보자 및 신입 개발자들은 JQuery에 익숙하므로 JQuery가 지원하는 Ajax 기능에 대해서 살펴보고자 합니다.</p>
+<blockquote>
+<p>Vue.js에서는 <a href="https://github.com/mzabriskie/axios" target="_blank" rel="noopener">axios</a>를 선호한다고 합니다.</p>
+</blockquote>
+<h2 id="JQuery-ajax">JQuery.ajax</h2>
+<p>제이쿼리에서 제공하는 함수는 다음과 같은 구조로 구성되어 있습니다. 물론 이외에도 생략된 다양한 프로퍼티들이 존재하므로 더 찾아보시면 좋을 것 같습니다. 아래의 형태는 아마도 자주 사용되는 프로퍼티만 모아놓은 부분이라고 할 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">  type	: <span class="string">"GET"</span>, <span class="comment">//요청 메소드 타입</span></span><br><span class="line">  url		: <span class="string">"url"</span>, <span class="comment">//요청 경로</span></span><br><span class="line">  <span class="keyword">async</span> : <span class="literal">true</span>, <span class="comment">//비동기 여부</span></span><br><span class="line">  data  : &#123;<span class="attr">key</span> : value&#125;, <span class="comment">//요청 시 포함되어질 데이터</span></span><br><span class="line">  processData : <span class="literal">true</span>, <span class="comment">//데이터를 컨텐트 타입에 맞게 변환 여부</span></span><br><span class="line">  cache : <span class="literal">true</span>, <span class="comment">//캐시 여부</span></span><br><span class="line">  contentType : <span class="string">"application/json"</span>, <span class="comment">//요청 컨텐트 타입 "application/x-www-form-urlencoded; charset=UTF-8"</span></span><br><span class="line">  dataType	: <span class="string">"json"</span>, <span class="comment">//응답 데이터 형식 명시하지 않을 경우 자동으로 추측</span></span><br><span class="line">  beforeSend  : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// XHR Header를 포함해서 HTTP Request를 하기전에 호출됩니다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">  success	: <span class="function"><span class="keyword">function</span>(<span class="params">data, status, xhr</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 정상적으로 응답 받았을 경우에는 success 콜백이 호출되게 됩니다.</span></span><br><span class="line">    <span class="comment">// 이 콜백 함수의 파라미터에서는 응답 바디, 응답 코드 그리고 XHR 헤더를 확인할 수 있습니다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">  error	: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, status, error</span>)</span>&#123;</span><br><span class="line">  	<span class="comment">// 응답을 받지 못하였다거나 정상적인 응답이지만 데이터 형식을 확인할 수 없기 때문에 error 콜백이 호출될 수 있습니다.</span></span><br><span class="line">  	<span class="comment">// 예를 들어, dataType을 지정해서 응답 받을 데이터 형식을 지정하였지만, 서버에서는 다른 데이터형식으로 응답하면  error 콜백이 호출되게 됩니다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">  complete : <span class="function"><span class="keyword">function</span>(<span class="params">xhr, status</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// success와 error 콜백이 호출된 후에 반드시 호출됩니다.</span></span><br><span class="line">    <span class="comment">// try - catch - finally의 finally 구문과 동일합니다.</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>여기서 잠깐! GET과 POST의 차이는 무엇인지 아시나요?</p>
+</blockquote>
+<p>바로 데이터가 어디에 위치하는가에 있습니다. POST 요청시에 URL에 파라미터가 보이지 않는 이유는 데이터가 요청 바디에 포함되기 때문입니다. 그렇기 때문에 GET과 POST에 따라 데이터를 URL에 추가해야할지 요청 바디에 추가해야할지를 알고 있어야만 합니다.</p>
+<p>예를 들어, processData라는 속성은 GET 요청인데 data에 오브젝트가 지정될 경우에 요청하기전에 그 데이터를 파라미터 형식으로 URL에 추가해주는 역할을 하게 됩니다.</p>
+<p>이외에도 JQuery에서는 <a href="https://api.jquery.com/category/ajax/" target="_blank" rel="noopener">다양한 ajax 기능</a>을 제공하고 있습니다. 만약, 스프링 시큐리티를 적용해서 HTTP 통신시에 CSRF 토큰이 필요하다면 다음과 같이 XHR Header에 CSRF 토큰을 추가해서 보낼 수 있습니다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 스프링 시큐리티 태그라이브러리로 메타 태그에 토큰 정보를 적용했다는 가정입니다.</span></span><br><span class="line"><span class="keyword">var</span> token = $(<span class="string">"meta[name='_csrf']"</span>).attr(<span class="string">"content"</span>);</span><br><span class="line"><span class="keyword">var</span> header = $(<span class="string">"meta[name='_csrf_header']"</span>).attr(<span class="string">"content"</span>);</span><br><span class="line">$.ajaxSetup(&#123;</span><br><span class="line">   beforeSend: <span class="function"><span class="keyword">function</span>(<span class="params">xhr</span>) </span>&#123;</span><br><span class="line">    xhr.setRequestHeader(header, token);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>JQuery.ajax에 대해서는 이 정도까지만 알아도 됩니다.</p>
+</blockquote>
+<h2 id="Spring-Controller">Spring Controller</h2>
+<p>스프링 프레임워크에서는 ajax 통신을 위해서 스프링 @MVC로 다양한 어노테이션을 지원합니다. 다양한 어노테이션을 확인하면서 구조를 익혀보도록 하겠습니다. 스프링 애플리케이션은 기본적으로 뷰 리졸버를 통해서 요청에 대한 응답을 하게 됩니다. 일반적인 HTTP 요청의 경우에는 JstlView로써 응답을 하게 되지만, XHR 요청에 의해서 다양한 데이터 형식으로 응답하기 위한 메시지 컨버터라는 것을 지원합니다.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Message Converter List</span><br><span class="line">- StringHttpMessageConverter</span><br><span class="line">- FormHttpMessageConverter</span><br><span class="line">- ByteArrayMessageConverter</span><br><span class="line">- MarshallingHttpMessageConverter</span><br><span class="line">- MappingJacksonHttpMessageConverter</span><br><span class="line">- MappingJackson2HttpMessageConverter</span><br><span class="line">- SourceHttpMessageConverter</span><br><span class="line">- BufferedImagedHttpMessageConverter</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>스프링의 <annotation-driven />은 많은 역할을 해주는데, 그 중 하나가 디폴트 메시지 컨버터를 등록해줍니다. 다만, MappingJacksonHttpMessageConverter는 jackson 라이브러리가 존재할때만 등록합니다.</p>
+</blockquote>
+<p>우리가 AJAX를 이용할 때 데이터 형식을 JSON으로 많이 사용합니다. 따라서, List, Map등과 같은 오브젝트들을 JSON 형태로 응답하고 싶다면, ModelAndView를 이용하거나 메시지컨버터를 등록해야합니다.</p>
+<blockquote>
+<p><em>본 문서에서는 ModelAndView로써 응답하는 방식은 설명하지 않겠습니다. <a href="http://www.nextree.co.kr/p11205/" target="_blank" rel="noopener">여기서 확인하도록 합시다</a></em></p>
+</blockquote>
+<p>그러나 스프링 3 이상 부터는 jackson 라이브러리를 의존성으로 추가할 경우에 자동적으로 MappingJacksonHttpMessageConverter를 적용해줍니다.</p>
+<blockquote>
+<p>여기서 잠깐!<br>
+스프링 3.1.2 부터는 jackson 2.0을 지원하도록 추가되었습니다. jackson 2.0은 MappingJackson2HttpMessageConverter로 등록됩니다.<br>
+자세한 사항은 스프링 버전별 jackson 라이브러리 버전 항목에서 확인하시기 바랍니다.</p>
+</blockquote>
+<p>스프링 부트에서는 이러한 부분도 관리해주므로 추가적으로 jackson 라이브러리를 pom.xml에 추가할 필요가 없습니다.</p>
+<h3 id="스프링-버전별-사용되는-Jackson-Library">스프링 버전별 사용되는 Jackson Library</h3>
+<p>스프링 3.0 이상부터는 jackson 관련 라이브러리에 따라 메시지 컨버터를 등록해줍니다.</p>
+<h4 id="Spring-3-0-x">Spring 3.0.x</h4>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.jackson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-mapper-asl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;org.codehaus.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Spring-3-1-2">Spring 3.1.2</h4>
+<blockquote>
+<p>MappingJackson2HttpMessageConverter로 jackson 2.0을 지원합니다</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.jackson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-mapper-asl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;org.codehaus.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Jackson 2.0 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;com.fasterxml.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;com.fasterxml.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-annotations<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;com.fasterxml.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Spring-4-0-0">Spring 4.0.0</h4>
+<blockquote>
+<p>GsonHttpMessageConverter 지원<br>
+MappingJacksonHttpMessageConverter 미지원</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Jackson 2.0 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;com.fasterxml.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;com.fasterxml.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-annotations<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;com.fasterxml.jackson&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- gson --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.code.gson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://github.com/spring-projects/spring-framework/wiki/Migrating-to-Spring-Framework-4.x#jackson-1819" target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/wiki/Migrating-to-Spring-Framework-4.x#jackson-1819</a><br>
+위 문서에 따르면 스프링 4.1 부터는 org.codehaus.jackson(1.8 or 1.9)의 지원을 중단하였습니다.</p>
+</blockquote>
+<ul>
+<li>버전별 메시지 컨버터 지원표</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Spring Version</th>
+<th style="text-align:center">org.codehaus.jackson(1.8 or 1.9)</th>
+<th style="text-align:center">com.fasterxml.jackson(2.0)</th>
+<th style="text-align:center">gson</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3.0.x</td>
+<td style="text-align:center">MappingJacksonHttpMessageConverter</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">3.1.2</td>
+<td style="text-align:center">MappingJacksonHttpMessageConverter</td>
+<td style="text-align:center">MappingJackson2HttpMessageConverter</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">4.+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">MappingJackson2HttpMessageConverter</td>
+<td style="text-align:center">GsonHttpMessageConverter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Annotations">Annotations</h3>
+<blockquote>
+<p>그럼 이제 스프링 컨트롤러에서 사용되는 어노테이션들을 알아보겠습니다.</p>
+</blockquote>
+<h4 id="RequestMapping">@RequestMapping</h4>
+<p>@RequestMapping에는 요청과 응답과 관련한 프로퍼티를 설정할 수 있습니다.  produces와 consumes는 확실히 알고 넘어가셔야 합니다.</p>
+<ul>
+<li>method=RequestMethod.GET<br>
+method는 어떠한 요청 타입을 처리할 것인가를 결정하는 부분입니다.</li>
+<li>produces=MediaType.APPLICATION_JSON_VALUE<br>
+produces는 어떠한 데이터 형식으로 응답할 것인가를 결정하는 부분입니다.</li>
+<li>consumes=MediaType.APPLICATION_JSON_VALUE<br>
+consumes는 어떠한 요청에 대해서 처리할 것인가를 결정하는 부분입니다.</li>
+</ul>
+<blockquote>
+<p>produces와 consumes 프로퍼티는 Spring 3.1에서 부터 지원합니다.</p>
+</blockquote>
+<h4 id="ModelAttribute-ReqeustParam">@ModelAttribute, @ReqeustParam</h4>
+<p>이 두개의 어노테이션은 GET과 DELETE 요청에서 활용할 수 있습니다. 그 이유는 파라미터 값을 확인해서 데이터를 바인딩해주기 때문입니다. @RequestParam은 request.getParameter()로써 가져오는 반면에 @ModelAttribute는 자바 클래스의 Getter, Setter에 의해 데이터를 바인딩시키는 것입니다. 그렇기 때문에 만약 객체 단위로 바인딩하고 싶다면 @ModelAttribute를  이용해야 한다는 것입니다.</p>
+<blockquote>
+<p><em>직접 확인하고 싶으시다면 본 프로젝트를 동작시켜 ajaxList와 ajaxListModel의 차이를 확인하시기 바랍니다.</em></p>
+</blockquote>
+<h4 id="RequestBody">@RequestBody</h4>
+<p>이 어노테이션은 POST와 PUT 처럼 데이터가 HTTP 요청 바디에 포함되는 경우에 이를 확인해서 데이터를 바인딩 해줍니다. 이 어노테이션의 중요한 부분은 GET 요청과 같이 파라미터를 통해 제공되는 데이터는 바인딩할 수 없다는 점입니다.</p>
+<blockquote>
+<p><em>직접 확인하고 싶으시다면 본 프로젝트를 동작시켜 ajaxMap와 ajaxMapGet의 차이를 확인하시기 바랍니다. ajaxMapGet의 요청이 왜 실패하는지에 대해서 서버측 로그를 살펴보시기 바랍니다.</em></p>
+</blockquote>
+<h4 id="ResponseBody">@ResponseBody</h4>
+<p>이 어노테이션은 응답되는 데이터에 대하여 등록된 메시지 컨버터를 통해 변환시켜 응답하게 됩니다. 따라서, 뷰에 모델로서 데이터를 추가시켜 응답하는 것이 아니라 데이터를 HTTP 본문으로 응답하게 된다는 것입니다.</p>
+<blockquote>
+<p><em>ajaxList와 ajaxListNobody를 통해서 @ResponseBody가 있을 경우랑 없을 경우를 비교해보세요. 왜 @ResponseBody가 없을 때 ViewResolver를 찾는 것 같나요?</em></p>
+</blockquote>
+<h4 id="RestController">@RestController</h4>
+<p>이 어노테이션은 스프링 4 부터 지원합니다. 해당 컨트롤러의 메소드들에 @ResponseBody 어노테이션을 적용합니다. 좀 더 편의성을 제공한다고 보시면 됩니다.</p>
+<h2 id="Test-Case">Test Case</h2>
+<p>본 프로젝트에서 현재 진행한 테스트 케이스는 다음과 같습니다.</p>
+<h4 id="1-GET-ResponseBody와-ModelAttribute-RequestParm을-확인할-수-있는-케이스">1. GET, @ResponseBody와 @ModelAttribute, @RequestParm을 확인할 수 있는 케이스</h4>
+<h4 id="2-GET-1번과-동일하나-ModelAttribute를-통해서-객체-단위로-바인딩하는-것을-확인할-수-있는-케이스">2. GET, 1번과 동일하나 @ModelAttribute를 통해서 객체 단위로 바인딩하는 것을 확인할 수 있는 케이스</h4>
+<h4 id="3-GET-1번과-동일하나-ResponseBody를-지정하지-않았을-경우를-확인할-수-있는-케이스">3. GET, 1번과 동일하나 @ResponseBody를 지정하지 않았을 경우를 확인할 수 있는 케이스</h4>
+<h4 id="4-PUT-ResponseBody와-RequestBody를-지정했을-경우를-확인할-수-있는-케이스">4. PUT, @ResponseBody와 @RequestBody를 지정했을 경우를 확인할 수 있는 케이스</h4>
+<h4 id="5-GET-4번과-동일하나-GET-요청에-RequestBody를-지정했을-경우를-확인할-수-있는-케이스">5. GET, 4번과 동일하나 GET 요청에 @RequestBody를 지정했을 경우를 확인할 수 있는 케이스</h4>
+<h4 id="6-POST-ResponseEntity를-통해서-HttpStatus도-지정할-수-있는-것을-확인하는-케이스">6. POST, ResponseEntity를 통해서 HttpStatus도 지정할 수 있는 것을 확인하는 케이스</h4>
+<h4 id="7-POST-6번과-동일하나-ResponseBody를-지정하지-않을-경우를-확인할-수-있는-케이스">7. POST, 6번과 동일하나 @ResponseBody를 지정하지 않을 경우를 확인할 수 있는 케이스</h4>
+<h4 id="8-POST-7번과-동일하나-URL에-파라미터를-함께-요청시에-RequestParam-지원여부를-확인할-수-있는-케이스">8. POST, 7번과 동일하나 URL에 파라미터를 함께 요청시에 @RequestParam 지원여부를 확인할 수 있는 케이스</h4>
+<blockquote>
+<p><em>6번과 7번은 의아해하실 수 있으실 겁니다. 이와 관련된 정보는 <a href="http://okky.kr/article/311196" target="_blank" rel="noopener">여기</a>에서 확인하실 수 있습니다. 간단히 말하면 ResponseEntity는 응답 헤더와 바디를 가지는 객체를 응답하는 것이라고 보면 됩니다.</em></p>
+</blockquote>
+<h2 id="마지막으로-초보자들이-잘못-사용하거나-접근하는-경우를-알아봅시다">마지막으로 초보자들이 잘못 사용하거나 접근하는 경우를 알아봅시다.</h2>
+<blockquote>
+<p>Okky에서 Ajax 관련 질문이 올라온다면 지속적으로 추가하도록 하겠습니다.</p>
+</blockquote>
+<h4 id="1-저는-제대로-구현한-것-같은데-에러로-응답받습니다">1. 저는 제대로 구현한 것 같은데 에러로 응답받습니다.</h4>
+<ul>
+<li>dataType을 지정한 뒤 그 형식으로 응답하지 않는다면 정상적으로 응답해도 에러 콜백이 호출될 가능성이 있습니다. 예를 들어, 스프링 컨트롤러에서는 문자열이나 null을 응답하는데 ajax에서는 json으로 지정할 경우에는 서버에서는 정상적으로 응답되지만 클라이언트에서는 해당 데이터를 json으로 파싱할 수 없기 때문에 에러 콜백이 호출됩니다.</li>
+</ul>
+<blockquote>
+<p>대부분의 Ajax 관련 질문은 여기에 해당되는 경우가 많았습니다. 단순히 error가 난다고 해서 정상적으로 응답받지 못했다고 판단하고 계셨습니다. 서버는 html문서를 응답하는데 ajax 데이터 형식이 json이면 오류가 난다는 것을 기억해주시기 바랍니다.</p>
+</blockquote>
+<h4 id="2-데이터를-서버에서-받아올-수-없습니다">2. 데이터를 서버에서 받아올 수 없습니다.</h4>
+<ul>
+<li>요청 메소드 타입이 GET일 때 processData를 false로 지정할 경우에는 데이터를 url에 직접 포함시켜줘야 합니다.  만약, POST같은 요청의 경우에는 데이터가 요청 바디에 포함되어져야 한다는 것을 잊지 마시기 바랍니다.</li>
+</ul>
+<blockquote>
+<p>POST의 경우에도 url에 파라미터가 포함된다면 @RequestParam 어노테이션을 통해 받아올 수 있습니다.</p>
+</blockquote>
+<h4 id="3-GET-요청을-통해-보내는데-일정-데이터-크기이상-보내지지-않습니다">3. GET 요청을 통해 보내는데 일정 데이터 크기이상 보내지지 않습니다.</h4>
+<ul>
+<li>브라우저별로 URL의 지원 크기가 다릅니다. 그렇기 때문에 POST로 요청 바디에 데이터를 포함시켜 보내는 이유도 바로 이 때문입니다. 물론 서버 측에서도 요청 바디에 대한 크기를 제한할 수 도 있습니다.</li>
+</ul>
+<blockquote>
+<p>많은 신입 면접시에 GET과 POST의 차이를 묻는 이유이기도 합니다. 단순히 보안 때문에 구분해서 사용하는 것은 아니라는 점입니다.</p>
+</blockquote>
+<h4 id="4-406-Not-Acceptable-응답해요-ㅠㅠ-2017-02-14">4. 406 - Not Acceptable 응답해요 ㅠㅠ  [2017-02-14]</h4>
+<ul>
+<li>혹시 @ResponseBody로 List나 Map을 응답하고 계신가요? 응답하기 위해서는 annotation-driven 설정이 되어있어야 하고 요청하는 응답 데이터로 변환할 수 있도록 메시지 컨버터가 필요합니다.</li>
+</ul>
+<blockquote>
+<p>스프링 버전에 따라서 다르겠지만 스프링 3 부터는 annotation-driven 설정을 하고 jackson 라이브러리르 추가한다면 디폴트 전략으로 메시지컨버터가 등록됩니다.</p>
+</blockquote>
+<h4 id="5-MessageConverter를-이용하고-싶지-않아요-2017-04-20">5. MessageConverter를 이용하고 싶지 않아요 [2017-04-20]</h4>
+<ul>
+<li>메시지 컨버터를 이용하지 않고도 JSON으로 응답할 수 있는 방법이 있습니다. 바로 ContentNegotiatingViewResolver를 이용하면 됩니다. 확장자를 이용하는 방식입니다.</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans:bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.ContentNegotiatingViewResolver"</span>&gt;</span></span><br><span class="line">	    <span class="comment">&lt;!-- ViewResolver 우선순위 설정 --&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"order"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"mediaTypes"</span>&gt;</span></span><br><span class="line">	        <span class="comment">&lt;!-- 맵핑될 확장자 정의 --&gt;</span></span><br><span class="line">	        <span class="tag">&lt;<span class="name">beans:map</span>&gt;</span></span><br><span class="line">	            <span class="tag">&lt;<span class="name">beans:entry</span> <span class="attr">key</span>=<span class="string">"json"</span> <span class="attr">value</span>=<span class="string">"application/json"</span> /&gt;</span></span><br><span class="line">	        <span class="tag">&lt;/<span class="name">beans:map</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;/<span class="name">beans:property</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"defaultViews"</span>&gt;</span></span><br><span class="line">	        <span class="tag">&lt;<span class="name">beans:list</span>&gt;</span></span><br><span class="line">	            <span class="comment">&lt;!-- JSON 요청을 처리할 뷰 --&gt;</span></span><br><span class="line">	            <span class="tag">&lt;<span class="name">beans:bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.json.MappingJacksonJsonView"</span>/&gt;</span></span><br><span class="line">	        <span class="tag">&lt;/<span class="name">beans:list</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;/<span class="name">beans:property</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"ignoreAcceptHeader"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">beans:bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api/test.json"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">api</span><span class="params">(<span class="keyword">final</span> ModelMap map)</span></span>&#123;</span><br><span class="line">  Message message = <span class="keyword">new</span> Message(<span class="string">"Message Bean"</span>);</span><br><span class="line">  map.put(<span class="string">"response"</span>, message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ModelMap에 추가하여 JSON 형태로 출력할 수 있게 됩니다.</p>
+</blockquote>
+<p>참조 : <a href="http://ismydream.tistory.com/139" target="_blank" rel="noopener">http://ismydream.tistory.com/139</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+              <a href="/tags/AJAX/" rel="tag"># AJAX</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/archives/2017/understanding-spring-security/" rel="next" title="초보가 이해하는 스프링 시큐리티">
+      초보가 이해하는 스프링 시큐리티 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#들어가며"><span class="nav-number">1.</span> <span class="nav-text">들어가며</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JQuery-ajax"><span class="nav-number">2.</span> <span class="nav-text">JQuery.ajax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Controller"><span class="nav-number">3.</span> <span class="nav-text">Spring Controller</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#스프링-버전별-사용되는-Jackson-Library"><span class="nav-number">3.1.</span> <span class="nav-text">스프링 버전별 사용되는 Jackson Library</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-3-0-x"><span class="nav-number">3.1.1.</span> <span class="nav-text">Spring 3.0.x</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-3-1-2"><span class="nav-number">3.1.2.</span> <span class="nav-text">Spring 3.1.2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-4-0-0"><span class="nav-number">3.1.3.</span> <span class="nav-text">Spring 4.0.0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Annotations"><span class="nav-number">3.2.</span> <span class="nav-text">Annotations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestMapping"><span class="nav-number">3.2.1.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ModelAttribute-ReqeustParam"><span class="nav-number">3.2.2.</span> <span class="nav-text">@ModelAttribute, @ReqeustParam</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestBody"><span class="nav-number">3.2.3.</span> <span class="nav-text">@RequestBody</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ResponseBody"><span class="nav-number">3.2.4.</span> <span class="nav-text">@ResponseBody</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RestController"><span class="nav-number">3.2.5.</span> <span class="nav-text">@RestController</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-Case"><span class="nav-number">4.</span> <span class="nav-text">Test Case</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-GET-ResponseBody와-ModelAttribute-RequestParm을-확인할-수-있는-케이스"><span class="nav-number">4.0.1.</span> <span class="nav-text">1. GET, @ResponseBody와 @ModelAttribute, @RequestParm을 확인할 수 있는 케이스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-GET-1번과-동일하나-ModelAttribute를-통해서-객체-단위로-바인딩하는-것을-확인할-수-있는-케이스"><span class="nav-number">4.0.2.</span> <span class="nav-text">2. GET, 1번과 동일하나 @ModelAttribute를 통해서 객체 단위로 바인딩하는 것을 확인할 수 있는 케이스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-GET-1번과-동일하나-ResponseBody를-지정하지-않았을-경우를-확인할-수-있는-케이스"><span class="nav-number">4.0.3.</span> <span class="nav-text">3. GET, 1번과 동일하나 @ResponseBody를 지정하지 않았을 경우를 확인할 수 있는 케이스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-PUT-ResponseBody와-RequestBody를-지정했을-경우를-확인할-수-있는-케이스"><span class="nav-number">4.0.4.</span> <span class="nav-text">4. PUT, @ResponseBody와 @RequestBody를 지정했을 경우를 확인할 수 있는 케이스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-GET-4번과-동일하나-GET-요청에-RequestBody를-지정했을-경우를-확인할-수-있는-케이스"><span class="nav-number">4.0.5.</span> <span class="nav-text">5. GET, 4번과 동일하나 GET 요청에 @RequestBody를 지정했을 경우를 확인할 수 있는 케이스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-POST-ResponseEntity를-통해서-HttpStatus도-지정할-수-있는-것을-확인하는-케이스"><span class="nav-number">4.0.6.</span> <span class="nav-text">6. POST, ResponseEntity를 통해서 HttpStatus도 지정할 수 있는 것을 확인하는 케이스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-POST-6번과-동일하나-ResponseBody를-지정하지-않을-경우를-확인할-수-있는-케이스"><span class="nav-number">4.0.7.</span> <span class="nav-text">7. POST, 6번과 동일하나 @ResponseBody를 지정하지 않을 경우를 확인할 수 있는 케이스</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-POST-7번과-동일하나-URL에-파라미터를-함께-요청시에-RequestParam-지원여부를-확인할-수-있는-케이스"><span class="nav-number">4.0.8.</span> <span class="nav-text">8. POST, 7번과 동일하나 URL에 파라미터를 함께 요청시에 @RequestParam 지원여부를 확인할 수 있는 케이스</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#마지막으로-초보자들이-잘못-사용하거나-접근하는-경우를-알아봅시다"><span class="nav-number">5.</span> <span class="nav-text">마지막으로 초보자들이 잘못 사용하거나 접근하는 경우를 알아봅시다.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-저는-제대로-구현한-것-같은데-에러로-응답받습니다"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 저는 제대로 구현한 것 같은데 에러로 응답받습니다.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-데이터를-서버에서-받아올-수-없습니다"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 데이터를 서버에서 받아올 수 없습니다.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-GET-요청을-통해-보내는데-일정-데이터-크기이상-보내지지-않습니다"><span class="nav-number">5.0.3.</span> <span class="nav-text">3. GET 요청을 통해 보내는데 일정 데이터 크기이상 보내지지 않습니다.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-406-Not-Acceptable-응답해요-ㅠㅠ-2017-02-14"><span class="nav-number">5.0.4.</span> <span class="nav-text">4. 406 - Not Acceptable 응답해요 ㅠㅠ  [2017-02-14]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-MessageConverter를-이용하고-싶지-않아요-2017-04-20"><span class="nav-number">5.0.5.</span> <span class="nav-text">5. MessageConverter를 이용하고 싶지 않아요 [2017-04-20]</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/archives/2017/understanding-asynchronos-javascript-and-xml-with-spring/",
+      identifier: "archives/2017/understanding-asynchronos-javascript-and-xml-with-spring/",
+      title     : "초보 개발자들을 위한 AJAX에 대한 정리",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

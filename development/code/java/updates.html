@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="변경사항">
+<meta property="og:type" content="website">
+<meta property="og:title" content="자바">
+<meta property="og:url" content="https://kdevkr.github.io/development/code/java/updates.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="변경사항">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:author" content="kdevkr">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kdevkr.github.io/development/code/java/updates">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>자바 | 잠만보의 개발 블로그
+  </title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+
+      
+
+        
+        <ul id="sub-menu" class="sub-menu menu">
+          
+            
+          
+          
+            
+                
+  <li class="menu-item menu-item-일기장">
+
+    <a href="/development/diary/" rel="section"><i class="fa fa-fw fa-newspaper"></i>일기장</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-코드">
+
+    <a href="/development/code" rel="section"><i class="fa fa-fw fa-code"></i>코드</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-데브옵스">
+
+    <a href="/development/dev-ops" rel="section"><i class="fa fa-fw fa-connectdevelop fab"></i>데브옵스</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-북마크">
+
+    <a href="/development/bookmark/" rel="section"><i class="fa fa-fw fa-bookmark"></i>북마크</a>
+
+  </li>
+
+
+        </ul>
+        
+
+        
+
+                
+                
+
+                
+
+                    
+                    <ul id="sub-menu-2" class="sub-menu menu">
+                      
+                        
+  <li class="menu-item menu-item-java">
+
+    <a href="/development/code/java" rel="section"><i class="fa fa-fw fa-java fab"></i>Java</a>
+
+  </li>
+
+
+                        
+  <li class="menu-item menu-item-spring">
+
+    <a href="/development/code/spring" rel="section"><i class="fa fa-fw fa-seedling"></i>Spring</a>
+
+  </li>
+
+
+                        
+  <li class="menu-item menu-item-vue.js">
+
+    <a href="/development/code/vuejs" rel="section"><i class="fa fa-fw fa-vuejs fab"></i>Vue.js</a>
+
+  </li>
+
+
+                        
+  <li class="menu-item menu-item-postgresql">
+
+    <a href="/development/code/postgresql" rel="section"><i class="fa fa-fw fa-database"></i>PostgreSQL</a>
+
+  </li>
+
+
+                        
+  <li class="menu-item menu-item-kdb+">
+
+    <a href="/development/code/kdb" rel="section"><i class="fa fa-fw fa-database"></i>KDB+</a>
+
+  </li>
+
+
+                    </ul>
+                    
+                
+
+                
+                
+
+                
+                
+        
+      
+  
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+    
+    
+    
+    <div class="post-block" lang="ko">
+      <header class="post-header">
+
+<h2 class="post-title" itemprop="name headline">자바
+</h2>
+
+<div class="post-meta">
+    <div class="post-description">변경사항</div>
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/development/">DEVELOPMENT</a></li>
+            <li><a href="/development/code/">CODE</a></li>
+            <li><a href="/development/code/java/">JAVA</a></li>
+            <li>UPDATES</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="Updates">Updates</h2>
+<h3 id="Java-9">Java 9</h3>
+<h4 id="JEP-102-Process-API-Updates">JEP 102: Process API Updates</h4>
+<p>OS 프로세스 제어 및 관리 API가 개선되었습니다.</p>
+<p>ProcessHandle 클래스는 프로세스에 대한 네이티브 아이디, 매개변수, 명령어, 시작 시간, 가속화된 CPU 시간, 사용자, 부모 프로세스 정보를 제공합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/102" target="_blank" rel="noopener">http://openjdk.java.net/jeps/102</a></p>
+</blockquote>
+<h4 id="JEP-213-Milling-Project-Coin-⭐️">JEP 213: Milling Project Coin ⭐️</h4>
+<p>언어적인 측면에서 몇가지 개선사항이 있습니다.</p>
+<ul>
+<li><a href="https://dzone.com/articles/try-with-resources-enhancement-in-java-9" target="_blank" rel="noopener">try-with-resources 개선</a></li>
+<li><a href="https://www.tutorialspoint.com/java9/java9_inner_class_diamond_operator.htm" target="_blank" rel="noopener">익명 클래스에 대한 다이아몬드 문법 지원</a></li>
+<li><a href="https://www.tutorialspoint.com/java9/java9_private_interface_methods.htm" target="_blank" rel="noopener">인터페이스의 private 메소드 지원</a></li>
+</ul>
+<blockquote>
+<p><a href="https://openjdk.java.net/jeps/213" target="_blank" rel="noopener">https://openjdk.java.net/jeps/213</a></p>
+</blockquote>
+<h4 id="JEP-222-jshell-The-Java-Shell-Read-Eval-Print-Loop-⭐️">JEP 222: jshell: The Java Shell (Read-Eval-Print Loop) ⭐️</h4>
+<p>Read-Eval-Print Loop (REPL) 기능을 지원합니다. jshell 도구는 자바 프로그래밍 언어에 대한 대화식 명령행 인터페이스를 지원하여 즉각적인 결과와 피드백을 제공합니다.</p>
+<p>jshell를 활용하면 Java 언어 또는 새로운 기능을 학습하는데 유용합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/222" target="_blank" rel="noopener">http://openjdk.java.net/jeps/222</a></p>
+</blockquote>
+<h4 id="JEP-224-HTML5-Javadoc">JEP 224: <s>HTML5 Javadoc</s></h4>
+<h4 id="JEP-226-UTF-8-Properties-Files-⭐️">JEP 226: UTF-8 Properties Files ⭐️</h4>
+<p>프로퍼티 파일들을 로드할 때 ISO-8859-1이 아닌 UTF-8 인코딩을 사용합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/226" target="_blank" rel="noopener">http://openjdk.java.net/jeps/226</a></p>
+</blockquote>
+<h4 id="JEP-229-Create-PKCS12-Keystores-by-Default-⭐️">JEP 229: Create PKCS12 Keystores by Default ⭐️</h4>
+<p>기본 키 저장소 유형을 JKS에서 PKCS12로 변경합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/229" target="_blank" rel="noopener">http://openjdk.java.net/jeps/229</a></p>
+</blockquote>
+<h4 id="JEP-244-TLS-Application-Layer-Protocol-Negotiation-Extension-⭐️">JEP 244: TLS Application-Layer Protocol Negotiation Extension ⭐️</h4>
+<p>TLS 연결에서 클라이언트와 서버의 ALPN을 허용합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/244" target="_blank" rel="noopener">http://openjdk.java.net/jeps/244</a></p>
+</blockquote>
+<h4 id="JEP-245-Validate-JVM-Command-Line-Flag-Arguments">JEP 245: Validate JVM Command-Line Flag Arguments</h4>
+<p>JVM 명령어 플래그에 대한 유효성 검증 및 오류 메시지를 표시합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/245" target="_blank" rel="noopener">http://openjdk.java.net/jeps/245</a></p>
+</blockquote>
+<h4 id="JEP-247-Compile-for-Older-Platform-Versions">JEP 247: Compile for Older Platform Versions</h4>
+<p>이전 버전의 플랫폼에서 동작하도록 프로그램을 컴파일할 수 있게 javac를 개선하였습니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/247" target="_blank" rel="noopener">http://openjdk.java.net/jeps/247</a></p>
+</blockquote>
+<h4 id="JEP-158-Unified-JVM-Logging"><s>JEP 158: Unified JVM Logging</s></h4>
+<h4 id="JEP-214-Remove-GC-Combinations-Deprecated-in-JDK-8-💥">JEP 214: Remove GC Combinations Deprecated in JDK 8 💥</h4>
+<p>JDK 8에서 제외된 가비지 콜렉터 조합을 제거합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/214" target="_blank" rel="noopener">http://openjdk.java.net/jeps/214</a></p>
+</blockquote>
+<h4 id="JEP-236-Parser-API-for-Nashorn">JEP 236: Parser API for Nashorn</h4>
+<p>ECMAScript 코드 분석을 지원합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/236" target="_blank" rel="noopener">http://openjdk.java.net/jeps/236</a></p>
+</blockquote>
+<h4 id="JEP-248-Make-G1-the-Default-Garbage-Collector-⭐️">JEP 248: Make G1 the Default Garbage Collector ⭐️</h4>
+<p>32 그리고 64 비트 서버 구성에서 Garbage-First (G1) 가비지 컬렉터를 기본으로 사용합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/248" target="_blank" rel="noopener">http://openjdk.java.net/jeps/248</a></p>
+</blockquote>
+<h4 id="JEP-252-CLDR-Locale-Data-Enabled-by-Default"><s>JEP 252: CLDR Locale Data Enabled by Default</s></h4>
+<h4 id="JEP-254-Compact-Strings">JEP 254: Compact Strings</h4>
+<p>Adopts a more space-efficient internal representation for strings. Previously, the String class stored characters in a char array, using two bytes (16 bits) for each character. The new internal representation of the String class is a byte array plus an encoding-flag field.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/254" target="_blank" rel="noopener">http://openjdk.java.net/jeps/254</a></p>
+</blockquote>
+<h4 id="JEP-259-Stack-Walking-API"><s>JEP 259: Stack-Walking API</s></h4>
+<h4 id="JEP-266-More-Concurrency-Updates">JEP 266: More Concurrency Updates</h4>
+<p>CompletableFuture API 개선과 Reactive Streams를 지원합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/266" target="_blank" rel="noopener">http://openjdk.java.net/jeps/266</a></p>
+</blockquote>
+<h4 id="JEP-267-Unicode-8-0">JEP 267: Unicode 8.0</h4>
+<p>유니코드 8.0을 지원합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/267" target="_blank" rel="noopener">http://openjdk.java.net/jeps/267</a></p>
+</blockquote>
+<h4 id="JEP-269-Convenience-Factory-Methods-for-Collections">JEP 269: Convenience Factory Methods for Collections</h4>
+<p>컬렉션에 대한 편리한 팩토리 메소드를 지원합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/269" target="_blank" rel="noopener">http://openjdk.java.net/jeps/269</a></p>
+</blockquote>
+<h4 id="JEP-277-Enhanced-Deprecation">JEP 277: Enhanced Deprecation</h4>
+<p>@deprecated로 추가적인 정보를 제공할 수 있도록 지원합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/277" target="_blank" rel="noopener">http://openjdk.java.net/jeps/277</a></p>
+</blockquote>
+<h4 id="JEP-291-Deprecate-the-Concurrent-Mark-Sweep-CMS-Garbage-Collector">JEP 291: Deprecate the Concurrent Mark Sweep (CMS) Garbage Collector</h4>
+<p>Concurrent Mark Sweep (CMS) 가비지 컬렉터가 제외됩니다. G1 가비지 컬렉터가 대부분의 CMS 기능을 대체 합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/291" target="_blank" rel="noopener">http://openjdk.java.net/jeps/291</a></p>
+</blockquote>
+<h4 id="JEP-292-Implement-Selected-ECMAScript-6-Features-in-Nashorn-⭐️">JEP 292: Implement Selected ECMAScript 6 Features in Nashorn ⭐️</h4>
+<p>Implements many new features introduced in the 6th edition of ECMA-262, also known as ECMAScript 6, or ES6 for short. Implemented features include the following:</p>
+<ul>
+<li>Template strings</li>
+<li>let, const, and block scope</li>
+<li>Iterators and for…of loops</li>
+<li>Map, Set, WeakMap, and WeakSet</li>
+<li>Symbols</li>
+<li>Binary and octal literals</li>
+</ul>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/292" target="_blank" rel="noopener">http://openjdk.java.net/jeps/292</a></p>
+</blockquote>
+<h3 id="Java-10">Java 10</h3>
+<p>자바 10에서의 변경사항 중 주요 내용은 다음과 같습니다.</p>
+<ul>
+<li>지역 변수에 대한 추론 문법 지원</li>
+<li>오라클 JDK의 기본 CA 목록 포함</li>
+</ul>
+<blockquote>
+<p>관심없는 변경 및 개선사항은 취소선으로 표시하였습니다.</p>
+</blockquote>
+<h4 id="JEP-286-Local-Variable-Type-Inference-⭐️">JEP 286: Local-Variable Type Inference ⭐️</h4>
+<p>지역 변수에 대한 타입 추론을 지원합니다. 기존에 엄격하게 변수에 대한 타입을 선언하였던과는 달리 <code>var</code>를 통해 컴파일러가 타입을 추론할 수 있게할 수 있습니다.</p>
+<p>단, 지역 변수의 초기화 시점과 반복문에서의 지역 변수 선언할 때 가능합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/286" target="_blank" rel="noopener">http://openjdk.java.net/jeps/286</a></p>
+</blockquote>
+<h4 id="JEP-296-Consolidate-the-JDK-Forest-into-a-Single-Repository"><s>JEP 296: Consolidate the JDK Forest into a Single Repository</s></h4>
+<h4 id="JEP-304-Garbage-Collector-Interface"><s>JEP 304: Garbage-Collector Interface</s></h4>
+<h4 id="JEP-307-Parallel-Full-GC-for-G1">JEP 307: Parallel Full GC for G1</h4>
+<p>JDK 9에서 기본 가비지 컬렉터로 채택된 G1의 싱글 쓰레드 방식으로 mark-sweep-compact 알고리즘을 수행하던 것을 병렬로 수행할 수 있게하여 Full GC에 대한 지연 시간을 개선하였습니다.</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">-XX:ParallelGCThreads=&lt;threads_count&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/307" target="_blank" rel="noopener">http://openjdk.java.net/jeps/307</a></p>
+</blockquote>
+<h4 id="JEP-310-Application-Class-Data-Sharing">JEP 310: Application Class-Data Sharing</h4>
+<p>애플리케이션 클래스 데이터를 공유 아카이브에 배치하여 서로 다른 자바 프로세스가 공유할 수 있도록 개선되었으며 구동 시간 및 메모리 사용량을 최적화합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/310" target="_blank" rel="noopener">http://openjdk.java.net/jeps/310</a></p>
+</blockquote>
+<h4 id="JEP-312-Thread-Local-Handshakes"><s>JEP 312: Thread-Local Handshakes</s></h4>
+<h4 id="JEP-313-Remove-the-Native-Header-Generation-Tool-javah"><s>JEP 313: Remove the Native-Header Generation Tool (javah)</s></h4>
+<h4 id="JEP-314-Additional-Unicode-Language-Tag-Extensions"><s>JEP 314: Additional Unicode Language-Tag Extensions</s></h4>
+<h4 id="JEP-316-Heap-Allocation-on-Alternative-Memory-Devices">JEP 316: Heap Allocation on Alternative Memory Devices</h4>
+<p>JVM Heap 영역을 NV-DIMM과 같은 대체 메모리에 할당할 수 있습니다.</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">-XX:AllocateHeapAt=&lt;path&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/316" target="_blank" rel="noopener">http://openjdk.java.net/jeps/316</a></p>
+</blockquote>
+<h4 id="JEP-317-Experimental-Java-Based-JIT-Compiler"><s>JEP 317: Experimental Java-Based JIT Compiler</s></h4>
+<h4 id="JEP-319-Root-Certificates-⭐️">JEP 319: Root Certificates ⭐️</h4>
+<p>SSL 또는 TLS 인증서를 발급해주는 인증기관(CA)에 대한 목록을 기존의 OpenJDK는 제공하지 않았지만 JDK 10에서는 오라클 JDK의 CA 목록이 기본으로 포함됩니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/319" target="_blank" rel="noopener">http://openjdk.java.net/jeps/319</a></p>
+</blockquote>
+<h4 id="JEP-322-Time-Based-Release-Versioning"><s>JEP 322: Time-Based Release Versioning</s></h4>
+<h3 id="Java-11">Java 11</h3>
+<h4 id="JEP-181-Nest-Based-Access-Control">JEP 181: Nest-Based Access Control</h4>
+<p>중첩 기반의 접근 제어가 가능합니다.</p>
+<ul>
+<li><a href="https://www.baeldung.com/java-nest-based-access-control" target="_blank" rel="noopener">Java 11 Nest Based Access Control - Baeldung</a></li>
+</ul>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/181" target="_blank" rel="noopener">http://openjdk.java.net/jeps/181</a></p>
+</blockquote>
+<h4 id="JEP-309-Dynamic-Class-File-Constants">JEP 309: Dynamic Class-File Constants</h4>
+<p>동적 클래스 파일 상수 지원</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/309" target="_blank" rel="noopener">http://openjdk.java.net/jeps/309</a></p>
+</blockquote>
+<h4 id="JEP-315-Improve-Aarch64-Intrinsics">JEP 315: Improve Aarch64 Intrinsics</h4>
+<h4 id="JEP-318-Epsilon-A-No-Op-Garbage-Collector">JEP 318: Epsilon: A No-Op Garbage Collector</h4>
+<p>메모리 교정 매커니즘을 구현하지 않은 가비지 컬렉터인 Epsilon을 제공합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/318" target="_blank" rel="noopener">http://openjdk.java.net/jeps/318</a></p>
+</blockquote>
+<h4 id="JEP-320-Remove-the-Java-EE-and-CORBA-Modules">JEP 320: Remove the Java EE and CORBA Modules</h4>
+<p>Java SE 9에서 제외된 Java EE, CORBA 모듈을 제거합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/320" target="_blank" rel="noopener">http://openjdk.java.net/jeps/320</a></p>
+</blockquote>
+<h4 id="JEP-321-HTTP-Client-Standard">JEP 321: HTTP Client (Standard)</h4>
+<p>JDK 9에서 도입되었던 HTTP Client API를 표준화합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/321" target="_blank" rel="noopener">http://openjdk.java.net/jeps/321</a></p>
+</blockquote>
+<h4 id="JEP-323-Local-Variable-Syntax-for-Lambda-Parameters">JEP 323: Local-Variable Syntax for Lambda Parameters</h4>
+<p>Java 10에서 지역 변수에 대한 타입 추론을 지원했습니다.<br>
+이제 람다 매개변수에 대해 지역 변수 문법을 제공합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/323" target="_blank" rel="noopener">http://openjdk.java.net/jeps/323</a></p>
+</blockquote>
+<h4 id="JEP-324-Key-Agreement-with-Curve25519-and-Curve448">JEP 324: Key Agreement with Curve25519 and Curve448</h4>
+<h4 id="JEP-327-Unicode-10">JEP 327: Unicode 10</h4>
+<p>Java 10 에서는 유니코드 8.0을 지원했으며 유니코드 9.0은 7,500개의 문자와 6개의 새로운 스크립트가 추가되었고 유니코드 10.0.0은 8,518개의 문자와 4개의 새로운 스크립트가 추가되었습니다.</p>
+<p>따라서, 유니코드 10.0을 지원함에 따라 총 16,018개의 문자와 10개의 새로운 스크립트가 추가됩니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/327" target="_blank" rel="noopener">http://openjdk.java.net/jeps/327</a></p>
+</blockquote>
+<h4 id="JEP-328-Flight-Recorder">JEP 328: Flight Recorder</h4>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/328" target="_blank" rel="noopener">http://openjdk.java.net/jeps/328</a></p>
+</blockquote>
+<h4 id="JEP-329-ChaCha20-and-Poly1305-Cryptographic-Algorithms">JEP 329: ChaCha20 and Poly1305 Cryptographic Algorithms</h4>
+<p>안전하지 않은 RC4 스트림 암호를 대신할 수 있는 새로운 스트림 암호인 ChaCha20을 지원합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/329" target="_blank" rel="noopener">http://openjdk.java.net/jeps/329</a></p>
+</blockquote>
+<h4 id="JEP-330-Launch-Single-File-Source-Code-Programs">JEP 330: Launch Single-File Source-Code Programs</h4>
+<p>싱글 파일 소스 코드 프로그램 실행</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/330" target="_blank" rel="noopener">http://openjdk.java.net/jeps/330</a></p>
+</blockquote>
+<h4 id="JEP-331-Low-Overhead-Heap-Profiling">JEP 331: Low-Overhead Heap Profiling</h4>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/331" target="_blank" rel="noopener">http://openjdk.java.net/jeps/331</a></p>
+</blockquote>
+<h4 id="JEP-332-Transport-Layer-Security-TLS-1-3">JEP 332: Transport Layer Security (TLS) 1.3</h4>
+<p>보안 및 성능이 향상된 TLS 1.3 버전을 지원합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/332" target="_blank" rel="noopener">http://openjdk.java.net/jeps/332</a></p>
+</blockquote>
+<h4 id="JEP-333-ZGC-A-Scalable-Low-Latency-Garbage-Collector-Experimental">JEP 333: ZGC: A Scalable Low-Latency Garbage Collector (Experimental)</h4>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/333" target="_blank" rel="noopener">http://openjdk.java.net/jeps/333</a></p>
+</blockquote>
+<h4 id="JEP-335-Deprecate-the-Nashorn-JavaScript-Engine">JEP 335: Deprecate the Nashorn JavaScript Engine</h4>
+<p>Java 8에서 추가된 Nashorn 자바스크립트 엔진은 ECMAScript-262 5.1 표준을 완벽하게 구현했으나 ECMAScript에 대한 변화가 빨라지면서 Nashorn이 유지 관리를 감당하기 어렵다고 판단하여 제외합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/335" target="_blank" rel="noopener">http://openjdk.java.net/jeps/335</a></p>
+</blockquote>
+<h4 id="JEP-336-Deprecate-the-Pack200-Tools-and-API">JEP 336: Deprecate the Pack200 Tools and API</h4>
+<p>Pack200은 Java SE 5.0에 도입된 JAR 파일에 대한 압축 체계입니다. 그러나 최근에는 다운로드 속도도 향상되었으며 JDK 9에서 새로운 압축 체계를 도입하였으므로 JDK 9 이상에서는 Pack200에 의존하지 않습니다. 따라서, 더 이상 필요없는 Pack200을 제외합니다.</p>
+<blockquote>
+<p><a href="http://openjdk.java.net/jeps/336" target="_blank" rel="noopener">http://openjdk.java.net/jeps/336</a></p>
+</blockquote>
+<h2 id="참고">참고</h2>
+<ul>
+<li><a href="http://openjdk.java.net/projects/jdk/10/" target="_blank" rel="noopener">OpenJDK - JDK 10</a></li>
+<li><a href="https://itstory.tk/entry/Java-10-%EC%8B%A0%EA%B7%9C-%EA%B8%B0%EB%8A%A5%ED%8A%B9%EC%A7%95-%EC%A0%95%EB%A6%AC" target="_blank" rel="noopener">Java10 신규 기능(특징) 정리</a></li>
+<li><a href="http://openjdk.java.net/projects/jdk/11/" target="_blank" rel="noopener">OpenJDK - JDK 11</a></li>
+<li><a href="https://blog.advenoh.pe.kr/java/%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EB%8A%A5-%EB%B0%8F-%EA%B0%9C%EC%84%A0-%EC%82%AC%ED%95%AD-%EB%AA%A9%EB%A1%9D-%EC%9E%90%EB%B0%9411%EC%97%90%EC%84%9C%EC%9D%98-%EB%B3%80%ED%99%94/" target="_blank" rel="noopener">새로운 기능 및 개선 사항 목록 - 자바11에서의 변화</a></li>
+<li><a href="https://docs.microsoft.com/ko-kr/azure/java/jdk/reasons-to-move-to-java-11" target="_blank" rel="noopener">Java 11로 전환해야 하는 이유</a></li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/development/">DEVELOPMENT</a></li>
+            <li><a href="/development/code/">CODE</a></li>
+            <li><a href="/development/code/java/">JAVA</a></li>
+            <li>UPDATES</li>
+          
+  </ul>
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Updates"><span class="nav-number">1.</span> <span class="nav-text">Updates</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-9"><span class="nav-number">1.1.</span> <span class="nav-text">Java 9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-102-Process-API-Updates"><span class="nav-number">1.1.1.</span> <span class="nav-text">JEP 102: Process API Updates</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-213-Milling-Project-Coin-⭐️"><span class="nav-number">1.1.2.</span> <span class="nav-text">JEP 213: Milling Project Coin ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-222-jshell-The-Java-Shell-Read-Eval-Print-Loop-⭐️"><span class="nav-number">1.1.3.</span> <span class="nav-text">JEP 222: jshell: The Java Shell (Read-Eval-Print Loop) ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-224-HTML5-Javadoc"><span class="nav-number">1.1.4.</span> <span class="nav-text">JEP 224: HTML5 Javadoc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-226-UTF-8-Properties-Files-⭐️"><span class="nav-number">1.1.5.</span> <span class="nav-text">JEP 226: UTF-8 Properties Files ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-229-Create-PKCS12-Keystores-by-Default-⭐️"><span class="nav-number">1.1.6.</span> <span class="nav-text">JEP 229: Create PKCS12 Keystores by Default ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-244-TLS-Application-Layer-Protocol-Negotiation-Extension-⭐️"><span class="nav-number">1.1.7.</span> <span class="nav-text">JEP 244: TLS Application-Layer Protocol Negotiation Extension ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-245-Validate-JVM-Command-Line-Flag-Arguments"><span class="nav-number">1.1.8.</span> <span class="nav-text">JEP 245: Validate JVM Command-Line Flag Arguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-247-Compile-for-Older-Platform-Versions"><span class="nav-number">1.1.9.</span> <span class="nav-text">JEP 247: Compile for Older Platform Versions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-158-Unified-JVM-Logging"><span class="nav-number">1.1.10.</span> <span class="nav-text">JEP 158: Unified JVM Logging</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-214-Remove-GC-Combinations-Deprecated-in-JDK-8-💥"><span class="nav-number">1.1.11.</span> <span class="nav-text">JEP 214: Remove GC Combinations Deprecated in JDK 8 💥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-236-Parser-API-for-Nashorn"><span class="nav-number">1.1.12.</span> <span class="nav-text">JEP 236: Parser API for Nashorn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-248-Make-G1-the-Default-Garbage-Collector-⭐️"><span class="nav-number">1.1.13.</span> <span class="nav-text">JEP 248: Make G1 the Default Garbage Collector ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-252-CLDR-Locale-Data-Enabled-by-Default"><span class="nav-number">1.1.14.</span> <span class="nav-text">JEP 252: CLDR Locale Data Enabled by Default</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-254-Compact-Strings"><span class="nav-number">1.1.15.</span> <span class="nav-text">JEP 254: Compact Strings</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-259-Stack-Walking-API"><span class="nav-number">1.1.16.</span> <span class="nav-text">JEP 259: Stack-Walking API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-266-More-Concurrency-Updates"><span class="nav-number">1.1.17.</span> <span class="nav-text">JEP 266: More Concurrency Updates</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-267-Unicode-8-0"><span class="nav-number">1.1.18.</span> <span class="nav-text">JEP 267: Unicode 8.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-269-Convenience-Factory-Methods-for-Collections"><span class="nav-number">1.1.19.</span> <span class="nav-text">JEP 269: Convenience Factory Methods for Collections</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-277-Enhanced-Deprecation"><span class="nav-number">1.1.20.</span> <span class="nav-text">JEP 277: Enhanced Deprecation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-291-Deprecate-the-Concurrent-Mark-Sweep-CMS-Garbage-Collector"><span class="nav-number">1.1.21.</span> <span class="nav-text">JEP 291: Deprecate the Concurrent Mark Sweep (CMS) Garbage Collector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-292-Implement-Selected-ECMAScript-6-Features-in-Nashorn-⭐️"><span class="nav-number">1.1.22.</span> <span class="nav-text">JEP 292: Implement Selected ECMAScript 6 Features in Nashorn ⭐️</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-10"><span class="nav-number">1.2.</span> <span class="nav-text">Java 10</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-286-Local-Variable-Type-Inference-⭐️"><span class="nav-number">1.2.1.</span> <span class="nav-text">JEP 286: Local-Variable Type Inference ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-296-Consolidate-the-JDK-Forest-into-a-Single-Repository"><span class="nav-number">1.2.2.</span> <span class="nav-text">JEP 296: Consolidate the JDK Forest into a Single Repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-304-Garbage-Collector-Interface"><span class="nav-number">1.2.3.</span> <span class="nav-text">JEP 304: Garbage-Collector Interface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-307-Parallel-Full-GC-for-G1"><span class="nav-number">1.2.4.</span> <span class="nav-text">JEP 307: Parallel Full GC for G1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-310-Application-Class-Data-Sharing"><span class="nav-number">1.2.5.</span> <span class="nav-text">JEP 310: Application Class-Data Sharing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-312-Thread-Local-Handshakes"><span class="nav-number">1.2.6.</span> <span class="nav-text">JEP 312: Thread-Local Handshakes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-313-Remove-the-Native-Header-Generation-Tool-javah"><span class="nav-number">1.2.7.</span> <span class="nav-text">JEP 313: Remove the Native-Header Generation Tool (javah)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-314-Additional-Unicode-Language-Tag-Extensions"><span class="nav-number">1.2.8.</span> <span class="nav-text">JEP 314: Additional Unicode Language-Tag Extensions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-316-Heap-Allocation-on-Alternative-Memory-Devices"><span class="nav-number">1.2.9.</span> <span class="nav-text">JEP 316: Heap Allocation on Alternative Memory Devices</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-317-Experimental-Java-Based-JIT-Compiler"><span class="nav-number">1.2.10.</span> <span class="nav-text">JEP 317: Experimental Java-Based JIT Compiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-319-Root-Certificates-⭐️"><span class="nav-number">1.2.11.</span> <span class="nav-text">JEP 319: Root Certificates ⭐️</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-322-Time-Based-Release-Versioning"><span class="nav-number">1.2.12.</span> <span class="nav-text">JEP 322: Time-Based Release Versioning</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-11"><span class="nav-number">1.3.</span> <span class="nav-text">Java 11</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-181-Nest-Based-Access-Control"><span class="nav-number">1.3.1.</span> <span class="nav-text">JEP 181: Nest-Based Access Control</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-309-Dynamic-Class-File-Constants"><span class="nav-number">1.3.2.</span> <span class="nav-text">JEP 309: Dynamic Class-File Constants</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-315-Improve-Aarch64-Intrinsics"><span class="nav-number">1.3.3.</span> <span class="nav-text">JEP 315: Improve Aarch64 Intrinsics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-318-Epsilon-A-No-Op-Garbage-Collector"><span class="nav-number">1.3.4.</span> <span class="nav-text">JEP 318: Epsilon: A No-Op Garbage Collector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-320-Remove-the-Java-EE-and-CORBA-Modules"><span class="nav-number">1.3.5.</span> <span class="nav-text">JEP 320: Remove the Java EE and CORBA Modules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-321-HTTP-Client-Standard"><span class="nav-number">1.3.6.</span> <span class="nav-text">JEP 321: HTTP Client (Standard)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-323-Local-Variable-Syntax-for-Lambda-Parameters"><span class="nav-number">1.3.7.</span> <span class="nav-text">JEP 323: Local-Variable Syntax for Lambda Parameters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-324-Key-Agreement-with-Curve25519-and-Curve448"><span class="nav-number">1.3.8.</span> <span class="nav-text">JEP 324: Key Agreement with Curve25519 and Curve448</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-327-Unicode-10"><span class="nav-number">1.3.9.</span> <span class="nav-text">JEP 327: Unicode 10</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-328-Flight-Recorder"><span class="nav-number">1.3.10.</span> <span class="nav-text">JEP 328: Flight Recorder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-329-ChaCha20-and-Poly1305-Cryptographic-Algorithms"><span class="nav-number">1.3.11.</span> <span class="nav-text">JEP 329: ChaCha20 and Poly1305 Cryptographic Algorithms</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-330-Launch-Single-File-Source-Code-Programs"><span class="nav-number">1.3.12.</span> <span class="nav-text">JEP 330: Launch Single-File Source-Code Programs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-331-Low-Overhead-Heap-Profiling"><span class="nav-number">1.3.13.</span> <span class="nav-text">JEP 331: Low-Overhead Heap Profiling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-332-Transport-Layer-Security-TLS-1-3"><span class="nav-number">1.3.14.</span> <span class="nav-text">JEP 332: Transport Layer Security (TLS) 1.3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-333-ZGC-A-Scalable-Low-Latency-Garbage-Collector-Experimental"><span class="nav-number">1.3.15.</span> <span class="nav-text">JEP 333: ZGC: A Scalable Low-Latency Garbage Collector (Experimental)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-335-Deprecate-the-Nashorn-JavaScript-Engine"><span class="nav-number">1.3.16.</span> <span class="nav-text">JEP 335: Deprecate the Nashorn JavaScript Engine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JEP-336-Deprecate-the-Pack200-Tools-and-API"><span class="nav-number">1.3.17.</span> <span class="nav-text">JEP 336: Deprecate the Pack200 Tools and API</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고"><span class="nav-number">2.</span> <span class="nav-text">참고</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/development/code/java/updates.html",
+      identifier: "development/code/java/updates.html",
+      title     : "자바",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

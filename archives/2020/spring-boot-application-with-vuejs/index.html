@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="스프링 부트 애플리케이션과 VueJS 통합하기 본 프로젝트는 스프링 부트 애플리케이션과 Webpack과 같은 번들러와 함께 개발할 경우에 어떻게 수시로 번들링되는 파일을 스프링 부트 애플리케이션에서 배포할 수 있는지를 알아보는 예제입니다. 스프링 애플리케이션의 배포 먼저, 스프링 애플리케이션이 어떻게 정적 파일을 배포하는지를 이해해야 합니다. 스프링 애플리">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스프링 부트 애플리케이션과 VueJS 통합하기">
+<meta property="og:url" content="https://kdevkr.github.io/archives/2020/spring-boot-application-with-vuejs/index.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="스프링 부트 애플리케이션과 VueJS 통합하기 본 프로젝트는 스프링 부트 애플리케이션과 Webpack과 같은 번들러와 함께 개발할 경우에 어떻게 수시로 번들링되는 파일을 스프링 부트 애플리케이션에서 배포할 수 있는지를 알아보는 예제입니다. 스프링 애플리케이션의 배포 먼저, 스프링 애플리케이션이 어떻게 정적 파일을 배포하는지를 이해해야 합니다. 스프링 애플리">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kdevkr.github.io/images/2020/configuration-update-classes-and-resources.PNG">
+<meta property="og:image" content="https://kdevkr.github.io/images/2020/webpack-dev-server-network.PNG">
+<meta property="article:published_time" content="2020-03-08T00:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:author" content="kdevkr">
+<meta property="article:tag" content="Spring Boot">
+<meta property="article:tag" content="Vue.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kdevkr.github.io/images/2020/configuration-update-classes-and-resources.PNG">
+
+<link rel="canonical" href="https://kdevkr.github.io/archives/2020/spring-boot-application-with-vuejs/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>스프링 부트 애플리케이션과 VueJS 통합하기 | 잠만보의 개발 블로그</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://kdevkr.github.io/archives/2020/spring-boot-application-with-vuejs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+      <meta itemprop="name" content="kdevkr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="잠만보의 개발 블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          스프링 부트 애플리케이션과 VueJS 통합하기
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2020-03-08 0:00:00 / Updated at: 14:25:00" itemprop="dateCreated datePublished" datetime="2020-03-08T00:00:00Z">2020-03-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/" itemprop="url" rel="index"><span itemprop="name">개발 이야기</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-user"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="스프링-부트-애플리케이션과-VueJS-통합하기">스프링 부트 애플리케이션과 VueJS 통합하기</h2>
+<p>본 프로젝트는 스프링 부트 애플리케이션과 Webpack과 같은 번들러와 함께 개발할 경우에 어떻게 수시로 번들링되는 파일을 스프링 부트 애플리케이션에서 배포할 수 있는지를 알아보는 예제입니다.</p>
+<h3 id="스프링-애플리케이션의-배포">스프링 애플리케이션의 배포</h3>
+<p>먼저, 스프링 애플리케이션이 어떻게 정적 파일을 배포하는지를 이해해야 합니다. 스프링 애플리케이션은 톰캣과 같은 WAS와 함께 동작합니다. 클래스패스에 있는 정적 파일을 빌드 과정에서 포함되어 톰캣이 정적 파일로 배포할 수 있습니다.</p>
+<blockquote>
+<p>현재 프로젝트 경로에 존재하는 파일이 톰캣이 배포할 수 있는 파일과 다를 수 있다는 말입니다. 이해하셨나요?</p>
+</blockquote>
+<h4 id="Update-clasess-and-resources">Update clasess and resources</h4>
+<p>첫번째 방법은 스프링 부트 애플리케이션에 포함된 내장 톰캣이 배포하는 정적 파일을 갱신하는 것입니다.</p>
+<p><img data-src="/images/2020/configuration-update-classes-and-resources.PNG" alt=""></p>
+<p>Webpack에서 만드는 번들링 파일을 현재 프로젝트의 클래스패스에 생성되게 하면 됩니다. 그러면 현재 클래스패스의 리소스가 변경되었다고 감지하여 애플리케이션을 업데이트하게 됩니다.</p>
+<p>그런데 단점이 있습니다. 클래스패스의 리소스가 변경되는 것을 감지하고 다시 리소스를 업데이트하기 까지의 시간이 걸립니다.</p>
+<h3 id="Webpack-프록시-서버">Webpack 프록시 서버</h3>
+<p>톰캣이 배포하는 리소스를 변경하는 것은 하나의 방법이지만 수시로 번들링되는 것을 빠른 시간안에 적용하여 확인하는 것에는 어려움이 있습니다. 그래서 다른 방법으로 이 번들링되는 파일들을 대신 처리하여 주는 프록시 서버를 만드는 것입니다.</p>
+<p>프록시 서버를 구성하는 방법은 두가지가 있습니다.</p>
+<ul>
+<li>webpack + express + <a href="https://github.com/webpack/webpack-dev-middleware" target="_blank" rel="noopener">webpack-dev-middleware</a></li>
+<li><a href="https://github.com/webpack/webpack-dev-server" target="_blank" rel="noopener">webpack-dev-server</a></li>
+</ul>
+<p>하나는 Express 노드 서버를 구성하고 <code>webpack-dev-middleware</code>를 적용하는 것입니다.</p>
+<p>두번째는 webpack 그룹이 제공하는 <code>webpack-dev-server</code>를 이용하는 것입니다.</p>
+<blockquote>
+<p>어느 방법이든지 상관 없습니다. 행위는 똑같으니까요</p>
+</blockquote>
+<h4 id="webpack-dev-server">webpack-dev-server</h4>
+<p>저는 기존에 사용하던 express 서버가 없으므로 간단하게 webpack-dev-server를 활용합니다.</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm i -D webpack-dev-server</span><br></pre></td></tr></table></figure>
+<p>webpack-dev-server 모듈을 설치하고 Webpack의 devServer 설정을 구성합니다.</p>
+<blockquote>
+<p>webpack-dev-server가 webpack.config.js의 devServer 설정에 따라 실행됩니다.</p>
+</blockquote>
+<p><strong>webpack.config.js</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'[name].js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'src/main/resources/dist'</span>),</span><br><span class="line">        publicPath: <span class="string">'/'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        inline: <span class="literal">true</span>,</span><br><span class="line">        hot: <span class="literal">true</span>,</span><br><span class="line">        contentBase: path.resolve(__dirname, <span class="string">'src/main/resources/dist'</span>),</span><br><span class="line">        publicPath: <span class="string">'/dist/'</span>,</span><br><span class="line">        filename: <span class="string">'[name].js'</span>,</span><br><span class="line">        host:  <span class="string">'localhost'</span>,</span><br><span class="line">        port: <span class="number">8081</span>,</span><br><span class="line">        proxy: &#123;</span><br><span class="line">            <span class="string">'**'</span>: <span class="string">'http://localhost:8080/'</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>기본 번들링 파일이 생성되는 위치는 <code>src/main/resources/dist</code>로 빌드시에도 번들링된 파일을 배포할 수 있도록 하였으며 <code>webpack-dev-server</code>는 <code>src/main/resources/dist</code>에 있는 정적 파일들을 <code>/dist/</code>를 기준으로 배포하게 합니다.</p>
+<p>그리고 모든 경로에 대하여 애플리케이션 실행 주소를 바라보게 <code>proxy</code> 설정을 합니다.</p>
+<p><strong>package.json</strong></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">        <span class="attr">"webpack"</span>: <span class="string">"webpack --config webpack.config.js"</span>,</span><br><span class="line">        <span class="attr">"dev"</span>: <span class="string">"webpack -d --config webpack.config.js --watch"</span>,</span><br><span class="line">        <span class="attr">"dev:server"</span>: <span class="string">"webpack-dev-server"</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>webpack-dev-server를 구동할 수 있도록 NPM 스크립트를 만들고 실행합니다.</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm run dev:server</span><br><span class="line"></span><br><span class="line">&gt; webpack-dev-server</span><br><span class="line"></span><br><span class="line">i ｢wds｣: Project is running at http://localhost:8081/</span><br><span class="line">i ｢wds｣: webpack output is served from /dist/</span><br><span class="line">i ｢wds｣: Content not from webpack is served from C:\Users\K\git\spring-demo-vuejs\src\main\resources\dist</span><br></pre></td></tr></table></figure>
+<h4 id="프록시-서버를-통해-개발하기">프록시 서버를 통해 개발하기</h4>
+<p>프록시 서버도 구동되었으니 브라우저에서 <code>8081</code> 포트로 접근하여 개발하면 됩니다.</p>
+<p>네트워크 탭으로 확인해보면 프록시 서버가 <code>/dist/</code> 경로를 기준으로 번들링된 파일을 제공하는 것을 확인할 수 있습니다.</p>
+<p><img data-src="/images/2020/webpack-dev-server-network.PNG" alt=""></p>
+<h3 id="초기-데이터-적재">초기 데이터 적재</h3>
+<p>많은 분들이 궁금해하시는 부분일 것 같습니다. 애석하게도 번들링되는 파일에 애플리케이션의 데이터를 적재하는 것은 불가능 합니다. 그래서 번들링되는 스크립트에서 데이터를 불러올 수 있도록 몇가지 방법을 고려해봐야합니다.</p>
+<h4 id="Object-defineProperty-그리고-freeze">Object.defineProperty 그리고 freeze</h4>
+<p>첫번째 방법은 스프링 애플리케이션이 제공하는 <code>.html</code> 파일에 스크립트 블록을 만들어 변경되지 않는 오브젝트를 만드는 것입니다.</p>
+<ul>
+<li>Object.defineProperty : 오브젝트의 새로운 속성을 정의합니다.</li>
+<li>Object.freeze : 오브젝트를 변경되지 않도록 동결시킵니다.</li>
+</ul>
+<p>다음은 위 정적 함수들을 사용하여 변경되지 않는 데이터 속성을 만드는 예제입니다.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">Object</span>.defineProperty(<span class="built_in">window</span>, <span class="string">'state'</span>, &#123;</span></span><br><span class="line"><span class="actionscript">        enumerable: <span class="literal">false</span>,</span></span><br><span class="line"><span class="actionscript">        configurable: <span class="literal">false</span>,</span></span><br><span class="line"><span class="actionscript">        writable: <span class="literal">false</span>,</span></span><br><span class="line">        value: &#123;</span><br><span class="line"><span class="actionscript">            id: <span class="string">"$&#123;state.id&#125;"</span>,</span></span><br><span class="line"><span class="actionscript">            name: <span class="string">"$&#123;state.name&#125;"</span>,</span></span><br><span class="line"><span class="actionscript">            origin: <span class="string">"$&#123;state.origin&#125;"</span></span></span><br><span class="line"><span class="actionscript">            <span class="comment">// ,$&#123;_csrf.parameterName&#125;: "$&#123;_csrf.token&#125;"</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="javascript">    <span class="built_in">Object</span>.freeze(<span class="built_in">window</span>.state);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>state</code>는 애플리케이션이 제공하는 모델 속성입니다.</p>
+<blockquote>
+<p>본 예제에서는 프리마커 템플릿 엔진을 사용하고 있습니다.</p>
+</blockquote>
+<h4 id="초기-데이터-API-호출">초기 데이터 API 호출</h4>
+<p>두번째는 스크립트 파일 로드시 초기 데이터를 받아오는 API를 호출하는 방법입니다.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        <span class="keyword">this</span>.getState()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            state: <span class="built_in">window</span>.state</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        getState() &#123;</span><br><span class="line">            <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">state</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">let</span> response = <span class="keyword">await</span> $http.get(<span class="string">'/api/state'</span>)</span><br><span class="line">                <span class="keyword">return</span> response</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            state().then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.state = res.data</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="끝마치며">끝마치며</h2>
+<p>제가 설명하는 방법이 올바른 것은 아닙니다. 다만, 이런 방법이 있다는 것을 알고 도입을 고려하시기 바랍니다. 또한, 어떠한 경우든 사용자의 개인정보와 같은 보호가 필요한 데이터는 초기 데이터로 적재하지 않도록 하시기 바랍니다.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/kdb-tutorial/java-client/" rel="prev" title="KDB 튜토리얼 - 자바 클라이언트">
+      <i class="fa fa-chevron-left"></i> KDB 튜토리얼 - 자바 클라이언트
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#스프링-부트-애플리케이션과-VueJS-통합하기"><span class="nav-number">1.</span> <span class="nav-text">스프링 부트 애플리케이션과 VueJS 통합하기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#스프링-애플리케이션의-배포"><span class="nav-number">1.1.</span> <span class="nav-text">스프링 애플리케이션의 배포</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Update-clasess-and-resources"><span class="nav-number">1.1.1.</span> <span class="nav-text">Update clasess and resources</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack-프록시-서버"><span class="nav-number">1.2.</span> <span class="nav-text">Webpack 프록시 서버</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack-dev-server"><span class="nav-number">1.2.1.</span> <span class="nav-text">webpack-dev-server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#프록시-서버를-통해-개발하기"><span class="nav-number">1.2.2.</span> <span class="nav-text">프록시 서버를 통해 개발하기</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#초기-데이터-적재"><span class="nav-number">1.3.</span> <span class="nav-text">초기 데이터 적재</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-defineProperty-그리고-freeze"><span class="nav-number">1.3.1.</span> <span class="nav-text">Object.defineProperty 그리고 freeze</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#초기-데이터-API-호출"><span class="nav-number">1.3.2.</span> <span class="nav-text">초기 데이터 API 호출</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#끝마치며"><span class="nav-number">2.</span> <span class="nav-text">끝마치며</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/archives/2020/spring-boot-application-with-vuejs/",
+      identifier: "archives/2020/spring-boot-application-with-vuejs/",
+      title     : "스프링 부트 애플리케이션과 VueJS 통합하기",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

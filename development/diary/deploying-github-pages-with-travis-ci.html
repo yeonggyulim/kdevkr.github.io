@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Gitlab Pages를 Gitlab CI로 배포하기를 해보면서 Github에서도 자동으로 배포할 수 없을까 찾아보던 중 Travis CI를 이용한 Github Pages + Hexo 블로그 자동 배포하기에서 처럼 Travis CI를 통해 자동으로 배포하는 것을 해보고자 합니다. 위 글과 함께 Travis CI에서 제공하는 Github Pages Depl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Travis CI로 Github Pages 배포하기">
+<meta property="og:url" content="https://kdevkr.github.io/development/diary/deploying-github-pages-with-travis-ci.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="Gitlab Pages를 Gitlab CI로 배포하기를 해보면서 Github에서도 자동으로 배포할 수 없을까 찾아보던 중 Travis CI를 이용한 Github Pages + Hexo 블로그 자동 배포하기에서 처럼 Travis CI를 통해 자동으로 배포하는 것을 해보고자 합니다. 위 글과 함께 Travis CI에서 제공하는 Github Pages Depl">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-travis-ci-01.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-travis-ci-02.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-travis-ci-03.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-travis-ci-04.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-travis-ci-05.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-access-token-01.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-access-token-02.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-access-token-03.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-access-token-04.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-access-token-05.png">
+<meta property="og:image" content="https://kdevkr.github.io/images/etc/github-pages-travis-ci-06.png">
+<meta property="article:published_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:author" content="kdevkr">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kdevkr.github.io/images/etc/github-pages-travis-ci-01.png">
+
+<link rel="canonical" href="https://kdevkr.github.io/development/diary/deploying-github-pages-with-travis-ci">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>Travis CI로 Github Pages 배포하기 | 잠만보의 개발 블로그
+  </title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+
+      
+
+        
+        <ul id="sub-menu" class="sub-menu menu">
+          
+            
+          
+          
+            
+                
+  <li class="menu-item menu-item-일기장">
+
+    <a href="/development/diary/" rel="section"><i class="fa fa-fw fa-newspaper"></i>일기장</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-코드">
+
+    <a href="/development/code" rel="section"><i class="fa fa-fw fa-code"></i>코드</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-데브옵스">
+
+    <a href="/development/dev-ops" rel="section"><i class="fa fa-fw fa-connectdevelop fab"></i>데브옵스</a>
+
+  </li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-북마크">
+
+    <a href="/development/bookmark/" rel="section"><i class="fa fa-fw fa-bookmark"></i>북마크</a>
+
+  </li>
+
+
+        </ul>
+        
+
+        
+
+                
+
+                    
+                    <ul id="sub-menu-2" class="sub-menu menu">
+                      
+                        
+  <li class="menu-item menu-item-이슈">
+
+    <a href="/development/diary/issue" rel="section"><i class="fa fa-fw fa-exclamation-circle"></i>이슈</a>
+
+  </li>
+
+
+                    </ul>
+                    
+                
+
+                
+                
+
+                
+                
+
+                
+                
+        
+      
+  
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+    
+    
+    
+    <div class="post-block" lang="ko">
+      <header class="post-header">
+
+<h2 class="post-title" itemprop="name headline">Travis CI로 Github Pages 배포하기
+</h2>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/development/">DEVELOPMENT</a></li>
+            <li><a href="/development/diary/">DIARY</a></li>
+            <li>DEPLOYING-GITHUB-PAGES-WITH-TRAVIS-CI</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <blockquote>
+<p><a href="https://kdevkr.gitlab.io/archives/2018/Gitlab%20Pages%EB%A5%BC%20Gitlab%20CI%EB%A1%9C%20%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0/" target="_blank" rel="noopener">Gitlab Pages를 Gitlab CI로 배포하기</a>를 해보면서 Github에서도 자동으로 배포할 수 없을까 찾아보던 중 <a href="https://medium.com/@changjoopark/travis-ci%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-github-pages-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9E%90%EB%8F%99-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0-6a222a2013e6" target="_blank" rel="noopener">Travis CI를 이용한 Github Pages + Hexo 블로그 자동 배포하기</a>에서 처럼 Travis CI를 통해 자동으로 배포하는 것을 해보고자 합니다.<br>
+위 글과 함께 Travis CI에서 제공하는 <a href="https://docs.travis-ci.com/user/deployment/pages/" target="_blank" rel="noopener">Github Pages Deployment</a> 문서를 참고하였습니다.</p>
+</blockquote>
+<h2 id="Github-Pages-Deployment">Github Pages Deployment</h2>
+<p><code>Travis CI</code>를 통해 <code>Github Pages</code>로 정적 파일들을 배포하기 위해서는 <code>personal access token</code>과 <code>.travis.yml</code>를 통해 배포 설정을 해야합니다.</p>
+<p>Github Pages Deployment의 설정은 기본값으로 제공되는 jekyll을 위한 설정 방법이니 아래의 .travis.yml를 참고하시기 바랍니다.</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># .travis.yml  </span></span><br><span class="line"><span class="attr">language:</span> <span class="string">node_js</span></span><br><span class="line"></span><br><span class="line"><span class="attr">node_js:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"lts/*"</span> <span class="comment"># 사용하고 싶은 node.js 버전을 지정합니다.  </span></span><br><span class="line"></span><br><span class="line"><span class="attr">branches:</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">local</span> <span class="comment"># 소스 파일이 존재하는 브랜치입니다. 참고 문서에서는 source이지만 저는 local를 사용해왔습니다.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">before_install:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"><span class="attr">before_script:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">kdevkr</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">kdevkr@gmail.com</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">sed</span> <span class="string">-i</span> <span class="string">"s/__GITHUB_TOKEN__/$&#123;__GITHUB_TOKEN__&#125;/"</span> <span class="string">_config.yml</span></span><br><span class="line"></span><br><span class="line"><span class="attr">script:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">git</span> <span class="string">submodule</span> <span class="string">init</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">git</span> <span class="string">submodule</span> <span class="string">update</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">b</span> <span class="comment"># 저는 자체 테마를 gitsubmodule로 등록되어 있기에 테마 파일을 빌드 해주었습니다.</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">p</span> <span class="comment"># hexo clean &amp;&amp; hexo depoly -g</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># _config.yml  </span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://__GITHUB_TOKEN__@github.com/kdevkr/kdevkr.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>repo의 URL은 <code>https://&lt;TOKEN&gt;@github.com/&lt;user&gt;/&lt;repo&gt;</code>와 같이 액세스 토큰을 통해 접근하는 경로입니다.</p>
+<h4 id="Setting-the-GitHub-token">Setting the GitHub token</h4>
+<p><code>public_repo</code>또는 <code>repo</code> 스코프를 가지는 <code>personal access token</code>을 만들어야 합니다. 다음의 과정을 따라 Travis CI에서 사용할 액세스 토큰을 만들어봅시다.</p>
+<blockquote>
+<p>액세스 토큰은 공개되면 안되기 때문에 Travis CI의 <a href="https://docs.travis-ci.com/user/environment-variables#defining-variables-in-repository-settings" target="_blank" rel="noopener">리포지토리 설정</a>에서 관리하거나 <code>.travis.yml</code>의 <a href="https://docs.travis-ci.com/user/environment-variables#defining-encrypted-variables-in-travisyml" target="_blank" rel="noopener">암호화된 변수</a>를 사용하시기 바랍니다.</p>
+</blockquote>
+<h4 id="Install-Travis-CI-for-Github-Apps">Install Travis CI for Github Apps</h4>
+<blockquote>
+<p><a href="https://github.com/apps/travis-ci" target="_blank" rel="noopener">travis-ci</a> 앱 페이지에서 설치할 수 있습니다.</p>
+</blockquote>
+<h5 id="1-Install-버튼을-통해-Github-Apps에-Travis-CI-설치를-시작합니다">1. Install 버튼을 통해 Github Apps에 Travis CI 설치를 시작합니다.</h5>
+<p><img data-src="/images/etc/github-pages-travis-ci-01.png" alt="github-pages-travis-ci-01"></p>
+<h5 id="2-Travis-CI에-리포지토리를-추가합니다">2. Travis CI에 리포지토리를 추가합니다.</h5>
+<p><img data-src="/images/etc/github-pages-travis-ci-02.png" alt="github-pages-travis-ci-02"></p>
+<h5 id="3-Install-버튼을-통해-설치를-완료합니다">3. Install 버튼을 통해 설치를 완료합니다.</h5>
+<p><img data-src="/images/etc/github-pages-travis-ci-03.png" alt="github-pages-travis-ci-03"></p>
+<h5 id="4-Travis-CI-앱이-깃허브-계정에-접근할-수-있도록-권한-승인을-합니다">4. Travis CI 앱이 깃허브 계정에 접근할 수 있도록 권한 승인을 합니다.</h5>
+<p><img data-src="/images/etc/github-pages-travis-ci-04.png" alt="github-pages-travis-ci-04"></p>
+<h5 id="5-잠시-후-Travis-CI로-이동되며-앞서-추가한-리포지토리를-확인합니다">5. 잠시 후 Travis CI로 이동되며 앞서 추가한 리포지토리를 확인합니다.</h5>
+<p><img data-src="/images/etc/github-pages-travis-ci-05.png" alt="github-pages-travis-ci-05"></p>
+<p>Travis CI에서 리포지토리에 접근할 수 있는 액세스 토큰을 만들어 설정해보도록 하겠습니다.</p>
+<h5 id="1-Github-Account-Settings-Developer-settings로-들어갑니다">1. Github Account &gt; Settings &gt; Developer settings로 들어갑니다.</h5>
+<p><img data-src="/images/etc/github-pages-access-token-01.png" alt="github-pages-access-token-01"></p>
+<h5 id="2-Personal-access-tokens-메뉴를-통해-새-토큰을-발행합니다">2. Personal access tokens 메뉴를 통해 새 토큰을 발행합니다.</h5>
+<p><img data-src="/images/etc/github-pages-access-token-02.png" alt="github-pages-access-token-02"></p>
+<h5 id="3-스코프는-public-repo-또는-repo를-선택합니다">3. 스코프는 public_repo 또는 repo를 선택합니다.</h5>
+<p><img data-src="/images/etc/github-pages-access-token-03.png" alt="github-pages-access-token-03"></p>
+<h5 id="4-Travis-CI의-리포지토리-설정에-들어갑니다">4. Travis CI의 리포지토리 설정에 들어갑니다.</h5>
+<p><img data-src="/images/etc/github-pages-access-token-04.png" alt="github-pages-access-token-04"></p>
+<h5 id="5-발행한-액세스-토큰을-Travis-CI의-환경-변수에-추가합니다">5. 발행한 액세스 토큰을 Travis CI의 환경 변수에 추가합니다.</h5>
+<p><img data-src="/images/etc/github-pages-access-token-05.png" alt="github-pages-access-token-05"></p>
+<p>이제 <code>__GITHUB_TOKEN__</code>는 travis script의 sed 명령을 통해 변수값이 대체됩니다.<br>
+로컬 브랜치에 추가한 .travis.yml을 원격저장소에 푸시하면 이제 Travis CI가 .travis.yml파일에 따라 빌드를 시작할 것입니다.<br>
+빌드 과정도 확인할 수 있으니 만약 실패했다면 원인을 찾아 해결하시면 됩니다.</p>
+<blockquote>
+<p>저는 다음과 같이 기존에 hexo-deployer-git이 만들어 놓은 .deploy_git으로 인해 빌드가 실패하였고 이를 삭제하였습니다.<br>
+fatal: No url found for submodule path ‘.deploy_git’ in .gitmodules</p>
+</blockquote>
+<p>정상적으로 통과가 됬다면 다음과 같이 표시가 되고 master 브랜치에 배포되었을 것입니다.</p>
+<p><img data-src="/images/etc/github-pages-travis-ci-06.png" alt="github-pages-travis-ci-06"></p>
+<h2 id="참고">참고</h2>
+<ul>
+<li><a href="https://docs.travis-ci.com/user/deployment/pages/" target="_blank" rel="noopener">GitHub Pages Deployment</a></li>
+<li><a href="https://medium.com/@changjoopark/travis-ci%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-github-pages-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%9E%90%EB%8F%99-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0-6a222a2013e6" target="_blank" rel="noopener">Travis CI를 이용한 Github Pages + Hexo 블로그 자동 배포하기</a></li>
+<li><a href="https://rkaehdaos.github.io/2018/10/07/autodeploy-hexo-github/" target="_blank" rel="noopener">travis ci를 이용한 hexo 자동 배포 구현하기</a></li>
+<li><a href="http://kflu.github.io/2017/01/03/2017-01-03-hexo-travis/" target="_blank" rel="noopener">Auto Deploy Hexo.io to Github Pages With Travis CI</a></li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/development/">DEVELOPMENT</a></li>
+            <li><a href="/development/diary/">DIARY</a></li>
+            <li>DEPLOYING-GITHUB-PAGES-WITH-TRAVIS-CI</li>
+          
+  </ul>
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Github-Pages-Deployment"><span class="nav-number">1.</span> <span class="nav-text">Github Pages Deployment</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Setting-the-GitHub-token"><span class="nav-number">1.0.1.</span> <span class="nav-text">Setting the GitHub token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Travis-CI-for-Github-Apps"><span class="nav-number">1.0.2.</span> <span class="nav-text">Install Travis CI for Github Apps</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Install-버튼을-통해-Github-Apps에-Travis-CI-설치를-시작합니다"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1. Install 버튼을 통해 Github Apps에 Travis CI 설치를 시작합니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Travis-CI에-리포지토리를-추가합니다"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2. Travis CI에 리포지토리를 추가합니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Install-버튼을-통해-설치를-완료합니다"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3. Install 버튼을 통해 설치를 완료합니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Travis-CI-앱이-깃허브-계정에-접근할-수-있도록-권한-승인을-합니다"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4. Travis CI 앱이 깃허브 계정에 접근할 수 있도록 권한 승인을 합니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-잠시-후-Travis-CI로-이동되며-앞서-추가한-리포지토리를-확인합니다"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">5. 잠시 후 Travis CI로 이동되며 앞서 추가한 리포지토리를 확인합니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Github-Account-Settings-Developer-settings로-들어갑니다"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">1. Github Account &gt; Settings &gt; Developer settings로 들어갑니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Personal-access-tokens-메뉴를-통해-새-토큰을-발행합니다"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">2. Personal access tokens 메뉴를 통해 새 토큰을 발행합니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-스코프는-public-repo-또는-repo를-선택합니다"><span class="nav-number">1.0.2.8.</span> <span class="nav-text">3. 스코프는 public_repo 또는 repo를 선택합니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Travis-CI의-리포지토리-설정에-들어갑니다"><span class="nav-number">1.0.2.9.</span> <span class="nav-text">4. Travis CI의 리포지토리 설정에 들어갑니다.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-발행한-액세스-토큰을-Travis-CI의-환경-변수에-추가합니다"><span class="nav-number">1.0.2.10.</span> <span class="nav-text">5. 발행한 액세스 토큰을 Travis CI의 환경 변수에 추가합니다.</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고"><span class="nav-number">2.</span> <span class="nav-text">참고</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/development/diary/deploying-github-pages-with-travis-ci.html",
+      identifier: "development/diary/deploying-github-pages-with-travis-ci.html",
+      title     : "Travis CI로 Github Pages 배포하기",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Arita Dotum:300,300italic,400,400italic,700,700italic|Mapo Peace Full:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kdevkr.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true,"b2t":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="들어가며 현재 개발중인 프로젝트에서 JVM 기반으로 ES6 기반의 자바스크립트를 실행해야하는 요구사항이 있어 이를 지원하는 JDK 9 이상으로 자바 버전을 올려야하는 상황이 발생하였습니다. 😑  Nashorn JavaScript Engine in JDK 9에서 ES6 지원을 확인할 수 있습니다. 좀 더 알아보니 OpenJDK에서는 Jashorn 엔진을 제">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스프링 부트 1.5.4에서 2.0으로 마이그레이션 하기">
+<meta property="og:url" content="https://kdevkr.github.io/archives/2020/spring-boot-2.0-migration-from-1.5.4/index.html">
+<meta property="og:site_name" content="잠만보의 개발 블로그">
+<meta property="og:description" content="들어가며 현재 개발중인 프로젝트에서 JVM 기반으로 ES6 기반의 자바스크립트를 실행해야하는 요구사항이 있어 이를 지원하는 JDK 9 이상으로 자바 버전을 올려야하는 상황이 발생하였습니다. 😑  Nashorn JavaScript Engine in JDK 9에서 ES6 지원을 확인할 수 있습니다. 좀 더 알아보니 OpenJDK에서는 Jashorn 엔진을 제">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2020-01-21T00:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-08T14:25:00.763Z">
+<meta property="article:author" content="kdevkr">
+<meta property="article:tag" content="스프링 부트">
+<meta property="article:tag" content="마이그레이션">
+<meta property="article:tag" content="삽질">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kdevkr.github.io/archives/2020/spring-boot-2.0-migration-from-1.5.4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <title>스프링 부트 1.5.4에서 2.0으로 마이그레이션 하기 | 잠만보의 개발 블로그</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93954323-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93954323-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="잠만보의 개발 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">잠만보의 개발 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">잠만보가 알려주는 개발 이야기</h1>
+      
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">24</span></a>
+
+  </li>
+        
+            
+  <li class="menu-item menu-item-개발">
+
+    <a href="/development/" rel="section"><i class="fa fa-fw fa-dev fab"></i>개발</a>
+
+  </li>
+
+
+      
+        <li class="menu-item menu-item-소개">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>소개</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/kdevkr" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://kdevkr.github.io/archives/2020/spring-boot-2.0-migration-from-1.5.4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+      <meta itemprop="name" content="kdevkr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="잠만보의 개발 블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          스프링 부트 1.5.4에서 2.0으로 마이그레이션 하기
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2020-01-21 0:00:00" itemprop="dateCreated datePublished" datetime="2020-01-21T00:00:00Z">2020-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2020-03-08 14:25:00" itemprop="dateModified" datetime="2020-03-08T14:25:00Z">2020-03-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/" itemprop="url" rel="index"><span itemprop="name">개발 이야기</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-user"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="들어가며">들어가며</h2>
+<p>현재 개발중인 프로젝트에서 JVM 기반으로 ES6 기반의 자바스크립트를 실행해야하는 요구사항이 있어 이를 지원하는 JDK 9 이상으로 자바 버전을 올려야하는 상황이 발생하였습니다. 😑</p>
+<blockquote>
+<p><a href="https://www.oracle.com/corporate/features/nashorn-javascript-engine-jdk9.html" target="_blank" rel="noopener">Nashorn JavaScript Engine in JDK 9</a>에서 ES6 지원을 확인할 수 있습니다.</p>
+<p>좀 더 알아보니 OpenJDK에서는 Jashorn 엔진을 제외한다고 명시했습니다.<br>
+- <a href="https://openjdk.java.net/jeps/335" target="_blank" rel="noopener">https://openjdk.java.net/jeps/335</a><br>
+나중에는 <a href="https://github.com/graalvm/graaljs" target="_blank" rel="noopener">GraalVM의 GraalJS</a> 쪽으로 선회하는 방법이 좋겠습니다.</p>
+</blockquote>
+<h3 id="스프링-버전별-JDK-지원">스프링 버전별 JDK 지원</h3>
+<p>일단 애플리케이션의 기반이 되는 스프링 부트 프레임워크의 버전별 JDK 지원 목록을 확인해야했습니다. JDK 9+를 사용해야하므로 최소한으로 지원하는 버전을 찾아야합니다.</p>
+<p>다음은 제가 확인한 버전별 JDK 지원 현황입니다.</p>
+<table>
+<thead>
+<tr>
+<th>Spring Boot Version</th>
+<th>JDK</th>
+<th>Compatible</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.5.9.RELEASE</td>
+<td>Java 7</td>
+<td>or Java 8</td>
+</tr>
+<tr>
+<td>2.0.0.RELEASE</td>
+<td>Java 8</td>
+<td>or Java 9</td>
+</tr>
+<tr>
+<td>2.1.1.RELEASE</td>
+<td>Java 8</td>
+<td>is compatible up to Java 11</td>
+</tr>
+<tr>
+<td>2.1.7.RELEASE</td>
+<td>Java 8</td>
+<td>is compatible up to Java 12</td>
+</tr>
+<tr>
+<td>2.2.0.RELEASE</td>
+<td>Java 8</td>
+<td>is compatible up to Java 13</td>
+</tr>
+</tbody>
+</table>
+<p>그렇다면 제 경우에는 최소한 스프링 부트 2.0.0.RELEASE로 버전을 업그레이드해야하는 상황이 생깁니다. 😱</p>
+<blockquote>
+<p><a href="https://github.com/spring-projects/spring-boot/releases" target="_blank" rel="noopener">GA 릴리즈</a> 버전이 <code>2.1.12.RELEASE</code>와 <code>2.2.3.RELEASE</code>이 있으므로 이중에 선택하면 될것 같습니다.</p>
+</blockquote>
+<h2 id="마이그레이션-시작하기">마이그레이션 시작하기</h2>
+<p>마이그레이션은 <code>gradle</code>, <code>spring-boot</code>, <code>jdk</code> 세가지 영역으로 나누어 진행했습니다.</p>
+<h3 id="Gradle-✅">Gradle ✅</h3>
+<p>먼저 진행한 영역은 Gradle입니다.</p>
+<p>원래 사용하던 Gradle 버전은 3.5.1이었는데 <a href="https://docs.spring.io/spring-boot/docs/2.0.x/reference/htmlsingle/#build-tool-plugins-gradle-plugin" target="_blank" rel="noopener">스프링 부트 2.X의 Gradle 지원 버전</a>은 4.0+ 입니다.</p>
+<h4 id="Gradle-버전-업그레이드">Gradle 버전 업그레이드</h4>
+<p>gradle 명령 또는 버전을 명시해서 버전을 업그레이드 할 수 있습니다.</p>
+<p>업그레이드할 Gradle 버전은 <code>5.6.4</code>입니다.<br>
+<a href="https://docs.gradle.org/5.6.4/release-notes.html" target="_blank" rel="noopener">Gradle 릴리즈 노트</a>에 따르면 그루비 컴파일 속도가 빨라졌다고하여 4.10.3이 아닌 5.6.4로 결정하였습니다.</p>
+<blockquote>
+<p>추후 문제가 발생하여 최종적으로는 6.1로 다시 업그레이드했습니다.<br>
+이에 대한 내용은 문제가 발생한 곳에서 설명하겠습니다.</p>
+</blockquote>
+<p><strong>gradlew</strong></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#gradle wrapper --gradle-version 5.6.4</span></span><br><span class="line">gradlew wrapper --gradle-version 5.6.4</span><br></pre></td></tr></table></figure>
+<p><strong>gradle-wrapper.properties</strong></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#distributionUrl=https\://services.gradle.org/distributions/gradle-3.5.1-all.zip</span></span><br><span class="line"><span class="attr">distributionUrl</span>=<span class="string">https\://services.gradle.org/distributions/gradle-5.6.4-all.zip</span></span><br><span class="line"><span class="comment">#distributionUrl=https\://services.gradle.org/distributions/gradle-6.1-all.zip</span></span><br></pre></td></tr></table></figure>
+<h5 id="인텔리제이-Gradle-플러그인-충돌-⚠️">인텔리제이 Gradle 플러그인 충돌 ⚠️</h5>
+<p>인텔리제이 버전에서 Gradle Wrapper 버전을 올린 후 자체 Gradle 플러그인 버전과 충돌되는 문제가 있었습니다.</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">org.jetbrains.plugins.gradle.tooling.util.ModuleComponentIdentifierImpl.getModuleIdentifier()</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html" target="_blank" rel="noopener">Intellij Platform SDK DevGuide / Build Number Ranges</a>에서 192와 193 브랜치를 확인해보니 <a href="https://github.com/JetBrains/intellij-community/blob/192/build/dependencies/gradle/wrapper/gradle-wrapper.properties" target="_blank" rel="noopener">192</a>에서는 Gradle Wrapper가 4.10-all이고 <a href="https://github.com/JetBrains/intellij-community/blob/193/build/dependencies/gradle/wrapper/gradle-wrapper.properties" target="_blank" rel="noopener">193</a>에서 5.5-all로 변경되었습니다.</p>
+<blockquote>
+<p>자체 Gradle Wrapper가 아닌 자체 Gradle 버전을 바라보는 것은 무슨 문제일까요?<br>
+이로 인해, 인텔리제이 커뮤니티 버전을 사용하는 분들께는 버전 업그레이드를 권고해드렸습니다.</p>
+</blockquote>
+<h5 id="Lombok-Plugin">Lombok Plugin</h5>
+<p>Gradle 5+부터는 빌드를 위해 <code>롬복</code> 플러그인을 사용하거나 <code>annotationProcessor</code>를 사용해야 합니다.</p>
+<blockquote>
+<p><a href="https://projectlombok.org/setup/gradle" target="_blank" rel="noopener">https://projectlombok.org/setup/gradle</a></p>
+</blockquote>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath(<span class="string">"io.freefair.gradle:lombok-plugin:4.1.6"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">"io.freefair.lombok"</span></span><br></pre></td></tr></table></figure>
+<p>또는 직접 명시</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compileOnly(<span class="string">'org.projectlombok:lombok'</span>)</span><br><span class="line">    annotationProcessor(<span class="string">'org.projectlombok:lombok'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Gradle 버전을 업그레이드하여도 빌드 및 구동이 정상적으로 되니 다음 영역으로 넘어가겠습니다.</p>
+<h3 id="Spring-Boot-✅">Spring Boot ✅</h3>
+<p>이제 대망의 스프링 부트 프레임워크의 버전을 업그레이드할 차례입니다.</p>
+<p>두근두근 🤪</p>
+<blockquote>
+<p>자 이제 시작이야. 내꿈을, 내꿈을 위한 여행. XXX.<br>
+찾아라 비밀의 열쇠, 미로같이 얽힌 모험들</p>
+</blockquote>
+<h4 id="기존-애플리케이션-검토">기존 애플리케이션 검토</h4>
+<p>먼저 기존 애플리케이션의 의존성을 간단하게 검토해보았습니다.</p>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>버전</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JDK</td>
+<td>1.8</td>
+<td>jdk8u232-b09</td>
+</tr>
+<tr>
+<td>Gradle</td>
+<td><s>3.5.1</s> 5.6.4</td>
+<td></td>
+</tr>
+<tr>
+<td>Spring Boot</td>
+<td>1.5.4</td>
+<td></td>
+</tr>
+<tr>
+<td>Spring</td>
+<td>4.3.7</td>
+<td></td>
+</tr>
+<tr>
+<td>Embed Tomcat</td>
+<td>8.5.47</td>
+<td></td>
+</tr>
+<tr>
+<td>org.springframework.boot:spring-boot-gradle-plugin</td>
+<td>1.5.7.RELEASE</td>
+<td></td>
+</tr>
+<tr>
+<td>io.spring.gradle:dependency-management-plugin</td>
+<td>0.5.2.RELEASE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Gradle은 앞서 업그레이드하였으므로 반영하였습니다.</p>
+</blockquote>
+<h4 id="Spring-Boot-2-0-X-Migration-✅">Spring Boot 2.0.X Migration ✅</h4>
+<p>마이그레이션 시 <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide" target="_blank" rel="noopener">Spring Boot 2.0 Migration Guide</a>를 참고하였습니다.</p>
+<blockquote>
+<p>이런 것 까지 준비해주시는 스프링 개발자분들 존경합니다 ㅠㅡㅠ.</p>
+</blockquote>
+<h5 id="의존성-검토">의존성 검토</h5>
+<p>스프링 부트 2.X는 1.5.X와 비교하여 <code>리액티브 스택</code>을 추가로 지원함에따라 패키지 구조와 구성을 위한 프로퍼티에 대한 변화가 많습니다. 그리고 스프링 부트에서 사용하는 여러가지 의존성의 버전이 업데이트되면서 사용자마다 사용하는 기술 스택에 대한 의존성 버전을 확인해야합니다.</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/1.5.x/reference/html/appendix-dependency-versions.html" target="_blank" rel="noopener">1.5.X의 의존성 버전</a></li>
+<li><a href="https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/appendix-dependency-versions.html" target="_blank" rel="noopener">2.0.X의 의존성 버전</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Group ID</th>
+<th>Artifact ID</th>
+<th>Version</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>com.fasterxml.jackson.core</td>
+<td>jackson-core</td>
+<td>2.8.11</td>
+<td>2.9.8</td>
+</tr>
+<tr>
+<td></td>
+<td>jackson-databind</td>
+<td>2.8.11.3</td>
+<td>2.9.8</td>
+</tr>
+<tr>
+<td>com.hazelcast</td>
+<td>hazelcast</td>
+<td>3.7.8</td>
+<td>3.9.4</td>
+</tr>
+<tr>
+<td></td>
+<td>hazelcast-spring</td>
+<td>3.7.8</td>
+<td>3.9.4</td>
+</tr>
+<tr>
+<td>com.google.code.gson</td>
+<td>gson</td>
+<td>2.8.5</td>
+<td>2.8.5</td>
+</tr>
+<tr>
+<td>com.zaxxer</td>
+<td>HikariCP</td>
+<td>2.5.1</td>
+<td>2.7.9</td>
+</tr>
+<tr>
+<td>commons-beanutils</td>
+<td>commons-beanutils</td>
+<td>1.9.3</td>
+<td>X</td>
+</tr>
+<tr>
+<td>commons-collections</td>
+<td>commons-collections</td>
+<td>3.2.2</td>
+<td>X</td>
+</tr>
+<tr>
+<td>javax.mail</td>
+<td>javax.mail-api</td>
+<td>1.5.6</td>
+<td>1.6.2</td>
+</tr>
+<tr>
+<td>javax.validation</td>
+<td>validation-api</td>
+<td>1.1.0.Final</td>
+<td>2.0.1.Final</td>
+</tr>
+<tr>
+<td>org.apache.httpcomponents</td>
+<td>httpclient</td>
+<td>4.5.9</td>
+<td>4.5.8</td>
+</tr>
+<tr>
+<td>org.apache.tomcat.embed</td>
+<td>tomcat-embed-core</td>
+<td>8.5.43</td>
+<td>8.5.39</td>
+</tr>
+<tr>
+<td>org.assertj</td>
+<td>assertj-core</td>
+<td>2.6.0</td>
+<td>3.9.1</td>
+</tr>
+<tr>
+<td>org.codehaus.groovy</td>
+<td>groovy</td>
+<td>2.4.17</td>
+<td>2.4.16</td>
+</tr>
+<tr>
+<td>org.elasticsearch</td>
+<td>elasticsearch</td>
+<td>2.4.6</td>
+<td>5.6.16</td>
+</tr>
+<tr>
+<td>org.elasticsearch.client</td>
+<td>transport</td>
+<td>X</td>
+<td>5.6.16</td>
+</tr>
+<tr>
+<td>org.hibernate</td>
+<td>hibernate-validator</td>
+<td>5.3.6.Final</td>
+<td>6.0.16.Final</td>
+</tr>
+<tr>
+<td></td>
+<td>hibernate-validator-annotation-processor</td>
+<td>5.3.6.Final</td>
+<td>6.0.16.Final</td>
+</tr>
+<tr>
+<td>org.postgresql</td>
+<td>postgresql</td>
+<td>9.4.1212.jre7</td>
+<td>42.2.5</td>
+</tr>
+<tr>
+<td>org.quartz-scheduler</td>
+<td>quartz</td>
+<td>X</td>
+<td>2.3.1</td>
+</tr>
+<tr>
+<td></td>
+<td>quartz-jobs</td>
+<td>X</td>
+<td>2.3.1</td>
+</tr>
+<tr>
+<td>org.reactivestreams</td>
+<td>reactive-streams</td>
+<td>X</td>
+<td>1.0.2</td>
+</tr>
+<tr>
+<td>org.springframework</td>
+<td>spring-core</td>
+<td>4.3.25.RELEASE</td>
+<td>5.0.13.RELEASE</td>
+</tr>
+<tr>
+<td>io.micrometer</td>
+<td>micrometer-core</td>
+<td>X</td>
+<td>1.0.10</td>
+</tr>
+<tr>
+<td>com.sun.mail</td>
+<td>javax.mail</td>
+<td>1.5.6</td>
+<td>1.6.2</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>간단하게 추렸는데도 꽤 많아보이네요</p>
+</blockquote>
+<h5 id="프로퍼티-마이그레이터-설정">프로퍼티 마이그레이터 설정</h5>
+<p>스프링 부트 2.0에서 많은 설정 프로퍼티가 변경, 삭제되어서 이를 업데이트해야합니다. 스프링 부트에서는 이 작업을 도와주기 위하여 <code>spring-boot-properties-migrator</code> 모듈을 제공합니다.</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    runtime(<span class="string">"org.springframework.boot:spring-boot-properties-migrator"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Once you’re done with the migration, please make sure to remove this module from your project’s dependencies.</span></span><br></pre></td></tr></table></figure>
+<p>위와 같이 설정하면 런타임 시에 애플리케이션 환경을 분석해주고 임시적으로 변경된 프로퍼티로 바꿔줍니다.</p>
+<blockquote>
+<p>변경된 프로퍼티가 존재하면 WARN 레벨의 로그로 출력되며, 삭제된 프로퍼티를 사용하는 경우 ERROR 레벨의 로그를 출력합니다.</p>
+</blockquote>
+<h5 id="변경사항-확인">변경사항 확인</h5>
+<p>릴리즈 노트를 통해서 무엇이 바뀌었는지 간단하게 확인하였습니다.</p>
+<p><strong><em>기본 데이터베이스 커넥션 풀이 Tomcat-JDBC에서 HikariCP로 변경되었습니다.</em></strong></p>
+<blockquote>
+<p>기존에도 HikariCP를 사용하게 변경하여서 고려할 부분은 없었습니다.</p>
+</blockquote>
+<p><strong><em>리액티브 스택 지원으로 인한 의존성이 추가되어 임베디드 컨테이너 패키지가 광범위하게 리팩토링되었습니다.</em></strong></p>
+<blockquote>
+<p>Tomcat의 AJP 프로토콜 사용 설정을 위한 코드 변경이 필요했습니다.</p>
+</blockquote>
+<p><strong><em>액추에이터가 자체적인 매트릭 API이 아닌 Micrometer에 의존합니다.</em></strong></p>
+<blockquote>
+<p>Management 서버를 이용하지 않고 자체적으로 엔드포인트를 호출하여 사용했는데 이 엔드포인트에 대한 변경사항이 많아서 코드 로직을 다시 구현했습니다.</p>
+</blockquote>
+<p><strong><em>스프링 소셜에 대한 자동 구성이 제외되어 의존성 관리 목록에서 제거되었습니다.</em></strong></p>
+<blockquote>
+<p>스프링 소셜 기능을 사용하지 않으므로 무시합니다.</p>
+</blockquote>
+<p><strong><em>레디스 드라이버로써 Jedis가 아닌 Lettuce를 사용합니다.</em></strong></p>
+<blockquote>
+<p>리액티브 스택 지원을 위해 서블릿 기반의 Jedis가 아닌 Lettuce를 선택한 듯 보입니다.</p>
+</blockquote>
+<p><strong><em>엘라스틱서치가 5.4+으로 업그레이드 되었습니다. 엘라스틱에서 임베디드 엘라스틱을 더이상 지원하지 않으므로 NodeClient에 대한 자동 구성이 제외되었습니다.</em></strong></p>
+<blockquote>
+<p>엘라스틱서치 7.3.2를 사용하고있어 의존성 버전을 고정했습니다.</p>
+</blockquote>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">ext &#123;</span><br><span class="line">    set(<span class="string">'elasticsearch.version'</span>, <span class="string">"7.3.2"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Spring Boot Gradle Plugin의 많은 부분이 개선되었습니다. 이제 의존성 관리 플러그인을 자동으로 적용하지 않으므로 이제 직접 명시해야 합니다.</em></strong></p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'org.springframework.boot'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'io.spring.dependency-management'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>bootRepackage</code> 태스크가 <code>bootJar</code>와 <code>bootWar</code>로 대체되었습니다. 더이상 <code>jar</code>와 <code>war</code> 태스크가 관여하지 않습니다.</li>
+<li><code>BootRun</code>, <code>BootJar</code>, <code>BootWar</code> 태스크는 이제 메인 클래스 이름 설정을 위해 <code>mainClassName</code> 프로퍼티를 사용합니다.</li>
+</ul>
+<p><strong><em>ConditionalOnBean이 OR이 아닌 논리적 AND를 사용합니다.</em></strong></p>
+<blockquote>
+<p>@ConditionalOnBean 사용 시 조심해야겠네요</p>
+</blockquote>
+<p><strong><em>AOP 지원을 포함하여 기본적으로 CGLIB를 사용합니다.</em></strong></p>
+<blockquote>
+<p>인터페이스 기반의 프록시가 필요하다면 spring.aop.proxy-target-class를 설정하면 되는데 @EnableAspectJAutoProxy(proxyTargetClass = true)를 명시해서 사용하고 있으므로 별다른 변경은 없어보입니다.</p>
+</blockquote>
+<p><strong><em><a href="https://docs.spring.io/spring-boot/docs/2.0.9.RELEASE/reference/html/boot-features-external-config.html#boot-features-external-config-relaxed-binding" target="_blank" rel="noopener">완화된 바인딩과 관련하여 규칙이 강화</a>되었으며 새로운 구조로 대체되어 기존의 <code>org.springframework.boot.bind</code> 패키지를 더이상 이용할 수 없습니다.</em></strong></p>
+<blockquote>
+<p>이로 인해 spring-boot-admin 1.5.7을 더이상 사용할 수 없었습니다.</p>
+</blockquote>
+<h5 id="문제점-해결-⚠️">문제점 해결 ⚠️</h5>
+<p>업그레이드 후 발생한 문제점을 확인하고 해결해야합니다.</p>
+<p><strong>프로퍼티 변경</strong><br>
+제외된 프로퍼티 또는 변경된 프로퍼티가 있으면 알려주므로 쉽게 변경하였습니다.</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># server.contextPath=</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># server.session.timeout=</span></span><br><span class="line"><span class="meta">server.servlet.session.timeout</span>=<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># spring.http.multipart.max-file-size=</span></span><br><span class="line"><span class="comment"># spring.http.multipart.max-request-size=</span></span><br><span class="line"><span class="meta">spring.servlet.multipart.max-file-size</span>=<span class="string"></span></span><br><span class="line"><span class="meta">spring.servlet.multipart.max-request-size</span>=<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># spring.datasource.jmx-enabled=</span></span><br><span class="line"><span class="meta">spring.datasource.tomcat.jmx-enabled</span>=<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># security.basic.enabled= # The security auto-configuation no longer custormizable</span></span><br><span class="line"><span class="comment"># security.oauth2.resource.filter-order= # The security auto-configuration no longer provide several security configurations</span></span><br><span class="line"><span class="comment"># security.user.name=</span></span><br><span class="line"><span class="comment"># security.user.password=</span></span><br><span class="line"><span class="meta">spring.security.user.name</span>=<span class="string"></span></span><br><span class="line"><span class="meta">spring.security.user.password</span>=<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># endpotins.enabled=</span></span><br><span class="line"><span class="comment"># endpoints.info.enabled=</span></span><br><span class="line"><span class="meta">management.endpoints.enabled-by-default</span>=<span class="string"></span></span><br><span class="line"><span class="meta">management.endpoint.info.enabled</span>=<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># management.context-path=</span></span><br><span class="line"><span class="comment"># management.security.enabled= a global security is auto-configuation is provided</span></span><br><span class="line"><span class="comment"># management.ssl.enabled=</span></span><br><span class="line"><span class="meta">management.server.servlet.context-path</span>=<span class="string"></span></span><br><span class="line"><span class="meta">management.server.ssl.enabled</span>=<span class="string"></span></span><br></pre></td></tr></table></figure>
+<p><strong>임베디드 톰캣 커스터마이저 코드 변경</strong><br>
+임베디드 컨테이너 패키지가 리팩토링되어 기존의 톰캣 커스터마이즈를 위한 클래스를 변경해야합니다.</p>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EmbeddedServletContainer</td>
+<td>WebServer</td>
+</tr>
+<tr>
+<td>org.springframework.boot.context.embedded</td>
+<td>org.springframework.boot.web.server</td>
+</tr>
+<tr>
+<td>EmbeddedServletContainerCustomizer</td>
+<td>WebServerFactoryCustomizer</td>
+</tr>
+<tr>
+<td>TomcatEmbeddedServletContainerFactory</td>
+<td>TomcatServletWebServerFactory</td>
+</tr>
+<tr>
+<td>EmbeddedServletContainerCustomizer</td>
+<td>WebServerFactoryCustomizer&lt;TomcatServletWebServerFactory&gt;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Spring Boot Admin 의존성 변경</strong><br>
+<a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide#relaxed-binding" target="_blank" rel="noopener">Relaxed Binding</a>이 변경되면서 org.springframework.boot.bind의 RelaxedPropertyResolver가 삭제되었는데 spring-boot-admin:1.5.7에서 RelaxedPropertyResolver를 참조하므로 더이상 사용할 수 없게 되어 버전을 업그레이드 하였습니다.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Exception encountered during context initialization - </span><br><span class="line">cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to process import candidates for configuration class [net.ion.VppApplication]; </span><br><span class="line"></span><br><span class="line">nested exception is java.lang.IllegalStateException: </span><br><span class="line">Could not evaluate condition on de.codecentric.boot.admin.client.config.SpringBootAdminClientAutoConfiguration due to org&#x2F;springframework&#x2F;boot&#x2F;bind&#x2F;RelaxedPropertyResolver not found. </span><br><span class="line"></span><br><span class="line">Make sure your own configuration does not rely on that class. </span><br><span class="line">This can also happen if you are @ComponentScanning a springframework package (e.g. if you put a @ComponentScan in the default package by mistake)</span><br></pre></td></tr></table></figure>
+<h4 id="Spring-Boot-from-2-0-X-to-2-1-X">Spring Boot from 2.0.X to 2.1.X</h4>
+<p>2.0.0.RELEASE로 마이그레이션을 완료하였으며 다시 한번 2.1.X로 버전을 업그레이드 시도해보았습니다. 그 이유는 개발 시 활용하는 <a href="http://hotswapagent.org/mydoc_quickstart-jdk11.html" target="_blank" rel="noopener">HotswapAgent가 Java 8과 Java 11을 지원</a>하기 때문입니다.</p>
+<blockquote>
+<p>물론, <a href="https://github.com/HotswapProjects/openjdk-jdk9" target="_blank" rel="noopener">openjdk-jdk9</a>과 <a href="https://github.com/HotswapProjects/openjdk-jdk10" target="_blank" rel="noopener">openjdk-jdk10</a>에 대한 시도는 있었던 것 같습니다.</p>
+</blockquote>
+<p>하지만 정식으로 제공하는 것은 Java 8과 Java 11입니다.</p>
+<p>결국 HotSwap 기능을 활성화하려면 JDK 11으로 빌드 및 구동할 수 있어야합니다. 앞서 알아본 스프링 버전별 JDK 지원 항목에 의해서 Java 11을 커버할 수 있는 2.1.1.RELEASE로 한 단계 더 업그레이드 하겠습니다.</p>
+<h5 id="변경사항-확인-2">변경사항 확인</h5>
+<p>이번에도 무엇이 바뀌었는지 확인하고 크게 바뀐 부분이 있는지 확인합니다.</p>
+<p><strong><em>이제 Java 11을 지원합니다.</em></strong></p>
+<blockquote>
+<p>그래서 업그레이드를 시도하고 있죠</p>
+</blockquote>
+<p><strong><em>기본적으로 <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes#bean-overriding" target="_blank" rel="noopener">빈 오버라이딩</a>을 허용하지 않도록 변경되었습니다.</em></strong></p>
+<blockquote>
+<p>같은 유형의 빈을 다시 정의하는 것을 방지하는 기능인데 다시 정의하는 것들이 있어서</p>
+</blockquote>
+<p><strong><em>자동 구성 제외에 대한 일관성을 제공합니다. <code>@EnableAutoConfiguration</code>, <code>@SpringBootApplication</code>, <code>@ImportAutoConfiguration</code> 또는 <code>spring.autoconfigure.exclude</code>로 정의합니다.</em></strong></p>
+<blockquote>
+<p>다양항 방식으로 자동 구성을 끌 수 있겠네요</p>
+</blockquote>
+<p><strong><em>서블릿 패스 속성이 <code>server.servlet.path</code>에서 <code>spring.mvc.servlet.path</code>로 변경되었습니다.</em></strong></p>
+<blockquote>
+<p>해당 프로퍼티를 사용하지 않아 문제가 없습니다.</p>
+</blockquote>
+<p><strong><em>웹 애플리케이션이 동작하는 동안의 디버그 로깅 출력이 개선되었습니다.</em></strong></p>
+<blockquote>
+<p>HTTP 처리 과정을 자세히 확인할 수 있을 듯 보입니다.</p>
+</blockquote>
+<p><strong><em><code>HttpPutFormContentFilter</code>이 제외되었으며 <code>FormContentFilter</code>를 사용합니다. 따라서, <code>spring.mvc.formcontent.putfilter.enabled</code>는 더이상 정의할 수 없으며 <code>spring.mvc.formcontent.filter.enabled</code>으로 변경해야합니다.</em></strong></p>
+<p><strong><em><code>json-simple</code>에 대한 의존성 관리가 제공되지않으며 <code>JsonParser</code> 구현체가 제거되었습니다.</em></strong></p>
+<p><strong><em>Lombok이 1.18.x로 변경되어 더 이상 프라이빗 빈 생성자를 생성하지 않습니다.</em></strong></p>
+<blockquote>
+<p>lombok.config의 lombok.noArgsConstructor.extraPrivate=true를 설정해야 합니다.</p>
+</blockquote>
+<p><strong><em>임베디드 웹 서버가 일관된 최대 HTTP 헤더 크기를 갖습니다.</em></strong></p>
+<blockquote>
+<p>(8kB, server.max-http-header-size)</p>
+</blockquote>
+<p><strong><em>컨텍스트 ApplicationConversionService을 지원합니다.</em></strong></p>
+<blockquote>
+<p>Environment와 BeanFactory에 ApplicationConversionService가 기본으로 등록됩니다.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Value</span>(<span class="string">"$&#123;my.duration:10s&#125;"</span>)</span><br><span class="line"><span class="keyword">private</span> Duration duration;</span><br></pre></td></tr></table></figure>
+<p><strong><em>프로파일 표현 형식 지원이 향상되었습니다.</em></strong></p>
+<blockquote>
+<p>자세한 내용은 <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes#profile-expression" target="_blank" rel="noopener">여기</a>를 참고하세요</p>
+</blockquote>
+<p><strong><em>ThreadPoolTaskExecutor에 대한 자동 구성을 지원합니다.</em></strong></p>
+<p><strong><em>@EnableScheduling이 명시된 경우 ThreadPoolTaskScheduler에 대한 자동 구성을 지원합니다.</em></strong></p>
+<p><strong><em>연관된 로거들을 하나의 그룹으로 정의하는 로거 그룹을 지원합니다.</em></strong></p>
+<blockquote>
+<p>로거에 대한 레벨 설정시 그룹 단위로 지정할 수 있습니다.</p>
+</blockquote>
+<p><strong><em>Spring Data가 JDBC에 대한 리파지토리를 지원합니다.</em></strong></p>
+<blockquote>
+<p>제가 관심있는 부분인데 JPA를 사용하지 않고 리파지토리 기능을 사용할 수 있습니다.</p>
+</blockquote>
+<p><strong><em>RestClient와 RestHighLevelClient에 대한 자동 구성 및 spring.elasticsearch.rest.* 네임스페이스로 구성 옵션을 제공합니다.</em></strong></p>
+<blockquote>
+<p>수동으로 elasticsearch를 이용하므로 의미가 없습니다.</p>
+</blockquote>
+<p><strong><em>액추에이터 앤드포인트 추가 및 개선되었습니다.</em></strong></p>
+<blockquote>
+<p>런타임시 HealthIndicatorRegistry 빈으로 HealthIndicator를 추가 및 제거할 수 있습니다.<br>
+또한, Health 엔드포인트가 특정 상태 인디케이터를 쿼리할 수 있습니다.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ReadOperation</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Health <span class="title">healthForComponent</span><span class="params">(@Selector String component)</span> </span>&#123;</span><br><span class="line">	HealthIndicator indicator = getNestedHealthIndicator(<span class="keyword">this</span>.healthIndicator,</span><br><span class="line">			component);</span><br><span class="line">	<span class="keyword">return</span> (indicator != <span class="keyword">null</span>) ? indicator.health() : <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em><code>spring.jackson.visiblity.*</code>를 사용하여 Jackson visibility를 설정할 수 있습니다.</em></strong></p>
+<blockquote>
+<p>ObjectMapper를 수동으로 등록하므로 사용하지 않습니다.</p>
+</blockquote>
+<p><strong><em>HiddenHttpMethodFilter를 프로퍼티로 비활성화 할 수 있습니다.</em></strong></p>
+<blockquote>
+<p>수동으로 FilterRegistrationBean을 통해 HiddenHttpMethodFilter를 등록하는 부분을 프로퍼티로 변경해야겠습니다.</p>
+</blockquote>
+<p><strong><em>@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)로 별도의 랜덤 포트를 적용할 수 있습니다.</em></strong></p>
+<blockquote>
+<p>테스트 시 포트 문제가 해결될 듯 합니다.</p>
+</blockquote>
+<p>그외 변경된 부분이 더 있으므로 <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes" target="_blank" rel="noopener">릴리즈 노트</a>를 참고하시길 바랍니다.</p>
+<h5 id="문제점-해결-⚠️-2">문제점 해결 ⚠️</h5>
+<p><strong>빈 오버라이딩 허용 안됨</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">The bean &#39;freeMarkerConfiguration&#39;, defined in class path resource [org&#x2F;springframework&#x2F;boot&#x2F;autoconfigure&#x2F;freemarker&#x2F;FreeMarkerServletWebConfiguration.class], could not be registered. </span><br><span class="line">A bean with that name has already been defined in class path resource [..&#x2F;config&#x2F;MailConfig.class] and overriding is disabled.</span><br></pre></td></tr></table></figure>
+<p>Freemaker를 메일 템플릿 엔진으로 사용하고 있었는데 freemarker.template.Configuration 빈이 오버라이딩 되기 때문에 오류가 발생했습니다.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeMarkerServletWebConfiguration</span> <span class="keyword">extends</span> <span class="title">AbstractFreeMarkerConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> freemarker.template.<span class="function">Configuration <span class="title">freeMarkerConfiguration</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    		FreeMarkerConfig configurer)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> configurer.getConfiguration();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MailConfig</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// @Deprecated</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> freemarker.template.<span class="function">Configuration <span class="title">freeMarkerConfiguration</span><span class="params">()</span> <span class="keyword">throws</span> IOException, TemplateException </span>&#123;</span><br><span class="line">        FreeMarkerConfigurationFactory freeMarkerConfigurationFactory = <span class="keyword">new</span> FreeMarkerConfigurationFactory();</span><br><span class="line">        freeMarkerConfigurationFactory.setTemplateLoaderPath(<span class="string">"classpath:/templates/mails"</span>);</span><br><span class="line">        <span class="keyword">return</span> freeMarkerConfigurationFactory.createConfiguration();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MailConfig에서 freemarker.template.Configuration 선언을 제거하고 프로퍼티로<br>
+<code>template-loader-path</code>를 설정하였습니다.</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.freemarker.template-loader-path</span>= <span class="string">classpath:/templates/mails</span></span><br></pre></td></tr></table></figure>
+<h4 id="Spring-Boot-from-2-1-X-to-2-2-X">Spring Boot from 2.1.X to 2.2.X</h4>
+<p>굳이 하지 않아도 되는 작업인데 번외로 최근 버전인 2.2.3.RELEASE으로도 업그레이드 시도해보았습니다.</p>
+<blockquote>
+<p>또 얼마전에 <a href="https://github.com/spring-projects/spring-boot/releases/tag/v2.2.4.RELEASE" target="_blank" rel="noopener">2.2.4.RELEASE</a>가 릴리즈 되었습니다. 😜<br>
+여기서 좀 크리티컬한 오류가 생기는데 이에 대해서 개선되었나봅니다.</p>
+</blockquote>
+<h5 id="변경사항-확인-3">변경사항 확인</h5>
+<p>업그레이드 하기 위한 작업은 변경사항을 확인하는 것부터 해야겠죠.</p>
+<p>자세한 내용은 <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes" target="_blank" rel="noopener">Spring boot 2.2 Release Notes</a>를 참고하세요</p>
+<p><strong><em>JAVA 13을 지원합니다.</em></strong></p>
+<p><strong><em>JMX가 기본적으로 활성화되어있지 않게 됩니다.</em></strong></p>
+<blockquote>
+<p>이 기능은 <code>spring.jmx.enabled=true</code>로 활성화할 수 있습니다</p>
+</blockquote>
+<p><strong><em>가능한 경우 Java EE 의존성에서 Jakarta EE 의존성으로 변경됩니다.</em></strong></p>
+<blockquote>
+<p><code>com.sun.mail:javax.mail</code>는 <code>com.sun.mail:jakarta.mail</code>됩니다.</p>
+</blockquote>
+<p><strong><em><code>spring-boot-starter-test</code>가 기본적으로 JUnit5를 지원합니다.</em></strong></p>
+<blockquote>
+<p>Junit4를 사용하려면 의존하는 모듈을 제외하고 Junit4를 포함해야합니다.</p>
+</blockquote>
+<p><strong><em>액추에이터 HTTP 트레이스와 감시 기능이 기본적으로 활성화되지 않습니다.</em></strong></p>
+<p><strong><em>데이터소스 헬스 인디케이터는 별도의 <code>validationQuery</code> 속성을 포함합니다.</em></strong></p>
+<p><strong><em>Gradle 4.10+가 요구됩니다.</em></strong></p>
+<blockquote>
+<p>저는 5.6.4를 사용하므로 문제가 되지 않습니다.</p>
+</blockquote>
+<p><strong><em>프리마커 템플릿에 대한 기본 템플릿 확장자가 변경되었습니다.</em></strong></p>
+<blockquote>
+<p>html을 사용하기 때문에 무시해도 될 것 같습니다.</p>
+</blockquote>
+<p><strong><em>톰캣 MBean 레지스트리가 기본적으로 비활성화되어 약 2MB의 힙이 절약됩니다.</em></strong></p>
+<blockquote>
+<p>MBean 매트릭이 필요하면 활성화해야겠네요</p>
+</blockquote>
+<p><strong><em>HttpHiddenMethodFilter가 기본적으로 비활성화됩니다.</em></strong></p>
+<blockquote>
+<p>다시 활성화하려면 spring.webflux.hiddenmethod.filter.enabled 또는 spring.mvc.hiddenmethod.filter.enabled를 true로 설정하세요</p>
+</blockquote>
+<p><strong><em>Helth Indicator 그룹 기능 구현을 위해 여러 클래스가 사용되지 않습니다.</em></strong></p>
+<p><strong><em>@Configuration 클래스에서 proxyBeanMethods = false를 사용하여 시작 시간과 메모리 사용량이 줄었습니다.</em></strong></p>
+<blockquote>
+<p>사용자 정의 설정 클래스들을 확인해서 빈을 참조하는지 확인하여 설정하면 됩니다.<br>
+참조하는 설정 클래스에 해당 옵션을 적용하면 로드 시 문제가 됩니다.</p>
+</blockquote>
+<p><strong><em>Gradle에서 bootRun으로 개발시 응용 프로그램을 시작할 때 JVM에 <code>-Xverify:none</code>와 <code>-XX:TieredStopAtLevel=1</code> 플래그가 설정됩니다.</em></strong></p>
+<blockquote>
+<p>속도 향상을 위해 기본 JVM 옵션을 부여하는 듯 합니다. 단, Java 13으로 동작하는 경우 <code>-Xverify:none</code>은 지정되지 않습니다.</p>
+</blockquote>
+<p><strong><em>시작 시간 절약을 위해 <code>spring.main.lazy-initialization</code> 속성으로 전역 지연 초기화 활성화를 지원합니다.</em></strong></p>
+<blockquote>
+<p>개발 시에는 이 속성을 사용해서 시작 시간을 앞당길 수 있습니다. 배포 환경에서는 애플리케이션이 로드되었지만 클라이언트 요청에 대해 처리할 수 없을 수 있어 비 추천합니다.</p>
+</blockquote>
+<p><strong><em>ApplicationContextRunner 테스트 유틸리티로 인라인 빈 등록이 가능합니다.</em></strong></p>
+<blockquote>
+<p>단위 테스트를 위한 유틸리티를 제공합니다.</p>
+</blockquote>
+<p><strong><em>유휴 JDBC 연결 매트릭을 추적하여 제공합니다.</em></strong></p>
+<p><strong><em>스프링 세션의 플러쉬 모드를 지원합니다.</em></strong></p>
+<blockquote>
+<p>현재 애플리케이션은 개발 단계로 스프링 세션을 사용하고 있지 않으므로 무시합니다.</p>
+</blockquote>
+<p><strong><em>Oracle’s JDBC driver에 대한 의존성 관리가 추가되었습니다.</em></strong></p>
+<blockquote>
+<p>현재 애플리케이션은 PostgreSQL를 사용하므로 무시합니다.</p>
+</blockquote>
+<h5 id="문제점-해결-⚠️-3">문제점 해결 ⚠️</h5>
+<p><strong>Cannot choose between the following variants of org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3</strong></p>
+<p>Spring Boot 2.2.3.RELEASE와 Gradle 5.6.4로 빌드를 시도했을때 발생한 문제점입니다.<br>
+이 문제는 Gradle 6.1로 업그레이드하니 바로 해결되었습니다.</p>
+<blockquote>
+<p>사실 상 Spring Boot 2.2.2.RELEASE에서 2.2.3.RELEASE로 올렸을 때 발생했습니다.</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Cannot choose between the following variants of org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3:</span><br><span class="line">  - enforcedRuntimeElements</span><br><span class="line">  - runtimeElements</span><br><span class="line">All of them match the consumer attributes:</span><br><span class="line">  - Variant <span class="string">'enforcedRuntimeElements'</span> capability org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3:</span><br><span class="line">      - Unmatched attributes:</span><br><span class="line">          - Found org.gradle.category <span class="string">'enforced-platform'</span> but wasn<span class="string">'t required.</span></span><br><span class="line"><span class="string">          - Found org.gradle.status '</span>release<span class="string">' but wasn'</span>t required.</span><br><span class="line">          - Found org.gradle.usage <span class="string">'java-runtime'</span> but wasn<span class="string">'t required.</span></span><br><span class="line"><span class="string">  - Variant '</span>runtimeElements<span class="string">' capability org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.3.3:</span></span><br><span class="line"><span class="string">      - Unmatched attributes:</span></span><br><span class="line"><span class="string">          - Found org.gradle.category '</span>platform<span class="string">' but wasn'</span>t required.</span><br><span class="line">          - Found org.gradle.status <span class="string">'release'</span> but wasn<span class="string">'t required.</span></span><br><span class="line"><span class="string">          - Found org.gradle.usage '</span>java-runtime<span class="string">' but wasn'</span>t required.</span><br></pre></td></tr></table></figure>
+<p>이와 관련하여 스프링 부트 깃허브에 <a href="https://github.com/spring-projects/spring-boot/issues/19783" target="_blank" rel="noopener">Dependency resolution fails with Gradle 5.3.x to 5.6.x</a> 이슈가 올라와있어 확인해보니 다음과 같은 답변이 있었습니다.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">The problem’s caused by spring-boot-dependencies upgrading from Kotlin Coroutines 1.3.2 to 1.3.3. </span><br><span class="line">Unfortunately this affects pure-Java projects as the Kotlin Coroutines bom is imported in the spring-boot-dependencies bom.</span><br><span class="line"></span><br><span class="line">You should be able to work around the problem by overriding the version of the Kotlin Coroutines bom that is imported by Boot’s dependency management:</span><br><span class="line"></span><br><span class="line">ext[&#39;kotlin-coroutines.version&#39;]&#x3D;&#39;1.3.2&#39;</span><br><span class="line"></span><br><span class="line">- https:&#x2F;&#x2F;github.com&#x2F;spring-projects&#x2F;spring-boot&#x2F;issues&#x2F;19783#issuecomment-575506102</span><br></pre></td></tr></table></figure>
+<p>하지만 의존성 관리 플러그인이 kotlin-coroutines.version을 참조하지 않는지 해결되지 않습니다.</p>
+<p>알아본 결과 이를 해결하기 위한 세 가지 방법이 있습니다.</p>
+<ol>
+<li>Gradle 6.1 사용</li>
+<li><a href="https://github.com/spring-projects/spring-boot/issues/19783#issuecomment-576235568" target="_blank" rel="noopener">io.spring.dependency-management:1.0.9.RELEASE</a>버전 사용 <em>(2020-01-20)</em></li>
+<li>Spring Boot 2.2.4.RELEASE 업그레이드 <em>(2020-01-20)</em></li>
+</ol>
+<blockquote>
+<p><a href="https://github.com/spring-projects/spring-boot/issues/19783#issuecomment-577604150" target="_blank" rel="noopener">https://github.com/spring-projects/spring-boot/issues/19783#issuecomment-577604150</a><br>
+결론적으로 제가 업그레이드를 시도했을때는 마침 문제가 있었고 😥 현재는 해결방법이 명확히 존재합니다.</p>
+</blockquote>
+<h3 id="JDK-✅">JDK ✅</h3>
+<p>마지막으로 빌드되는 JDK 버전을 업그레이드해야합니다.</p>
+<h4 id="OpenJDK-10">OpenJDK 10</h4>
+<h5 id="문제점-확인-⚠️">문제점 확인 ⚠️</h5>
+<p><strong><em>JDK9(Java SE 9) 이상에서 JAXB(javax.xml.bind) 클래스 못 찾음 문제</em></strong></p>
+<p><a href="https://blog.leocat.kr/notes/2019/02/12/java-cannot-find-jaxb-from-jdk9-and-above" target="_blank" rel="noopener">https://blog.leocat.kr/notes/2019/02/12/java-cannot-find-jaxb-from-jdk9-and-above</a></p>
+<blockquote>
+<p>특정 JDK에서 --add-modules 옵션을 사용하지 못했습니다. 이에 대해서는 좀 더 확인해봐야됩니다.</p>
+</blockquote>
+<p><strong><em>cacerts</em></strong><br>
+OpenJDK 10에서 애플리케이션 구동 시 인증서를 확인하지 못하는 문제점이 있습니다. 그 이유는 Cacerts에 해당 인증서의 인증기관이 없기 때문인데 JDK8의 cacerts를 대신 사용하도록 하였습니다.</p>
+<blockquote>
+<p><a href="https://stackoverflow.com/a/53246850" target="_blank" rel="noopener">https://stackoverflow.com/a/53246850</a></p>
+</blockquote>
+<h4 id="OpenJDK-11-for-HotswapAgent">OpenJDK 11 for HotswapAgent</h4>
+<p>프로젝트 개발 시 클래스 동적 로딩을 위해 <code>HotswapAgent</code>을 사용했는데 JDK8과 <a href="http://hotswapagent.org/mydoc_quickstart-jdk11.html" target="_blank" rel="noopener">JDK11</a>을 지원하여 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm" target="_blank" rel="noopener">trava-jdk-11-dcevm</a>을 사용하여 빌드 및 구동 확인하였습니다.</p>
+<h3 id="Deploy-Optional">Deploy (Optional)</h3>
+<p>저는 젠킨스를 활용해서 깃허브에 개발 브랜치로 푸시된 결과를 확인해 빌드를 진행하도록 설정되어있어 여기서 사용하는 JDK 버전도 변경해야합니다.</p>
+<h4 id="젠킨스-OpenJDK-설치하기">젠킨스 OpenJDK 설치하기</h4>
+<p>기존에는 Oracle JDK 8을 빌드에 사용하고 있었고 JDK9 부터는 OpenJDK로 빌드하려고 합니다. 그래서 <code>Extract \*.zip/\*.tar.gz</code>를 이용해 JDK를 설치하여 사용하도록 했습니다.</p>
+<blockquote>
+<p><a href="https://jdk.java.net/archive/" target="_blank" rel="noopener">Archived OpenJDK General-Availability Releases</a></p>
+</blockquote>
+<p>그리고 jdk 파라미터가 있는 경우 해당 JDK 버전을 사용하도록 설정하였습니다.</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(project.hasProperty(<span class="string">'jdk'</span>)) &#123;</span><br><span class="line">    <span class="keyword">def</span> buildJDK = project.property(<span class="string">'jdk'</span>)</span><br><span class="line">    sourceCompatibility = JavaVersion.valueOf(buildJDK)</span><br><span class="line">    targetCompatibility = JavaVersion.valueOf(buildJDK)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Gradle 이용시 JDK를 구분하여 처리할 수 있는 좋은 방법을 아신다면 공유 부탁드립니다.</p>
+</blockquote>
+<h2 id="참고">참고</h2>
+<ul>
+<li><a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide" target="_blank" rel="noopener">Spring Boot 2.0 Migration Guide</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Release-Notes" target="_blank" rel="noopener">Spring Boot 2.0 Release Notes</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes" target="_blank" rel="noopener">Spring Boot 2.1 Release Notes</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes" target="_blank" rel="noopener">Spring Boot 2.2 Release Notes</a></li>
+<li><a href="https://docs.gradle.org/5.6.4/release-notes.html" target="_blank" rel="noopener">Gradle Release Notes</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8/" rel="tag"># 스프링 부트</a>
+              <a href="/tags/%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98/" rel="tag"># 마이그레이션</a>
+              <a href="/tags/%EC%82%BD%EC%A7%88/" rel="tag"># 삽질</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/2019/do-not-create-instance-for-jaxbcontext/" rel="prev" title="JAXBContext 인스턴스를 매번 만들지 말아야하는 이유">
+      <i class="fa fa-chevron-left"></i> JAXBContext 인스턴스를 매번 만들지 말아야하는 이유
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/2020/create-properties-from-yaml-resources-using-yaml-properties-factory-bean/" rel="next" title="YamlPropertiesFactoryBean으로 YAML 프로퍼티 만들기">
+      YamlPropertiesFactoryBean으로 YAML 프로퍼티 만들기 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#들어가며"><span class="nav-number">1.</span> <span class="nav-text">들어가며</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#스프링-버전별-JDK-지원"><span class="nav-number">1.1.</span> <span class="nav-text">스프링 버전별 JDK 지원</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#마이그레이션-시작하기"><span class="nav-number">2.</span> <span class="nav-text">마이그레이션 시작하기</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle-✅"><span class="nav-number">2.1.</span> <span class="nav-text">Gradle ✅</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle-버전-업그레이드"><span class="nav-number">2.1.1.</span> <span class="nav-text">Gradle 버전 업그레이드</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#인텔리제이-Gradle-플러그인-충돌-⚠️"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">인텔리제이 Gradle 플러그인 충돌 ⚠️</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Lombok-Plugin"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">Lombok Plugin</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Boot-✅"><span class="nav-number">2.2.</span> <span class="nav-text">Spring Boot ✅</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#기존-애플리케이션-검토"><span class="nav-number">2.2.1.</span> <span class="nav-text">기존 애플리케이션 검토</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-Boot-2-0-X-Migration-✅"><span class="nav-number">2.2.2.</span> <span class="nav-text">Spring Boot 2.0.X Migration ✅</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#의존성-검토"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">의존성 검토</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#프로퍼티-마이그레이터-설정"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">프로퍼티 마이그레이터 설정</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#변경사항-확인"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">변경사항 확인</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#문제점-해결-⚠️"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">문제점 해결 ⚠️</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-Boot-from-2-0-X-to-2-1-X"><span class="nav-number">2.2.3.</span> <span class="nav-text">Spring Boot from 2.0.X to 2.1.X</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#변경사항-확인-2"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">변경사항 확인</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#문제점-해결-⚠️-2"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">문제점 해결 ⚠️</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-Boot-from-2-1-X-to-2-2-X"><span class="nav-number">2.2.4.</span> <span class="nav-text">Spring Boot from 2.1.X to 2.2.X</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#변경사항-확인-3"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">변경사항 확인</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#문제점-해결-⚠️-3"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">문제점 해결 ⚠️</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-✅"><span class="nav-number">2.3.</span> <span class="nav-text">JDK ✅</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenJDK-10"><span class="nav-number">2.3.1.</span> <span class="nav-text">OpenJDK 10</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#문제점-확인-⚠️"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">문제점 확인 ⚠️</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenJDK-11-for-HotswapAgent"><span class="nav-number">2.3.2.</span> <span class="nav-text">OpenJDK 11 for HotswapAgent</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-Optional"><span class="nav-number">2.4.</span> <span class="nav-text">Deploy (Optional)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#젠킨스-OpenJDK-설치하기"><span class="nav-number">2.4.1.</span> <span class="nav-text">젠킨스 OpenJDK 설치하기</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고"><span class="nav-number">3.</span> <span class="nav-text">참고</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kdevkr"
+      src="https://avatars1.githubusercontent.com/u/17937604?s=460&v=4">
+  <p class="site-author-name" itemprop="name">kdevkr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kdevkr" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kdevkr" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fab"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kdevkr@gmail.com" title="E-Mail → mailto:kdevkr@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kdevkr</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+<script>
+function getExif(target) {
+  const tags = {"FocalLength":"{value}mm","FNumber":"f/{value}","ExposureTime":"{value}s"};
+  EXIF.getData(target, function() {
+    let result = [];
+    for (let [key, value] of Object.entries(tags)) {
+      let data = EXIF.getTag(this, key);
+      if (key === 'ExposureTime' && data <= 0.25) {
+        data = '1/' + parseInt(1 / data);
+      }
+      if (data) result.push(value.replace('{value}', data));
+    }
+    if (result.length > 0) {
+      const box = document.createElement('div');
+      target.wrap(box);
+      box.classList.add('exif-container');
+      box.insertAdjacentHTML('beforeend', `<div class="exif-metabar"><span>${result.join(' ')}</span></div>`);
+    }
+  });
+}
+
+[...document.querySelectorAll('.post-body img')].forEach(element => {
+  if (element.complete) getExif(element);
+  // `lazyload` compatible
+  element.addEventListener('load', () => {
+    getExif(element);
+  });
+});
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.com/api/' || 'https://disqus.com/api/',
+      apikey    : 'CDGCVo6KP89BegKLv9vN5e8tZGWVf6TeHLWtkIz4ueXChOlkwAlacaYR5YNrY3Wi',
+      shortname : 'kdevkr-github-io',
+      url       : "https://kdevkr.github.io/archives/2020/spring-boot-2.0-migration-from-1.5.4/",
+      identifier: "archives/2020/spring-boot-2.0-migration-from-1.5.4/",
+      title     : "스프링 부트 1.5.4에서 2.0으로 마이그레이션 하기",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+    </div>
+</body>
+</html>

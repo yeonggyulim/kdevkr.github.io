@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://kdevkr.github.io</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2017/understanding-asynchronos-javascript-and-xml-with-spring/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2017/understanding-spring-security/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2018/understanding-cache-control/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2018/understanding-http-content-types/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2019/building-a-spring-framework-project-with-gradle/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2019/do-not-create-instance-for-jaxbcontext/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2019/efficient-use-of-apache-poi/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2019/encrypt-password-with-spring-security/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2019/managing-i18n-messages-with-xml/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2019/sending-mail-with-freemarker-template/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2019/using-nginx-proxy-for-spring-boot-application/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2020/application-run-and-debug-with-hotswap-agent/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2020/compare-how-to-use-open-api-using-rest-template-and-web-client/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2020/create-properties-from-yaml-resources-using-yaml-properties-factory-bean/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2020/spring-boot-2.0-migration-from-1.5.4/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/2020/spring-boot-application-with-vuejs/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/assign-variables-and-tables/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/file/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/function/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/grouping-and-aggregation/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/install-and-connection/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/java-client/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/namespace/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://kdevkr.github.io/archives/kdb-tutorial/q-sql/</loc>
+        <lastmod>2020-03-08T14:25:00.763Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->
