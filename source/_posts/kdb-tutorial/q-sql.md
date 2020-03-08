@@ -12,7 +12,7 @@
 5. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
 6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
 7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
-8. [KDB 튜토리얼 - 자바 클라이언트](/archives/kdb-tutorial/javaclient)
+8. [KDB 튜토리얼 - 자바 클라이언트](/archives/kdb-tutorial/java-client)
 
 ## 들어가며
 이번 글에서는 일반적인 데이터베이스에서 사용하는 SQL 구문을 사용할 수 있도록 KDB+가 지원하는 q-sql에 대해서 알아봅니다.

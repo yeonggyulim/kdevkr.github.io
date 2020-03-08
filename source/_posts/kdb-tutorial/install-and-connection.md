@@ -12,7 +12,7 @@
 5. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
 6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
 7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
-8. [KDB 튜토리얼 - 자바 클라이언트](/archives/kdb-tutorial/javaclient)
+8. [KDB 튜토리얼 - 자바 클라이언트](/archives/kdb-tutorial/java-client)
 
 ## 들어가며
 KDB+는 KxSystems에서 만든 시계열 데이터베이스입니다.
