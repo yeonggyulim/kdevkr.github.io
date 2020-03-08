@@ -19,7 +19,7 @@
 #### Update clasess and resources
 첫번째 방법은 스프링 부트 애플리케이션에 포함된 내장 톰캣이 배포하는 정적 파일을 갱신하는 것입니다.
 
-![](src/main/resources/static/images/configuration-update-classes-and-resources.PNG)
+![](/images/2020/configuration-update-classes-and-resources.PNG)
 
 Webpack에서 만드는 번들링 파일을 현재 프로젝트의 클래스패스에 생성되게 하면 됩니다. 그러면 현재 클래스패스의 리소스가 변경되었다고 감지하여 애플리케이션을 업데이트하게 됩니다.
 
@@ -105,7 +105,7 @@ i ｢wds｣: Content not from webpack is served from C:\Users\K\git\spring-demo-
 
 네트워크 탭으로 확인해보면 프록시 서버가 `/dist/` 경로를 기준으로 번들링된 파일을 제공하는 것을 확인할 수 있습니다.
 
-![](src/main/resources/static/images/webpack-dev-server-network.PNG)  
+![](/images/2020/webpack-dev-server-network.PNG)  
 
 ### 초기 데이터 적재
 많은 분들이 궁금해하시는 부분일 것 같습니다. 애석하게도 번들링되는 파일에 애플리케이션의 데이터를 적재하는 것은 불가능 합니다. 그래서 번들링되는 스크립트에서 데이터를 불러올 수 있도록 몇가지 방법을 고려해봐야합니다.
