@@ -1,5 +1,5 @@
 ---
-    title: KDB 튜토리얼 - 파일
+    title: KDB 튜토리얼 - 파일 다루기
     date: 2020-03-06
     categories: [개발 이야기]
     tags: [KDB, Q]
@@ -9,9 +9,10 @@
 2. [KDB 튜토리얼 - 변수 할당 및 테이블 생성](/archives/kdb-tutorial/assign-variables-and-tables)
 3. [KDB 튜토리얼 - Q-SQL](/archives/kdb-tutorial/q-sql)
 4. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
-5. **KDB 튜토리얼 - 파일**
+5. **KDB 튜토리얼 - 파일 다루기**
 6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
 7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
+8. [KDB 튜토리얼 - 자바 클라이언트](/archives/kdb-tutorial/javaclient)
 
 ## 들어가며
 KDB+에서 파일을 다루는 방법에 대해서 알아봅니다. 메모리(RDB)에 존재하는 데이터를 디스크(HDB)에 저장하거나 반대로 디스크에 존재하는 데이터를 메모리에 불러올 수 있습니다. 

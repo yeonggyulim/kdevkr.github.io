@@ -12,6 +12,7 @@
 5. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
 6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
 7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
+8. [KDB 튜토리얼 - 자바 클라이언트](/archives/kdb-tutorial/javaclient)
 
 ## 들어가며
 이전 시간에 Q-SQL의 SELECT와 WHERE, ORDER BY에 대해서 다루었습니다. 이번에는 그룹핑과 집계를 알아봅니다.

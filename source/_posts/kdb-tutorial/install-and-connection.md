@@ -12,6 +12,7 @@
 5. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
 6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
 7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
+8. [KDB 튜토리얼 - 자바 클라이언트](/archives/kdb-tutorial/javaclient)
 
 ## 들어가며
 KDB+는 KxSystems에서 만든 시계열 데이터베이스입니다.
@@ -103,10 +104,6 @@ localhost:5600:kdev:kdev
 ### 명령어 실행
 간단한 몇가지 명령어를 실행해보도록 하겠습니다.
 
-#### 시스템 명령어
-
-[.z](https://code.kx.com/q/ref/#z) 네임스페이스에는 시스템 관련 변수가 있습니다.
-
 ```q
 / 포트 확인
 \p
@@ -125,12 +122,7 @@ localhost:5600:kdev:kdev
 
 / 코어 수
 .z.c
-```
 
-#### 유틸리티 명령어
-몇가지의 유틸리티성 함수는 [.Q](https://code.kx.com/q/ref/dotq/) 네임스페이스로 제공됩니다.
-
-```q
 / 가비지 컬렉션 호출
 .Q.gc[]
 
