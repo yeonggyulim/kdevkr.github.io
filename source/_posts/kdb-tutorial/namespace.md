@@ -7,12 +7,11 @@
 
 1. [KDB 튜토리얼 - 설치 및 접속](/archives/kdb-tutorial/install-and-connection)
 2. [KDB 튜토리얼 - 변수 할당 및 테이블 생성](/archives/kdb-tutorial/assign-variables-and-tables)
-3. [KDB 튜토리얼 - CSV to Table](/archives/kdb-tutorial/csv-to-table)
-4. [KDB 튜토리얼 - Q-SQL](/archives/kdb-tutorial/q-sql)
-5. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
-6. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
-7. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
-8. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
+3. [KDB 튜토리얼 - Q-SQL](/archives/kdb-tutorial/q-sql)
+4. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
+5. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
+6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
+7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
 
 ## 들어가며
 KDB+를 다루면서 변수 또는 테이블, 함수를 현재 컨텍스트에 할당하였습니다. 그런데 말입니다. 만약, 여러 스크립트에서 똑같은 변수 이름을 사용한다면 어떻게 될까요? A.q라는 스크립트가 먼저 수행되고 B.q가 스크립트가 나중에 수행되는데 충돌된 이름이 있다면 A.q 스크립트에서 할당한 변수는 덮어쓰여지고 맙니다.

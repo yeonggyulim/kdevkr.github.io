@@ -7,18 +7,36 @@
 
 1. [KDB 튜토리얼 - 설치 및 접속](/archives/kdb-tutorial/install-and-connection)
 2. [KDB 튜토리얼 - 변수 할당 및 테이블 생성](/archives/kdb-tutorial/assign-variables-and-tables)
-3. [KDB 튜토리얼 - CSV to Table](/archives/kdb-tutorial/csv-to-table)
-4. **KDB 튜토리얼 - Q-SQL**
-5. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
-6. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
-7. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
-8. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
-9. 
+3. **KDB 튜토리얼 - Q-SQL**
+4. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
+5. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
+6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
+7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
+
 ## 들어가며
-이전 글에서 COVID-19 국내 데이터셋을 테이블로 불러왔습니다. 우리는 이제 이 테이블의 레코드를 가지고 q-sql을 공부해보도록 하겠습니다.
+이번 글에서는 일반적인 데이터베이스에서 사용하는 SQL 구문을 사용할 수 있도록 KDB+가 지원하는 q-sql에 대해서 알아봅니다.
+
+알아보기 전에 필요한 데이터를 준비하기 위하여 국내에 COVID-19 확산으로 인해 발생한 정보를 CSV로 구성한 [Coronavirus-Dataset](https://github.com/jihoo-kim/Coronavirus-Dataset)를 불러오도록 하겠습니다.
+
+### 데이터 불러오기
+CSV 파일에 저장된 데이터를 테이블로 불러오는 것은 파일을 다루는 챕터에서 알아볼 내용이지만 우선 데이터를 불러오도록 하겠습니다.
+
+```q
+patient: `id` xkey ("isissssiiiddds";enlist",") 0: `:data/dataset/patient.csv
+route: `id xkey ("idsssff";enlist",") 0: `:data/dataset/route.csv
+time: ("diiiiiiiiii";enlist",") 0: `:data/dataset/time.csv
+```
+
+네 데이터를 불러오는 것은 끝났습니다.
+
+간단하게 설명하자면 `xkey`로 테이블에 대한 키를 지정하였고 isissssiiiddds와 같이 데이터의 형식을 지정하였으며 CSV로 구성되었기에 ,를 구분자로 사용했습니다.
+
+이제 Q-SQL을 배우러 가보실까요?
 
 ## Q-SQL
-Q-SQL 표현식은 종속절, `by`, `from` 그리고 `where`과 같은 고유 문법 규칙이 있습니다. 컬럼에 대한 구분은 콤마입니다. 
+Q-SQL 표현식은 종속절, `by`, `from` 그리고 `where`과 같은 고유 문법 규칙이 있습니다. 
+
+컬럼에 대한 구분은 콤마(,)입니다. 
 
 ### SELECT
 SELECT는 테이블의 컬럼을 선택할 수 있습니다.
