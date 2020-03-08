@@ -1,6 +1,6 @@
 ---
     title: KDB 튜토리얼 - JSON
-    date: 2020-03-07
+    date: 2020-03-08
     categories: [개발 이야기]
     tags: [KDB, Q]
 ---

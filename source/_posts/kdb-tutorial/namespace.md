@@ -10,7 +10,7 @@
 3. [KDB 튜토리얼 - Q-SQL](/archives/kdb-tutorial/q-sql)
 4. [KDB 튜토리얼 - 그룹핑과 집계](/archives/kdb-tutorial/grouping-and-aggregation)
 5. [KDB 튜토리얼 - 파일 다루기](/archives/kdb-tutorial/file)
-6. [KDB 튜토리얼 - 네임스페이스](/archives/kdb-tutorial/namespace)
+6. **KDB 튜토리얼 - 네임스페이스**
 7. [KDB 튜토리얼 - 함수](/archives/kdb-tutorial/function)
 
 ## 들어가며
